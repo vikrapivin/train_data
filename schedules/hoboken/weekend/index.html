@@ -1,0 +1,3844 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#0b0b0e">
+    <title>HOBOKEN — New Jersey Train Schedules</title>
+    <style>
+        :root {
+            --bg:           #f4f5f7;
+            --surface:      #ffffff;
+            --surface-2:    #f0f1f4;
+            --text:         #0b0b0e;
+            --text-dim:     #6b6f76;
+            --text-faint:   #9aa0a6;
+            --border:       rgba(15, 17, 21, 0.08);
+            --border-strong:rgba(15, 17, 21, 0.16);
+            --accent:       #16a34a;
+            --accent-soft:  rgba(22, 163, 74, 0.12);
+            --accent-glow:  rgba(22, 163, 74, 0.30);
+            --shadow-sm:    0 1px 2px rgba(15, 17, 21, 0.04), 0 1px 1px rgba(15, 17, 21, 0.03);
+            --shadow-md:    0 4px 16px rgba(15, 17, 21, 0.06), 0 1px 2px rgba(15, 17, 21, 0.04);
+            --radius-sm:    10px;
+            --radius-md:    14px;
+            --radius-lg:    20px;
+            --pad-x:        clamp(16px, 4vw, 24px);
+            --max-w:        680px;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg:           #0b0b0e;
+                --surface:      #16171b;
+                --surface-2:    #1d1f24;
+                --text:         #f3f4f6;
+                --text-dim:     #a1a6ae;
+                --text-faint:   #6b6f76;
+                --border:       rgba(255, 255, 255, 0.08);
+                --border-strong:rgba(255, 255, 255, 0.16);
+                --accent:       #22c55e;
+                --accent-soft:  rgba(34, 197, 94, 0.16);
+                --accent-glow:  rgba(34, 197, 94, 0.45);
+                --shadow-sm:    0 1px 2px rgba(0,0,0,0.4);
+                --shadow-md:    0 6px 24px rgba(0,0,0,0.4);
+            }
+        }
+
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        html { -webkit-text-size-adjust: 100%; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                         "Inter", "Segoe UI", Roboto, system-ui, sans-serif;
+            font-size: 16px;
+            line-height: 1.45;
+            min-height: 100dvh;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+        a { color: inherit; text-decoration: none; }
+        h1, h2, h3 { font-weight: 700; letter-spacing: -0.01em; margin: 0; }
+
+        .app {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            padding: max(env(safe-area-inset-top), 12px) var(--pad-x)
+                     calc(env(safe-area-inset-bottom) + 32px);
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 4px 0 14px;
+        }
+        .topbar .back {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 15px;
+            color: var(--text-dim);
+            padding: 6px 8px 6px 0;
+            margin-right: 4px;
+        }
+        .topbar .back:active { color: var(--text); }
+
+        .page-title {
+            font-size: clamp(26px, 6vw, 34px);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        .page-sub {
+            color: var(--text-dim);
+            font-size: 14px;
+            margin-top: 6px;
+        }
+
+        /* ----- inputs ----- */
+        .search {
+            position: relative;
+            margin: 18px 0 8px;
+        }
+        .search input {
+            width: 100%;
+            font: inherit;
+            font-size: 16px;
+            padding: 14px 40px 14px 44px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            box-shadow: var(--shadow-sm);
+            outline: none;
+            -webkit-appearance: none;
+            transition: border-color 120ms ease, box-shadow 120ms ease;
+        }
+        .search input::placeholder { color: var(--text-faint); }
+        .search input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-soft);
+        }
+        .search .icon {
+            position: absolute;
+            top: 50%;
+            left: 14px;
+            transform: translateY(-50%);
+            color: var(--text-faint);
+            pointer-events: none;
+            line-height: 0;
+        }
+        .search .clear {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            border: 0;
+            background: var(--surface-2);
+            color: var(--text-dim);
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            line-height: 1;
+            padding: 0;
+        }
+        .search.has-value .clear { display: inline-flex; }
+
+        .count {
+            color: var(--text-faint);
+            font-size: 13px;
+            margin: 4px 4px 12px;
+        }
+
+        /* ----- station list ----- */
+        .station-list {
+            list-style: none;
+            padding: 0;
+            margin: 8px 0 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .station-list li + li { border-top: 1px solid var(--border); }
+        .station-list a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 16px;
+            min-height: 64px;
+            transition: background 100ms ease;
+        }
+        .station-list a:active { background: var(--surface-2); }
+        @media (hover: hover) {
+            .station-list a:hover { background: var(--surface-2); }
+        }
+        .station-list .name {
+            flex: 1;
+            font-size: 17px;
+            font-weight: 500;
+            min-width: 0;
+        }
+        .station-list .chev {
+            color: var(--text-faint);
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .empty {
+            margin-top: 24px;
+            padding: 32px 16px;
+            text-align: center;
+            color: var(--text-dim);
+            background: var(--surface);
+            border: 1px dashed var(--border-strong);
+            border-radius: var(--radius-md);
+        }
+        .empty h3 { color: var(--text); margin-bottom: 4px; font-size: 17px; }
+
+        .data-footer {
+            margin: 28px 0 8px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-faint);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ----- schedule-type toggle ----- */
+        .sched-toggle {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            margin: 14px 0 4px;
+            padding-bottom: 4px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .sched-toggle::-webkit-scrollbar { display: none; }
+        .sched-toggle a {
+            white-space: nowrap;
+            padding: 7px 13px;
+            border-radius: 999px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+            transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+        }
+        @media (hover: hover) {
+            .sched-toggle a:hover { border-color: var(--border-strong); }
+        }
+        .sched-toggle a[aria-current="true"] {
+            background: var(--accent);
+            border-color: transparent;
+            color: #fff;
+        }
+
+        /* ----- schedule cards ----- */
+        .schedule-list { list-style: none; padding: 0; margin: 8px 0 0; }
+        .schedule-card {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(96px, auto) 1fr auto;
+            grid-template-areas:
+                "time main line"
+                "time sub  sub";
+            column-gap: 16px;
+            row-gap: 2px;
+            align-items: center;
+            padding: 16px 16px;
+            margin: 10px 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            transition: opacity 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+        }
+        .schedule-card[data-state="past"] {
+            opacity: 0.42;
+        }
+        .schedule-card.is-link { cursor: pointer; }
+        /* Stretched link: an empty anchor overlays the whole card so the
+           grid layout is untouched but the entire card is tappable. */
+        .schedule-card .stretch-link {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            border-radius: inherit;
+        }
+        .schedule-card.is-link:active { box-shadow: var(--shadow-md); }
+        @media (hover: hover) {
+            .schedule-card.is-link:hover { box-shadow: var(--shadow-md); }
+        }
+        .schedule-card[data-state="next"] {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow-md);
+            background: linear-gradient(180deg,
+                color-mix(in srgb, var(--accent-soft) 60%, var(--surface)) 0%,
+                var(--surface) 60%);
+        }
+        .schedule-card .time {
+            grid-area: time;
+            font-size: clamp(28px, 7vw, 34px);
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+        .schedule-card .next-day {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            color: #c2410c;
+            background: #fff3e6;
+            border-radius: 4px;
+            padding: 1px 5px;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+        @media (prefers-color-scheme: dark) {
+            .schedule-card .next-day { color: #fdba74; background: rgba(253, 186, 116, 0.12); }
+        }
+        .schedule-card .main {
+            grid-area: main;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            min-width: 0;
+        }
+        .schedule-card .train-num {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dim);
+            font-variant-numeric: tabular-nums;
+        }
+        .schedule-card .arrow {
+            color: var(--text-faint);
+            font-size: 14px;
+        }
+        .schedule-card .dest {
+            font-size: 16px;
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .schedule-card .sub {
+            grid-area: sub;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            color: var(--text-faint);
+            font-size: 12px;
+        }
+        .schedule-card .sub .sub-label {
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        /* Estimated departure + live "in N min" status, pushed to the
+           right of the sub line. Empty until the client fills it in. */
+        .schedule-card .sub .sub-end {
+            margin-left: auto;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .schedule-card .sub .est { font-variant-numeric: tabular-nums; }
+        /* Historical delay stats (median / p95 of past days' readings) —
+           quiet reference info, visually behind the live estimate. */
+        .schedule-card .sub .delay {
+            color: var(--text-dim);
+            font-variant-numeric: tabular-nums;
+        }
+        /* Posted track from the live board — only rendered once the
+           station has assigned one. */
+        .schedule-card .sub .track {
+            font-weight: 700;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .schedule-card .sub .status {
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+        .schedule-card .sub .status[data-live="due"]  { color: var(--accent); }
+        .schedule-card .sub .status[data-live="soon"] { color: var(--text); }
+        .schedule-card .sub .status[data-live="past"] { color: var(--text-faint); }
+        .schedule-card .line {
+            grid-area: line;
+            align-self: start;
+        }
+        .line-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: var(--surface-2);
+            color: var(--text);
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            border: 1px solid var(--border);
+        }
+        .schedule-card[data-state="next"] .line-pill {
+            background: var(--accent);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .now-marker {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 18px 4px 6px;
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .now-marker::before,
+        .now-marker::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.6;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0s !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0s !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        
+<header class="topbar">
+    <a class="back" href="/" aria-label="Back to stations">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"/>
+        </svg>
+        Stations
+    </a>
+</header>
+
+<h1 class="page-title">HOBOKEN</h1>
+
+<nav class="sched-toggle" aria-label="Schedule type">
+    
+    <a href="/schedules/hoboken/">Auto</a>
+    
+    <a href="/schedules/hoboken/stats/">Overall stats</a>
+    
+    <a href="/schedules/hoboken/weekday/">Weekday</a>
+    
+    <a href="/schedules/hoboken/weekend/" aria-current="true">Weekend</a>
+    
+    <a href="/schedules/hoboken/inclement_weather_lvl_1/">Inclement weather (Level 1)</a>
+    
+    <a href="/schedules/hoboken/inclement_weather_lvl_2/">Inclement weather (Level 2)</a>
+    
+</nav>
+
+
+
+<script>
+// Static-build-only glue. "Auto" pages redirect to the weekend variant
+// when the visitor's NY service date runs weekend service (weekends +
+// NJ holidays, baked in at export time). Train pages point the back
+// button at the station page named by `?from=`, which a static server
+// can't resolve.
+(function () {
+    function nyServiceDate() {
+        var p = {};
+        var parts = new Intl.DateTimeFormat("en-US", {
+            timeZone: "America/New_York", hourCycle: "h23",
+            year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit"
+        }).formatToParts(new Date());
+        for (var i = 0; i < parts.length; i++) p[parts[i].type] = parts[i].value;
+        var d = new Date(Date.UTC(+p.year, +p.month - 1, +p.day));
+        // Before 02:00 NY the previous service day is still running.
+        if (+p.hour < 2) d.setUTCDate(d.getUTCDate() - 1);
+        return d;
+    }
+
+    var weekendEl = document.getElementById("weekend-dates");
+    var weekendUrl = "";
+    if (weekendEl && weekendUrl) {
+        var dates = JSON.parse(weekendEl.textContent);
+        var day = nyServiceDate();
+        var iso = day.toISOString().slice(0, 10);
+        var last = dates.length ? dates[dates.length - 1] : "";
+        // Past the embedded calendar (a very stale build), fall back to
+        // plain Sat/Sun — only holiday awareness is lost.
+        var weekend = dates.indexOf(iso) !== -1 ||
+            (iso > last && (day.getUTCDay() === 0 || day.getUTCDay() === 6));
+        if (weekend) location.replace(weekendUrl + location.search);
+    }
+
+    var linksEl = document.getElementById("station-links");
+    var fromCode = new URLSearchParams(location.search).get("from");
+    if (linksEl && fromCode) {
+        var links = JSON.parse(linksEl.textContent);
+        var origin = links[fromCode];
+        var back = document.querySelector(".topbar .back");
+        if (origin && back) {
+            back.href = origin.url;
+            back.setAttribute("aria-label", "Back to " + origin.name);
+            var label = back.querySelector("[data-back-label]");
+            if (label) label.textContent = origin.name;
+        }
+        // Keep the origin when switching schedule variants.
+        var toggles = document.querySelectorAll(".sched-toggle a");
+        for (var j = 0; j < toggles.length; j++) {
+            toggles[j].href += (toggles[j].href.indexOf("?") === -1 ? "?" : "&") +
+                "from=" + encodeURIComponent(fromCode);
+        }
+    }
+})();
+</script>
+
+
+
+<ul class="schedule-list"
+    id="schedule-list"
+    data-now-time=""
+    data-post-midnight="0">
+    
+    <li class="schedule-card is-link"
+        data-time="05:38:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/530/weekend/?from=hoboken"
+           aria-label="All stops for train 530"></a>
+        <div class="time">
+            05:38
+        </div>
+        <div class="main">
+            <span class="train-num">#530</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="06:17:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1855/weekend/?from=hoboken"
+           aria-label="All stops for train 1855"></a>
+        <div class="time">
+            06:17
+        </div>
+        <div class="main">
+            <span class="train-num">#1855</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="06:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1705/weekend/?from=hoboken"
+           aria-label="All stops for train 1705"></a>
+        <div class="time">
+            06:24
+        </div>
+        <div class="main">
+            <span class="train-num">#1705</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="06:59:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1090/weekend/?from=hoboken"
+           aria-label="All stops for train 1090"></a>
+        <div class="time">
+            06:59
+        </div>
+        <div class="main">
+            <span class="train-num">#1090</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:15:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2100/weekend/?from=hoboken"
+           aria-label="All stops for train 2100"></a>
+        <div class="time">
+            07:15
+        </div>
+        <div class="main">
+            <span class="train-num">#2100</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:16:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1857/weekend/?from=hoboken"
+           aria-label="All stops for train 1857"></a>
+        <div class="time">
+            07:16
+        </div>
+        <div class="main">
+            <span class="train-num">#1857</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/70/weekend/?from=hoboken"
+           aria-label="All stops for train 70"></a>
+        <div class="time">
+            07:19
+        </div>
+        <div class="main">
+            <span class="train-num">#70</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1707/weekend/?from=hoboken"
+           aria-label="All stops for train 1707"></a>
+        <div class="time">
+            07:24
+        </div>
+        <div class="main">
+            <span class="train-num">#1707</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:28:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1752/weekend/?from=hoboken"
+           aria-label="All stops for train 1752"></a>
+        <div class="time">
+            07:28
+        </div>
+        <div class="main">
+            <span class="train-num">#1752</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:38:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/510/weekend/?from=hoboken"
+           aria-label="All stops for train 510"></a>
+        <div class="time">
+            07:38
+        </div>
+        <div class="main">
+            <span class="train-num">#510</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:38:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/534/weekend/?from=hoboken"
+           aria-label="All stops for train 534"></a>
+        <div class="time">
+            07:38
+        </div>
+        <div class="main">
+            <span class="train-num">#534</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:13:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2103/weekend/?from=hoboken"
+           aria-label="All stops for train 2103"></a>
+        <div class="time">
+            08:13
+        </div>
+        <div class="main">
+            <span class="train-num">#2103</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SPRING VALLEY</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:15:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2102/weekend/?from=hoboken"
+           aria-label="All stops for train 2102"></a>
+        <div class="time">
+            08:15
+        </div>
+        <div class="main">
+            <span class="train-num">#2102</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:16:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1859/weekend/?from=hoboken"
+           aria-label="All stops for train 1859"></a>
+        <div class="time">
+            08:16
+        </div>
+        <div class="main">
+            <span class="train-num">#1859</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1704/weekend/?from=hoboken"
+           aria-label="All stops for train 1704"></a>
+        <div class="time">
+            08:19
+        </div>
+        <div class="main">
+            <span class="train-num">#1704</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1709/weekend/?from=hoboken"
+           aria-label="All stops for train 1709"></a>
+        <div class="time">
+            08:24
+        </div>
+        <div class="main">
+            <span class="train-num">#1709</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:28:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1854/weekend/?from=hoboken"
+           aria-label="All stops for train 1854"></a>
+        <div class="time">
+            08:28
+        </div>
+        <div class="main">
+            <span class="train-num">#1854</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:30:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/94/weekend/?from=hoboken"
+           aria-label="All stops for train 94"></a>
+        <div class="time">
+            08:30
+        </div>
+        <div class="main">
+            <span class="train-num">#94</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1706/weekend/?from=hoboken"
+           aria-label="All stops for train 1706"></a>
+        <div class="time">
+            09:19
+        </div>
+        <div class="main">
+            <span class="train-num">#1706</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:20:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/71/weekend/?from=hoboken"
+           aria-label="All stops for train 71"></a>
+        <div class="time">
+            09:20
+        </div>
+        <div class="main">
+            <span class="train-num">#71</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">PORT JERVIS</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:20:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2104/weekend/?from=hoboken"
+           aria-label="All stops for train 2104"></a>
+        <div class="time">
+            09:20
+        </div>
+        <div class="main">
+            <span class="train-num">#2104</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1711/weekend/?from=hoboken"
+           aria-label="All stops for train 1711"></a>
+        <div class="time">
+            09:24
+        </div>
+        <div class="main">
+            <span class="train-num">#1711</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:28:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1856/weekend/?from=hoboken"
+           aria-label="All stops for train 1856"></a>
+        <div class="time">
+            09:28
+        </div>
+        <div class="main">
+            <span class="train-num">#1856</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:33:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/72/weekend/?from=hoboken"
+           aria-label="All stops for train 72"></a>
+        <div class="time">
+            09:33
+        </div>
+        <div class="main">
+            <span class="train-num">#72</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:38:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/538/weekend/?from=hoboken"
+           aria-label="All stops for train 538"></a>
+        <div class="time">
+            09:38
+        </div>
+        <div class="main">
+            <span class="train-num">#538</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="10:08:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6919/weekend/?from=hoboken"
+           aria-label="All stops for train 6919"></a>
+        <div class="time">
+            10:08
+        </div>
+        <div class="main">
+            <span class="train-num">#6919</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">GLADSTONE</span>
+        </div>
+        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="10:13:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2107/weekend/?from=hoboken"
+           aria-label="All stops for train 2107"></a>
+        <div class="time">
+            10:13
+        </div>
+        <div class="main">
+            <span class="train-num">#2107</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SPRING VALLEY</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="10:16:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1863/weekend/?from=hoboken"
+           aria-label="All stops for train 1863"></a>
+        <div class="time">
+            10:16
+        </div>
+        <div class="main">
+            <span class="train-num">#1863</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="10:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1708/weekend/?from=hoboken"
+           aria-label="All stops for train 1708"></a>
+        <div class="time">
+            10:19
+        </div>
+        <div class="main">
+            <span class="train-num">#1708</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="10:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1713/weekend/?from=hoboken"
+           aria-label="All stops for train 1713"></a>
+        <div class="time">
+            10:24
+        </div>
+        <div class="main">
+            <span class="train-num">#1713</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="10:28:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1858/weekend/?from=hoboken"
+           aria-label="All stops for train 1858"></a>
+        <div class="time">
+            10:28
+        </div>
+        <div class="main">
+            <span class="train-num">#1858</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="10:33:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2106/weekend/?from=hoboken"
+           aria-label="All stops for train 2106"></a>
+        <div class="time">
+            10:33
+        </div>
+        <div class="main">
+            <span class="train-num">#2106</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="11:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1710/weekend/?from=hoboken"
+           aria-label="All stops for train 1710"></a>
+        <div class="time">
+            11:19
+        </div>
+        <div class="main">
+            <span class="train-num">#1710</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="11:20:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/73/weekend/?from=hoboken"
+           aria-label="All stops for train 73"></a>
+        <div class="time">
+            11:20
+        </div>
+        <div class="main">
+            <span class="train-num">#73</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">PORT JERVIS</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="11:20:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2108/weekend/?from=hoboken"
+           aria-label="All stops for train 2108"></a>
+        <div class="time">
+            11:20
+        </div>
+        <div class="main">
+            <span class="train-num">#2108</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="11:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1715/weekend/?from=hoboken"
+           aria-label="All stops for train 1715"></a>
+        <div class="time">
+            11:24
+        </div>
+        <div class="main">
+            <span class="train-num">#1715</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="11:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/74/weekend/?from=hoboken"
+           aria-label="All stops for train 74"></a>
+        <div class="time">
+            11:24
+        </div>
+        <div class="main">
+            <span class="train-num">#74</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:08:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6923/weekend/?from=hoboken"
+           aria-label="All stops for train 6923"></a>
+        <div class="time">
+            12:08
+        </div>
+        <div class="main">
+            <span class="train-num">#6923</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">GLADSTONE</span>
+        </div>
+        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:13:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2111/weekend/?from=hoboken"
+           aria-label="All stops for train 2111"></a>
+        <div class="time">
+            12:13
+        </div>
+        <div class="main">
+            <span class="train-num">#2111</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SPRING VALLEY</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:16:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1867/weekend/?from=hoboken"
+           aria-label="All stops for train 1867"></a>
+        <div class="time">
+            12:16
+        </div>
+        <div class="main">
+            <span class="train-num">#1867</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1712/weekend/?from=hoboken"
+           aria-label="All stops for train 1712"></a>
+        <div class="time">
+            12:19
+        </div>
+        <div class="main">
+            <span class="train-num">#1712</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1717/weekend/?from=hoboken"
+           aria-label="All stops for train 1717"></a>
+        <div class="time">
+            12:24
+        </div>
+        <div class="main">
+            <span class="train-num">#1717</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:28:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1862/weekend/?from=hoboken"
+           aria-label="All stops for train 1862"></a>
+        <div class="time">
+            12:28
+        </div>
+        <div class="main">
+            <span class="train-num">#1862</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:33:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2110/weekend/?from=hoboken"
+           aria-label="All stops for train 2110"></a>
+        <div class="time">
+            12:33
+        </div>
+        <div class="main">
+            <span class="train-num">#2110</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:16:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1869/weekend/?from=hoboken"
+           aria-label="All stops for train 1869"></a>
+        <div class="time">
+            13:16
+        </div>
+        <div class="main">
+            <span class="train-num">#1869</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1714/weekend/?from=hoboken"
+           aria-label="All stops for train 1714"></a>
+        <div class="time">
+            13:19
+        </div>
+        <div class="main">
+            <span class="train-num">#1714</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:21:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/75/weekend/?from=hoboken"
+           aria-label="All stops for train 75"></a>
+        <div class="time">
+            13:21
+        </div>
+        <div class="main">
+            <span class="train-num">#75</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">PORT JERVIS</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:21:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2112/weekend/?from=hoboken"
+           aria-label="All stops for train 2112"></a>
+        <div class="time">
+            13:21
+        </div>
+        <div class="main">
+            <span class="train-num">#2112</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1719/weekend/?from=hoboken"
+           aria-label="All stops for train 1719"></a>
+        <div class="time">
+            13:24
+        </div>
+        <div class="main">
+            <span class="train-num">#1719</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/76/weekend/?from=hoboken"
+           aria-label="All stops for train 76"></a>
+        <div class="time">
+            13:24
+        </div>
+        <div class="main">
+            <span class="train-num">#76</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:08:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6927/weekend/?from=hoboken"
+           aria-label="All stops for train 6927"></a>
+        <div class="time">
+            14:08
+        </div>
+        <div class="main">
+            <span class="train-num">#6927</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Montclair Heights</span>
+        </div>
+        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:13:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2115/weekend/?from=hoboken"
+           aria-label="All stops for train 2115"></a>
+        <div class="time">
+            14:13
+        </div>
+        <div class="main">
+            <span class="train-num">#2115</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SPRING VALLEY</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:16:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1871/weekend/?from=hoboken"
+           aria-label="All stops for train 1871"></a>
+        <div class="time">
+            14:16
+        </div>
+        <div class="main">
+            <span class="train-num">#1871</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1716/weekend/?from=hoboken"
+           aria-label="All stops for train 1716"></a>
+        <div class="time">
+            14:19
+        </div>
+        <div class="main">
+            <span class="train-num">#1716</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1721/weekend/?from=hoboken"
+           aria-label="All stops for train 1721"></a>
+        <div class="time">
+            14:24
+        </div>
+        <div class="main">
+            <span class="train-num">#1721</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:28:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1866/weekend/?from=hoboken"
+           aria-label="All stops for train 1866"></a>
+        <div class="time">
+            14:28
+        </div>
+        <div class="main">
+            <span class="train-num">#1866</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="15:16:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1873/weekend/?from=hoboken"
+           aria-label="All stops for train 1873"></a>
+        <div class="time">
+            15:16
+        </div>
+        <div class="main">
+            <span class="train-num">#1873</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="15:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1718/weekend/?from=hoboken"
+           aria-label="All stops for train 1718"></a>
+        <div class="time">
+            15:19
+        </div>
+        <div class="main">
+            <span class="train-num">#1718</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="15:20:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2114/weekend/?from=hoboken"
+           aria-label="All stops for train 2114"></a>
+        <div class="time">
+            15:20
+        </div>
+        <div class="main">
+            <span class="train-num">#2114</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="15:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1723/weekend/?from=hoboken"
+           aria-label="All stops for train 1723"></a>
+        <div class="time">
+            15:24
+        </div>
+        <div class="main">
+            <span class="train-num">#1723</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="15:27:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2117/weekend/?from=hoboken"
+           aria-label="All stops for train 2117"></a>
+        <div class="time">
+            15:27
+        </div>
+        <div class="main">
+            <span class="train-num">#2117</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SPRING VALLEY</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="15:28:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1868/weekend/?from=hoboken"
+           aria-label="All stops for train 1868"></a>
+        <div class="time">
+            15:28
+        </div>
+        <div class="main">
+            <span class="train-num">#1868</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="16:01:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/77/weekend/?from=hoboken"
+           aria-label="All stops for train 77"></a>
+        <div class="time">
+            16:01
+        </div>
+        <div class="main">
+            <span class="train-num">#77</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">PORT JERVIS</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="16:13:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2119/weekend/?from=hoboken"
+           aria-label="All stops for train 2119"></a>
+        <div class="time">
+            16:13
+        </div>
+        <div class="main">
+            <span class="train-num">#2119</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SPRING VALLEY</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="16:16:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1875/weekend/?from=hoboken"
+           aria-label="All stops for train 1875"></a>
+        <div class="time">
+            16:16
+        </div>
+        <div class="main">
+            <span class="train-num">#1875</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="16:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1720/weekend/?from=hoboken"
+           aria-label="All stops for train 1720"></a>
+        <div class="time">
+            16:19
+        </div>
+        <div class="main">
+            <span class="train-num">#1720</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="16:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1725/weekend/?from=hoboken"
+           aria-label="All stops for train 1725"></a>
+        <div class="time">
+            16:24
+        </div>
+        <div class="main">
+            <span class="train-num">#1725</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="16:28:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1870/weekend/?from=hoboken"
+           aria-label="All stops for train 1870"></a>
+        <div class="time">
+            16:28
+        </div>
+        <div class="main">
+            <span class="train-num">#1870</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:13:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2121/weekend/?from=hoboken"
+           aria-label="All stops for train 2121"></a>
+        <div class="time">
+            17:13
+        </div>
+        <div class="main">
+            <span class="train-num">#2121</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SPRING VALLEY</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:16:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1877/weekend/?from=hoboken"
+           aria-label="All stops for train 1877"></a>
+        <div class="time">
+            17:16
+        </div>
+        <div class="main">
+            <span class="train-num">#1877</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1722/weekend/?from=hoboken"
+           aria-label="All stops for train 1722"></a>
+        <div class="time">
+            17:19
+        </div>
+        <div class="main">
+            <span class="train-num">#1722</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/93/weekend/?from=hoboken"
+           aria-label="All stops for train 93"></a>
+        <div class="time">
+            17:19
+        </div>
+        <div class="main">
+            <span class="train-num">#93</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">PORT JERVIS</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:20:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2118/weekend/?from=hoboken"
+           aria-label="All stops for train 2118"></a>
+        <div class="time">
+            17:20
+        </div>
+        <div class="main">
+            <span class="train-num">#2118</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1727/weekend/?from=hoboken"
+           aria-label="All stops for train 1727"></a>
+        <div class="time">
+            17:24
+        </div>
+        <div class="main">
+            <span class="train-num">#1727</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:26:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/78/weekend/?from=hoboken"
+           aria-label="All stops for train 78"></a>
+        <div class="time">
+            17:26
+        </div>
+        <div class="main">
+            <span class="train-num">#78</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:28:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1872/weekend/?from=hoboken"
+           aria-label="All stops for train 1872"></a>
+        <div class="time">
+            17:28
+        </div>
+        <div class="main">
+            <span class="train-num">#1872</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:13:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/79/weekend/?from=hoboken"
+           aria-label="All stops for train 79"></a>
+        <div class="time">
+            18:13
+        </div>
+        <div class="main">
+            <span class="train-num">#79</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">PORT JERVIS</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:16:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1879/weekend/?from=hoboken"
+           aria-label="All stops for train 1879"></a>
+        <div class="time">
+            18:16
+        </div>
+        <div class="main">
+            <span class="train-num">#1879</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1724/weekend/?from=hoboken"
+           aria-label="All stops for train 1724"></a>
+        <div class="time">
+            18:19
+        </div>
+        <div class="main">
+            <span class="train-num">#1724</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:21:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2123/weekend/?from=hoboken"
+           aria-label="All stops for train 2123"></a>
+        <div class="time">
+            18:21
+        </div>
+        <div class="main">
+            <span class="train-num">#2123</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SPRING VALLEY</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1729/weekend/?from=hoboken"
+           aria-label="All stops for train 1729"></a>
+        <div class="time">
+            18:24
+        </div>
+        <div class="main">
+            <span class="train-num">#1729</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/88/weekend/?from=hoboken"
+           aria-label="All stops for train 88"></a>
+        <div class="time">
+            18:24
+        </div>
+        <div class="main">
+            <span class="train-num">#88</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:28:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1874/weekend/?from=hoboken"
+           aria-label="All stops for train 1874"></a>
+        <div class="time">
+            18:28
+        </div>
+        <div class="main">
+            <span class="train-num">#1874</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:16:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1881/weekend/?from=hoboken"
+           aria-label="All stops for train 1881"></a>
+        <div class="time">
+            19:16
+        </div>
+        <div class="main">
+            <span class="train-num">#1881</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1726/weekend/?from=hoboken"
+           aria-label="All stops for train 1726"></a>
+        <div class="time">
+            19:19
+        </div>
+        <div class="main">
+            <span class="train-num">#1726</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1731/weekend/?from=hoboken"
+           aria-label="All stops for train 1731"></a>
+        <div class="time">
+            19:24
+        </div>
+        <div class="main">
+            <span class="train-num">#1731</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:26:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2122/weekend/?from=hoboken"
+           aria-label="All stops for train 2122"></a>
+        <div class="time">
+            19:26
+        </div>
+        <div class="main">
+            <span class="train-num">#2122</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:28:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1876/weekend/?from=hoboken"
+           aria-label="All stops for train 1876"></a>
+        <div class="time">
+            19:28
+        </div>
+        <div class="main">
+            <span class="train-num">#1876</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:29:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2125/weekend/?from=hoboken"
+           aria-label="All stops for train 2125"></a>
+        <div class="time">
+            19:29
+        </div>
+        <div class="main">
+            <span class="train-num">#2125</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SPRING VALLEY</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:39:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/80/weekend/?from=hoboken"
+           aria-label="All stops for train 80"></a>
+        <div class="time">
+            19:39
+        </div>
+        <div class="main">
+            <span class="train-num">#80</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="20:08:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6939/weekend/?from=hoboken"
+           aria-label="All stops for train 6939"></a>
+        <div class="time">
+            20:08
+        </div>
+        <div class="main">
+            <span class="train-num">#6939</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">GLADSTONE</span>
+        </div>
+        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="20:16:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1883/weekend/?from=hoboken"
+           aria-label="All stops for train 1883"></a>
+        <div class="time">
+            20:16
+        </div>
+        <div class="main">
+            <span class="train-num">#1883</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="20:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1728/weekend/?from=hoboken"
+           aria-label="All stops for train 1728"></a>
+        <div class="time">
+            20:19
+        </div>
+        <div class="main">
+            <span class="train-num">#1728</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="20:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1733/weekend/?from=hoboken"
+           aria-label="All stops for train 1733"></a>
+        <div class="time">
+            20:24
+        </div>
+        <div class="main">
+            <span class="train-num">#1733</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="20:28:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1878/weekend/?from=hoboken"
+           aria-label="All stops for train 1878"></a>
+        <div class="time">
+            20:28
+        </div>
+        <div class="main">
+            <span class="train-num">#1878</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="20:31:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2124/weekend/?from=hoboken"
+           aria-label="All stops for train 2124"></a>
+        <div class="time">
+            20:31
+        </div>
+        <div class="main">
+            <span class="train-num">#2124</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:14:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1835/weekend/?from=hoboken"
+           aria-label="All stops for train 1835"></a>
+        <div class="time">
+            21:14
+        </div>
+        <div class="main">
+            <span class="train-num">#1835</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Ridgewood</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1730/weekend/?from=hoboken"
+           aria-label="All stops for train 1730"></a>
+        <div class="time">
+            21:19
+        </div>
+        <div class="main">
+            <span class="train-num">#1730</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:21:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2129/weekend/?from=hoboken"
+           aria-label="All stops for train 2129"></a>
+        <div class="time">
+            21:21
+        </div>
+        <div class="main">
+            <span class="train-num">#2129</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SPRING VALLEY</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:27:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2126/weekend/?from=hoboken"
+           aria-label="All stops for train 2126"></a>
+        <div class="time">
+            21:27
+        </div>
+        <div class="main">
+            <span class="train-num">#2126</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:28:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1880/weekend/?from=hoboken"
+           aria-label="All stops for train 1880"></a>
+        <div class="time">
+            21:28
+        </div>
+        <div class="main">
+            <span class="train-num">#1880</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:28:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/81/weekend/?from=hoboken"
+           aria-label="All stops for train 81"></a>
+        <div class="time">
+            21:28
+        </div>
+        <div class="main">
+            <span class="train-num">#81</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">PORT JERVIS</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="22:12:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1837/weekend/?from=hoboken"
+           aria-label="All stops for train 1837"></a>
+        <div class="time">
+            22:12
+        </div>
+        <div class="main">
+            <span class="train-num">#1837</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Ridgewood</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="22:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1732/weekend/?from=hoboken"
+           aria-label="All stops for train 1732"></a>
+        <div class="time">
+            22:19
+        </div>
+        <div class="main">
+            <span class="train-num">#1732</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="22:20:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1787/weekend/?from=hoboken"
+           aria-label="All stops for train 1787"></a>
+        <div class="time">
+            22:20
+        </div>
+        <div class="main">
+            <span class="train-num">#1787</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="22:28:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1882/weekend/?from=hoboken"
+           aria-label="All stops for train 1882"></a>
+        <div class="time">
+            22:28
+        </div>
+        <div class="main">
+            <span class="train-num">#1882</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="23:08:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6945/weekend/?from=hoboken"
+           aria-label="All stops for train 6945"></a>
+        <div class="time">
+            23:08
+        </div>
+        <div class="main">
+            <span class="train-num">#6945</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">GLADSTONE</span>
+        </div>
+        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="23:12:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1839/weekend/?from=hoboken"
+           aria-label="All stops for train 1839"></a>
+        <div class="time">
+            23:12
+        </div>
+        <div class="main">
+            <span class="train-num">#1839</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Ridgewood</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="23:17:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/2133/weekend/?from=hoboken"
+           aria-label="All stops for train 2133"></a>
+        <div class="time">
+            23:17
+        </div>
+        <div class="main">
+            <span class="train-num">#2133</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SPRING VALLEY</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="23:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/82/weekend/?from=hoboken"
+           aria-label="All stops for train 82"></a>
+        <div class="time">
+            23:19
+        </div>
+        <div class="main">
+            <span class="train-num">#82</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="23:20:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1789/weekend/?from=hoboken"
+           aria-label="All stops for train 1789"></a>
+        <div class="time">
+            23:20
+        </div>
+        <div class="main">
+            <span class="train-num">#1789</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="23:28:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1784/weekend/?from=hoboken"
+           aria-label="All stops for train 1784"></a>
+        <div class="time">
+            23:28
+        </div>
+        <div class="main">
+            <span class="train-num">#1784</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="23:38:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/518/weekend/?from=hoboken"
+           aria-label="All stops for train 518"></a>
+        <div class="time">
+            23:38
+        </div>
+        <div class="main">
+            <span class="train-num">#518</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="00:21:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/1801/weekend/?from=hoboken"
+           aria-label="All stops for train 1801"></a>
+        <div class="time">
+            00:21<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#1801</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Ridgewood</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="00:39:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/69/weekend/?from=hoboken"
+           aria-label="All stops for train 69"></a>
+        <div class="time">
+            00:39<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#69</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">PORT JERVIS</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="00:45:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/2101/weekend/?from=hoboken"
+           aria-label="All stops for train 2101"></a>
+        <div class="time">
+            00:45<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#2101</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SPRING VALLEY</span>
+        </div>
+        <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="01:21:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/1786/weekend/?from=hoboken"
+           aria-label="All stops for train 1786"></a>
+        <div class="time">
+            01:21<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#1786</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="01:32:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/1701/weekend/?from=hoboken"
+           aria-label="All stops for train 1701"></a>
+        <div class="time">
+            01:32<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#1701</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Clifton</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="01:38:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/522/weekend/?from=hoboken"
+           aria-label="All stops for train 522"></a>
+        <div class="time">
+            01:38<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#522</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="03:38:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/526/weekend/?from=hoboken"
+           aria-label="All stops for train 526"></a>
+        <div class="time">
+            03:38<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#526</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+</ul>
+
+
+<script>
+// Turn each card's latest estimated-departure datetime into a live
+// "in N min" status. The estimate is the source of truth for timing.
+function fillCountdowns(cards) {
+    const realNow = new Date();
+    for (const card of cards) {
+        const iso = card.dataset.estimate;
+        const statusEl = card.querySelector(".status");
+        if (!iso || !statusEl) continue;
+        const mins = Math.round((new Date(iso) - realNow) / 60000);
+        if (mins <= -1) {
+            statusEl.textContent = "Departed";
+            statusEl.dataset.live = "past";
+        } else if (mins <= 0) {
+            statusEl.textContent = "Due";
+            statusEl.dataset.live = "due";
+        } else if (mins === 1) {
+            statusEl.textContent = "in 1 min";
+            statusEl.dataset.live = "due";
+        } else {
+            statusEl.textContent = "in " + mins + " min";
+            statusEl.dataset.live = mins <= 5 ? "due" : "soon";
+        }
+    }
+}
+
+(function () {
+    const list = document.getElementById("schedule-list");
+    if (!list) return;
+    let now = list.dataset.nowTime;
+    let postMidnight = list.dataset.postMidnight === "1";
+    if (!now) {
+        // Static build: no server clock — use the visitor's, in NY time.
+        const p = {};
+        for (const part of new Intl.DateTimeFormat("en-US", {
+            timeZone: "America/New_York", hourCycle: "h23",
+            hour: "2-digit", minute: "2-digit", second: "2-digit"
+        }).formatToParts(new Date())) p[part.type] = part.value;
+        now = p.hour + ":" + p.minute + ":" + p.second;
+        postMidnight = Number(p.hour) < 2;
+    }
+    // Sortable key: "0|HH:MM:SS" for same-day stops, "1|HH:MM:SS" for
+    // next_day stops. Between midnight and the 2am service-day cutoff
+    // the wall clock IS the next_day frame, so flip the prefix.
+    const nowPrefix = postMidnight ? "1|" : "0|";
+    const nowKey = nowPrefix + now;
+    const cards = Array.from(list.querySelectorAll(".schedule-card"));
+    fillCountdowns(cards);
+    let next = null;
+    for (const card of cards) {
+        const key = (card.dataset.nextDay === "1" ? "1|" : "0|") + card.dataset.time;
+        if (key >= nowKey) { next = card; break; }
+        card.dataset.state = "past";
+    }
+    const target = next || cards[cards.length - 1];
+    if (!target) return;
+    target.dataset.state = "next";
+    const marker = document.createElement("li");
+    marker.className = "now-marker";
+    marker.setAttribute("aria-hidden", "true");
+    marker.textContent = "Now";
+    target.parentNode.insertBefore(marker, target);
+    // Wait a frame so layout settles before scrolling.
+    requestAnimationFrame(function () {
+        target.scrollIntoView({ block: "center", behavior: "auto" });
+    });
+})();
+</script>
+
+        
+        <footer class="data-footer">Latest data as of Jun 21, 2026</footer>
+        
+    </div>
+</body>
+</html>

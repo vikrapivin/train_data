@@ -1,0 +1,1666 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#0b0b0e">
+    <title>New Jersey Train Schedules — pick a station</title>
+    <style>
+        :root {
+            --bg:           #f4f5f7;
+            --surface:      #ffffff;
+            --surface-2:    #f0f1f4;
+            --text:         #0b0b0e;
+            --text-dim:     #6b6f76;
+            --text-faint:   #9aa0a6;
+            --border:       rgba(15, 17, 21, 0.08);
+            --border-strong:rgba(15, 17, 21, 0.16);
+            --accent:       #16a34a;
+            --accent-soft:  rgba(22, 163, 74, 0.12);
+            --accent-glow:  rgba(22, 163, 74, 0.30);
+            --shadow-sm:    0 1px 2px rgba(15, 17, 21, 0.04), 0 1px 1px rgba(15, 17, 21, 0.03);
+            --shadow-md:    0 4px 16px rgba(15, 17, 21, 0.06), 0 1px 2px rgba(15, 17, 21, 0.04);
+            --radius-sm:    10px;
+            --radius-md:    14px;
+            --radius-lg:    20px;
+            --pad-x:        clamp(16px, 4vw, 24px);
+            --max-w:        680px;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg:           #0b0b0e;
+                --surface:      #16171b;
+                --surface-2:    #1d1f24;
+                --text:         #f3f4f6;
+                --text-dim:     #a1a6ae;
+                --text-faint:   #6b6f76;
+                --border:       rgba(255, 255, 255, 0.08);
+                --border-strong:rgba(255, 255, 255, 0.16);
+                --accent:       #22c55e;
+                --accent-soft:  rgba(34, 197, 94, 0.16);
+                --accent-glow:  rgba(34, 197, 94, 0.45);
+                --shadow-sm:    0 1px 2px rgba(0,0,0,0.4);
+                --shadow-md:    0 6px 24px rgba(0,0,0,0.4);
+            }
+        }
+
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        html { -webkit-text-size-adjust: 100%; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                         "Inter", "Segoe UI", Roboto, system-ui, sans-serif;
+            font-size: 16px;
+            line-height: 1.45;
+            min-height: 100dvh;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+        a { color: inherit; text-decoration: none; }
+        h1, h2, h3 { font-weight: 700; letter-spacing: -0.01em; margin: 0; }
+
+        .app {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            padding: max(env(safe-area-inset-top), 12px) var(--pad-x)
+                     calc(env(safe-area-inset-bottom) + 32px);
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 4px 0 14px;
+        }
+        .topbar .back {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 15px;
+            color: var(--text-dim);
+            padding: 6px 8px 6px 0;
+            margin-right: 4px;
+        }
+        .topbar .back:active { color: var(--text); }
+
+        .page-title {
+            font-size: clamp(26px, 6vw, 34px);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        .page-sub {
+            color: var(--text-dim);
+            font-size: 14px;
+            margin-top: 6px;
+        }
+
+        /* ----- inputs ----- */
+        .search {
+            position: relative;
+            margin: 18px 0 8px;
+        }
+        .search input {
+            width: 100%;
+            font: inherit;
+            font-size: 16px;
+            padding: 14px 40px 14px 44px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            box-shadow: var(--shadow-sm);
+            outline: none;
+            -webkit-appearance: none;
+            transition: border-color 120ms ease, box-shadow 120ms ease;
+        }
+        .search input::placeholder { color: var(--text-faint); }
+        .search input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-soft);
+        }
+        .search .icon {
+            position: absolute;
+            top: 50%;
+            left: 14px;
+            transform: translateY(-50%);
+            color: var(--text-faint);
+            pointer-events: none;
+            line-height: 0;
+        }
+        .search .clear {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            border: 0;
+            background: var(--surface-2);
+            color: var(--text-dim);
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            line-height: 1;
+            padding: 0;
+        }
+        .search.has-value .clear { display: inline-flex; }
+
+        .count {
+            color: var(--text-faint);
+            font-size: 13px;
+            margin: 4px 4px 12px;
+        }
+
+        /* ----- station list ----- */
+        .station-list {
+            list-style: none;
+            padding: 0;
+            margin: 8px 0 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .station-list li + li { border-top: 1px solid var(--border); }
+        .station-list a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 16px;
+            min-height: 64px;
+            transition: background 100ms ease;
+        }
+        .station-list a:active { background: var(--surface-2); }
+        @media (hover: hover) {
+            .station-list a:hover { background: var(--surface-2); }
+        }
+        .station-list .name {
+            flex: 1;
+            font-size: 17px;
+            font-weight: 500;
+            min-width: 0;
+        }
+        .station-list .chev {
+            color: var(--text-faint);
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .empty {
+            margin-top: 24px;
+            padding: 32px 16px;
+            text-align: center;
+            color: var(--text-dim);
+            background: var(--surface);
+            border: 1px dashed var(--border-strong);
+            border-radius: var(--radius-md);
+        }
+        .empty h3 { color: var(--text); margin-bottom: 4px; font-size: 17px; }
+
+        .data-footer {
+            margin: 28px 0 8px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-faint);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ----- schedule-type toggle ----- */
+        .sched-toggle {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            margin: 14px 0 4px;
+            padding-bottom: 4px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .sched-toggle::-webkit-scrollbar { display: none; }
+        .sched-toggle a {
+            white-space: nowrap;
+            padding: 7px 13px;
+            border-radius: 999px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+            transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+        }
+        @media (hover: hover) {
+            .sched-toggle a:hover { border-color: var(--border-strong); }
+        }
+        .sched-toggle a[aria-current="true"] {
+            background: var(--accent);
+            border-color: transparent;
+            color: #fff;
+        }
+
+        /* ----- schedule cards ----- */
+        .schedule-list { list-style: none; padding: 0; margin: 8px 0 0; }
+        .schedule-card {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(96px, auto) 1fr auto;
+            grid-template-areas:
+                "time main line"
+                "time sub  sub";
+            column-gap: 16px;
+            row-gap: 2px;
+            align-items: center;
+            padding: 16px 16px;
+            margin: 10px 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            transition: opacity 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+        }
+        .schedule-card[data-state="past"] {
+            opacity: 0.42;
+        }
+        .schedule-card.is-link { cursor: pointer; }
+        /* Stretched link: an empty anchor overlays the whole card so the
+           grid layout is untouched but the entire card is tappable. */
+        .schedule-card .stretch-link {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            border-radius: inherit;
+        }
+        .schedule-card.is-link:active { box-shadow: var(--shadow-md); }
+        @media (hover: hover) {
+            .schedule-card.is-link:hover { box-shadow: var(--shadow-md); }
+        }
+        .schedule-card[data-state="next"] {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow-md);
+            background: linear-gradient(180deg,
+                color-mix(in srgb, var(--accent-soft) 60%, var(--surface)) 0%,
+                var(--surface) 60%);
+        }
+        .schedule-card .time {
+            grid-area: time;
+            font-size: clamp(28px, 7vw, 34px);
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+        .schedule-card .next-day {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            color: #c2410c;
+            background: #fff3e6;
+            border-radius: 4px;
+            padding: 1px 5px;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+        @media (prefers-color-scheme: dark) {
+            .schedule-card .next-day { color: #fdba74; background: rgba(253, 186, 116, 0.12); }
+        }
+        .schedule-card .main {
+            grid-area: main;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            min-width: 0;
+        }
+        .schedule-card .train-num {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dim);
+            font-variant-numeric: tabular-nums;
+        }
+        .schedule-card .arrow {
+            color: var(--text-faint);
+            font-size: 14px;
+        }
+        .schedule-card .dest {
+            font-size: 16px;
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .schedule-card .sub {
+            grid-area: sub;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            color: var(--text-faint);
+            font-size: 12px;
+        }
+        .schedule-card .sub .sub-label {
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        /* Estimated departure + live "in N min" status, pushed to the
+           right of the sub line. Empty until the client fills it in. */
+        .schedule-card .sub .sub-end {
+            margin-left: auto;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .schedule-card .sub .est { font-variant-numeric: tabular-nums; }
+        /* Historical delay stats (median / p95 of past days' readings) —
+           quiet reference info, visually behind the live estimate. */
+        .schedule-card .sub .delay {
+            color: var(--text-dim);
+            font-variant-numeric: tabular-nums;
+        }
+        /* Posted track from the live board — only rendered once the
+           station has assigned one. */
+        .schedule-card .sub .track {
+            font-weight: 700;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .schedule-card .sub .status {
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+        .schedule-card .sub .status[data-live="due"]  { color: var(--accent); }
+        .schedule-card .sub .status[data-live="soon"] { color: var(--text); }
+        .schedule-card .sub .status[data-live="past"] { color: var(--text-faint); }
+        .schedule-card .line {
+            grid-area: line;
+            align-self: start;
+        }
+        .line-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: var(--surface-2);
+            color: var(--text);
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            border: 1px solid var(--border);
+        }
+        .schedule-card[data-state="next"] .line-pill {
+            background: var(--accent);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .now-marker {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 18px 4px 6px;
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .now-marker::before,
+        .now-marker::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.6;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0s !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0s !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        
+<h1 class="page-title">New Jersey Train Schedules</h1>
+<p class="page-sub">Pick a station to see today's departures.</p>
+
+
+<div class="search" id="search" role="search">
+    <span class="icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+    </span>
+    <input id="search-input"
+           type="search"
+           inputmode="search"
+           autocomplete="off"
+           autocapitalize="none"
+           autocorrect="off"
+           spellcheck="false"
+           placeholder="Search stations"
+           aria-label="Search stations">
+    <button class="clear" id="search-clear" type="button" aria-label="Clear search">×</button>
+</div>
+<p class="count" id="count">165 stations</p>
+
+<ul class="station-list" id="station-list">
+    
+    <li data-text="atlantic city">
+        <a href="/schedules/atlantic-city/">
+            <span class="name">ATLANTIC CITY</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="aberdeen-matawan">
+        <a href="/schedules/aberdeen-matawan/">
+            <span class="name">Aberdeen-Matawan</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="absecon">
+        <a href="/schedules/absecon/">
+            <span class="name">Absecon</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="allendale">
+        <a href="/schedules/allendale/">
+            <span class="name">Allendale</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="allenhurst">
+        <a href="/schedules/allenhurst/">
+            <span class="name">Allenhurst</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="anderson street">
+        <a href="/schedules/anderson-street/">
+            <span class="name">Anderson Street</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="annandale">
+        <a href="/schedules/annandale/">
+            <span class="name">Annandale</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="asbury park">
+        <a href="/schedules/asbury-park/">
+            <span class="name">Asbury Park</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="atco">
+        <a href="/schedules/atco/">
+            <span class="name">Atco</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="avenel">
+        <a href="/schedules/avenel/">
+            <span class="name">Avenel</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="bay head">
+        <a href="/schedules/bay-head/">
+            <span class="name">BAY HEAD</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="basking ridge">
+        <a href="/schedules/basking-ridge/">
+            <span class="name">Basking Ridge</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="bay street (montclair)">
+        <a href="/schedules/bay-street-montclair/">
+            <span class="name">Bay Street (Montclair)</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="belmar">
+        <a href="/schedules/belmar/">
+            <span class="name">Belmar</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="berkeley heights">
+        <a href="/schedules/berkeley-heights/">
+            <span class="name">Berkeley Heights</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="bernardsville">
+        <a href="/schedules/bernardsville/">
+            <span class="name">Bernardsville</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="bloomfield">
+        <a href="/schedules/bloomfield/">
+            <span class="name">Bloomfield</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="boonton">
+        <a href="/schedules/boonton/">
+            <span class="name">Boonton</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="bound brook">
+        <a href="/schedules/bound-brook/">
+            <span class="name">Bound Brook</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="bradley beach">
+        <a href="/schedules/bradley-beach/">
+            <span class="name">Bradley Beach</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="brick church">
+        <a href="/schedules/brick-church/">
+            <span class="name">Brick Church</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="bridgewater">
+        <a href="/schedules/bridgewater/">
+            <span class="name">Bridgewater</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="broadway">
+        <a href="/schedules/broadway/">
+            <span class="name">Broadway</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="camden transit center-broadway">
+        <a href="/schedules/camden-transit-center-broadway/">
+            <span class="name">Camden Transit Center-Broadway</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="campbell hall">
+        <a href="/schedules/campbell-hall/">
+            <span class="name">Campbell Hall</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="chatham">
+        <a href="/schedules/chatham/">
+            <span class="name">Chatham</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="cherry hill">
+        <a href="/schedules/cherry-hill/">
+            <span class="name">Cherry Hill</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="clifton">
+        <a href="/schedules/clifton/">
+            <span class="name">Clifton</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="convent">
+        <a href="/schedules/convent/">
+            <span class="name">Convent</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="cranford">
+        <a href="/schedules/cranford/">
+            <span class="name">Cranford</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="dover">
+        <a href="/schedules/dover/">
+            <span class="name">DOVER</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="delawanna">
+        <a href="/schedules/delawanna/">
+            <span class="name">Delawanna</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="denville">
+        <a href="/schedules/denville/">
+            <span class="name">Denville</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="dunellen">
+        <a href="/schedules/dunellen/">
+            <span class="name">Dunellen</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="east orange">
+        <a href="/schedules/east-orange/">
+            <span class="name">East Orange</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="edison">
+        <a href="/schedules/edison/">
+            <span class="name">Edison</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="egg harbor city">
+        <a href="/schedules/egg-harbor-city/">
+            <span class="name">Egg Harbor City</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="elberon">
+        <a href="/schedules/elberon/">
+            <span class="name">Elberon</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="elizabeth">
+        <a href="/schedules/elizabeth/">
+            <span class="name">Elizabeth</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="emerson">
+        <a href="/schedules/emerson/">
+            <span class="name">Emerson</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="essex street">
+        <a href="/schedules/essex-street/">
+            <span class="name">Essex Street</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="fanwood">
+        <a href="/schedules/fanwood/">
+            <span class="name">Fanwood</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="far hills">
+        <a href="/schedules/far-hills/">
+            <span class="name">Far Hills</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="gladstone">
+        <a href="/schedules/gladstone/">
+            <span class="name">GLADSTONE</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="garfield">
+        <a href="/schedules/garfield/">
+            <span class="name">Garfield</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="garwood">
+        <a href="/schedules/garwood/">
+            <span class="name">Garwood</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="gillette">
+        <a href="/schedules/gillette/">
+            <span class="name">Gillette</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="glen ridge">
+        <a href="/schedules/glen-ridge/">
+            <span class="name">Glen Ridge</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="glen rock - boro hall">
+        <a href="/schedules/glen-rock-boro-hall/">
+            <span class="name">Glen Rock - Boro Hall</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="glen rock - main line">
+        <a href="/schedules/glen-rock-main-line/">
+            <span class="name">Glen Rock - Main Line</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="hackettstown">
+        <a href="/schedules/hackettstown/">
+            <span class="name">HACKETTSTOWN</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="high bridge">
+        <a href="/schedules/high-bridge/">
+            <span class="name">HIGH BRIDGE</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="hoboken">
+        <a href="/schedules/hoboken/">
+            <span class="name">HOBOKEN</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="hamilton">
+        <a href="/schedules/hamilton/">
+            <span class="name">Hamilton</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="hammonton">
+        <a href="/schedules/hammonton/">
+            <span class="name">Hammonton</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="harriman">
+        <a href="/schedules/harriman/">
+            <span class="name">Harriman</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="hawthorne">
+        <a href="/schedules/hawthorne/">
+            <span class="name">Hawthorne</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="hazlet">
+        <a href="/schedules/hazlet/">
+            <span class="name">Hazlet</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="highland avenue">
+        <a href="/schedules/highland-avenue/">
+            <span class="name">Highland Avenue</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="hillsdale">
+        <a href="/schedules/hillsdale/">
+            <span class="name">Hillsdale</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="ho-ho-kus">
+        <a href="/schedules/ho-ho-kus/">
+            <span class="name">Ho-Ho-Kus</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="jersey avenue">
+        <a href="/schedules/jersey-avenue/">
+            <span class="name">Jersey Avenue</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="long branch">
+        <a href="/schedules/long-branch/">
+            <span class="name">LONG BRANCH</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="lake hopatcong">
+        <a href="/schedules/lake-hopatcong/">
+            <span class="name">Lake Hopatcong</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="lebanon">
+        <a href="/schedules/lebanon/">
+            <span class="name">Lebanon</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="lincoln park">
+        <a href="/schedules/lincoln-park/">
+            <span class="name">Lincoln Park</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="linden">
+        <a href="/schedules/linden/">
+            <span class="name">Linden</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="lindenwold">
+        <a href="/schedules/lindenwold/">
+            <span class="name">Lindenwold</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="little falls">
+        <a href="/schedules/little-falls/">
+            <span class="name">Little Falls</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="little silver">
+        <a href="/schedules/little-silver/">
+            <span class="name">Little Silver</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="lyndhurst">
+        <a href="/schedules/lyndhurst/">
+            <span class="name">Lyndhurst</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="lyons">
+        <a href="/schedules/lyons/">
+            <span class="name">Lyons</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="madison">
+        <a href="/schedules/madison/">
+            <span class="name">Madison</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="mahwah">
+        <a href="/schedules/mahwah/">
+            <span class="name">Mahwah</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="manasquan">
+        <a href="/schedules/manasquan/">
+            <span class="name">Manasquan</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="maplewood">
+        <a href="/schedules/maplewood/">
+            <span class="name">Maplewood</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="metropark">
+        <a href="/schedules/metropark/">
+            <span class="name">Metropark</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="metuchen">
+        <a href="/schedules/metuchen/">
+            <span class="name">Metuchen</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="middletown, ny">
+        <a href="/schedules/middletown-ny/">
+            <span class="name">Middletown, NY</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="millburn">
+        <a href="/schedules/millburn/">
+            <span class="name">Millburn</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="millington">
+        <a href="/schedules/millington/">
+            <span class="name">Millington</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="monmouth park">
+        <a href="/schedules/monmouth-park/">
+            <span class="name">Monmouth Park</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="montclair heights">
+        <a href="/schedules/montclair-heights/">
+            <span class="name">Montclair Heights</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="montclair state university">
+        <a href="/schedules/montclair-st-univ/">
+            <span class="name">Montclair State University</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="montvale, nj">
+        <a href="/schedules/montvale-nj/">
+            <span class="name">Montvale, NJ</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="morris plains">
+        <a href="/schedules/morris-plains/">
+            <span class="name">Morris Plains</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="morristown">
+        <a href="/schedules/morristown/">
+            <span class="name">Morristown</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="mount arlington">
+        <a href="/schedules/mount-arlington/">
+            <span class="name">Mount Arlington</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="mount olive">
+        <a href="/schedules/mount-olive/">
+            <span class="name">Mount Olive</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="mount tabor">
+        <a href="/schedules/mount-tabor/">
+            <span class="name">Mount Tabor</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="mountain avenue">
+        <a href="/schedules/mountain-avenue/">
+            <span class="name">Mountain Avenue</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="mountain lakes">
+        <a href="/schedules/mountain-lakes/">
+            <span class="name">Mountain Lakes</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="mountain station">
+        <a href="/schedules/mountain-station/">
+            <span class="name">Mountain Station</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="mountain view">
+        <a href="/schedules/mountain-view/">
+            <span class="name">Mountain View</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="murray hill">
+        <a href="/schedules/murray-hill/">
+            <span class="name">Murray Hill</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="new york penn station">
+        <a href="/schedules/new-york/">
+            <span class="name">NEW YORK PENN STATION</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="newark penn station">
+        <a href="/schedules/newark-penn-station/">
+            <span class="name">NEWARK PENN STATION</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="nanuet, ny">
+        <a href="/schedules/nanuet-ny/">
+            <span class="name">Nanuet, NY</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="netcong">
+        <a href="/schedules/netcong/">
+            <span class="name">Netcong</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="netherwood">
+        <a href="/schedules/netherwood/">
+            <span class="name">Netherwood</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="new bridge landing">
+        <a href="/schedules/new-bridge-landing/">
+            <span class="name">New Bridge Landing</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="new brunswick">
+        <a href="/schedules/new-brunswick/">
+            <span class="name">New Brunswick</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="new providence">
+        <a href="/schedules/new-providence/">
+            <span class="name">New Providence</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="newark broad street">
+        <a href="/schedules/newark-broad-street/">
+            <span class="name">Newark Broad Street</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="newark int&#x27;l. airport">
+        <a href="/schedules/newark-int-l-airport/">
+            <span class="name">Newark Int&#x27;l. Airport</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="north branch">
+        <a href="/schedules/north-branch/">
+            <span class="name">North Branch</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="north elizabeth">
+        <a href="/schedules/north-elizabeth/">
+            <span class="name">North Elizabeth</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="oradell">
+        <a href="/schedules/oradell/">
+            <span class="name">Oradell</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="orange">
+        <a href="/schedules/orange/">
+            <span class="name">Orange</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="otisville">
+        <a href="/schedules/otisville/">
+            <span class="name">Otisville</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="port jervis">
+        <a href="/schedules/port-jervis/">
+            <span class="name">PORT JERVIS</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="park ridge">
+        <a href="/schedules/park-ridge/">
+            <span class="name">Park Ridge</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="passaic">
+        <a href="/schedules/passaic/">
+            <span class="name">Passaic</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="paterson">
+        <a href="/schedules/paterson/">
+            <span class="name">Paterson</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="peapack">
+        <a href="/schedules/peapack/">
+            <span class="name">Peapack</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="pearl river, ny">
+        <a href="/schedules/pearl-river-ny/">
+            <span class="name">Pearl River, NY</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="pennsauken">
+        <a href="/schedules/pennsauken/">
+            <span class="name">Pennsauken</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="perth amboy">
+        <a href="/schedules/perth-amboy/">
+            <span class="name">Perth Amboy</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="plainfield">
+        <a href="/schedules/plainfield/">
+            <span class="name">Plainfield</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="plauderville">
+        <a href="/schedules/plauderville/">
+            <span class="name">Plauderville</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="point pleasant beach">
+        <a href="/schedules/point-pleasant-beach/">
+            <span class="name">Point Pleasant Beach</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="princeton junction">
+        <a href="/schedules/princeton-junction/">
+            <span class="name">Princeton Junction</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="raritan">
+        <a href="/schedules/raritan/">
+            <span class="name">RARITAN</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="radburn">
+        <a href="/schedules/radburn/">
+            <span class="name">Radburn</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="rahway">
+        <a href="/schedules/rahway/">
+            <span class="name">Rahway</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="ramsey">
+        <a href="/schedules/ramsey/">
+            <span class="name">Ramsey</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="ramsey route 17">
+        <a href="/schedules/ramsey-route-17/">
+            <span class="name">Ramsey Route 17</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="red bank">
+        <a href="/schedules/red-bank/">
+            <span class="name">Red Bank</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="ridgewood">
+        <a href="/schedules/ridgewood/">
+            <span class="name">Ridgewood</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="river edge">
+        <a href="/schedules/river-edge/">
+            <span class="name">River Edge</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="roselle park">
+        <a href="/schedules/roselle-park/">
+            <span class="name">Roselle Park</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="rutherford">
+        <a href="/schedules/rutherford/">
+            <span class="name">Rutherford</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="spring valley">
+        <a href="/schedules/spring-valley/">
+            <span class="name">SPRING VALLEY</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="suffern">
+        <a href="/schedules/suffern/">
+            <span class="name">SUFFERN</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="salisbury mills">
+        <a href="/schedules/salisbury-mills/">
+            <span class="name">Salisbury Mills</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="secaucus junction">
+        <a href="/schedules/secaucus-junction/">
+            <span class="name">Secaucus Junction</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="short hills">
+        <a href="/schedules/short-hills/">
+            <span class="name">Short Hills</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="sloatsburg">
+        <a href="/schedules/sloatsburg/">
+            <span class="name">Sloatsburg</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="somerville">
+        <a href="/schedules/somerville/">
+            <span class="name">Somerville</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="south amboy">
+        <a href="/schedules/south-amboy/">
+            <span class="name">South Amboy</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="south orange">
+        <a href="/schedules/south-orange/">
+            <span class="name">South Orange</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="spring lake">
+        <a href="/schedules/spring-lake/">
+            <span class="name">Spring Lake</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="stirling">
+        <a href="/schedules/stirling/">
+            <span class="name">Stirling</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="summit">
+        <a href="/schedules/summit/">
+            <span class="name">Summit</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="trenton">
+        <a href="/schedules/trenton/">
+            <span class="name">TRENTON</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="teterboro">
+        <a href="/schedules/teterboro/">
+            <span class="name">Teterboro</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="towaco">
+        <a href="/schedules/towaco/">
+            <span class="name">Towaco</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="trenton transit center">
+        <a href="/schedules/trenton-transit-center/">
+            <span class="name">Trenton Transit Center</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="tuxedo">
+        <a href="/schedules/tuxedo/">
+            <span class="name">Tuxedo</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="union station">
+        <a href="/schedules/union-station/">
+            <span class="name">Union Station</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="upper montclair">
+        <a href="/schedules/upper-montclair/">
+            <span class="name">Upper Montclair</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="waldwick">
+        <a href="/schedules/waldwick/">
+            <span class="name">Waldwick</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="walnut street">
+        <a href="/schedules/walnut-street/">
+            <span class="name">Walnut Street</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="watchung avenue">
+        <a href="/schedules/watchung-avenue/">
+            <span class="name">Watchung Avenue</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="watsessing avenue">
+        <a href="/schedules/watsessing-avenue/">
+            <span class="name">Watsessing Avenue</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="wayne/route 23">
+        <a href="/schedules/wayne-route-23/">
+            <span class="name">Wayne/Route 23</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="wesmont">
+        <a href="/schedules/wesmont/">
+            <span class="name">Wesmont</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="westfield">
+        <a href="/schedules/westfield/">
+            <span class="name">Westfield</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="westwood">
+        <a href="/schedules/westwood/">
+            <span class="name">Westwood</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="white house">
+        <a href="/schedules/white-house/">
+            <span class="name">White House</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="wood-ridge">
+        <a href="/schedules/wood-ridge/">
+            <span class="name">Wood-Ridge</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="woodcliff lake">
+        <a href="/schedules/woodcliff-lake/">
+            <span class="name">Woodcliff Lake</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="arrive 33rd street">
+        <a href="/schedules/33rd-street/">
+            <span class="name">arrive 33rd Street</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="arrive hoboken (via path)">
+        <a href="/schedules/arrive-hoboken-path/">
+            <span class="name">arrive HOBOKEN (via PATH)</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+    <li data-text="arrive hoboken (via ferry)">
+        <a href="/schedules/arrive-hoboken-ferry/">
+            <span class="name">arrive Hoboken (via Ferry)</span>
+            <span class="chev" aria-hidden="true">›</span>
+        </a>
+    </li>
+    
+</ul>
+<div class="empty" id="no-results" hidden>
+    <h3>No matches</h3>
+    <div>Try a different station name or code.</div>
+</div>
+
+
+<script>
+(function () {
+    const input = document.getElementById("search-input");
+    if (!input) return;
+    const list = document.getElementById("station-list");
+    const items = Array.from(list.querySelectorAll("li"));
+    const count = document.getElementById("count");
+    const empty = document.getElementById("no-results");
+    const wrap  = document.getElementById("search");
+    const clear = document.getElementById("search-clear");
+    const total = items.length;
+
+    function apply() {
+        const q = input.value.trim().toLowerCase();
+        wrap.classList.toggle("has-value", q.length > 0);
+        let shown = 0;
+        for (const li of items) {
+            const match = !q || li.dataset.text.includes(q);
+            li.hidden = !match;
+            if (match) shown++;
+        }
+        empty.hidden = shown !== 0;
+        list.hidden = shown === 0;
+        if (q) {
+            count.textContent = shown + " of " + total + " station" + (total === 1 ? "" : "s");
+        } else {
+            count.textContent = total + " station" + (total === 1 ? "" : "s");
+        }
+    }
+    input.addEventListener("input", apply);
+    clear.addEventListener("click", function () {
+        input.value = "";
+        apply();
+        input.focus();
+    });
+})();
+</script>
+
+        
+        <footer class="data-footer">Latest data as of Jun 21, 2026</footer>
+        
+    </div>
+</body>
+</html>

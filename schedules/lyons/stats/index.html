@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#0b0b0e">
+    <title>Lyons stats — New Jersey Train Schedules</title>
+    <style>
+        :root {
+            --bg:           #f4f5f7;
+            --surface:      #ffffff;
+            --surface-2:    #f0f1f4;
+            --text:         #0b0b0e;
+            --text-dim:     #6b6f76;
+            --text-faint:   #9aa0a6;
+            --border:       rgba(15, 17, 21, 0.08);
+            --border-strong:rgba(15, 17, 21, 0.16);
+            --accent:       #16a34a;
+            --accent-soft:  rgba(22, 163, 74, 0.12);
+            --accent-glow:  rgba(22, 163, 74, 0.30);
+            --shadow-sm:    0 1px 2px rgba(15, 17, 21, 0.04), 0 1px 1px rgba(15, 17, 21, 0.03);
+            --shadow-md:    0 4px 16px rgba(15, 17, 21, 0.06), 0 1px 2px rgba(15, 17, 21, 0.04);
+            --radius-sm:    10px;
+            --radius-md:    14px;
+            --radius-lg:    20px;
+            --pad-x:        clamp(16px, 4vw, 24px);
+            --max-w:        680px;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg:           #0b0b0e;
+                --surface:      #16171b;
+                --surface-2:    #1d1f24;
+                --text:         #f3f4f6;
+                --text-dim:     #a1a6ae;
+                --text-faint:   #6b6f76;
+                --border:       rgba(255, 255, 255, 0.08);
+                --border-strong:rgba(255, 255, 255, 0.16);
+                --accent:       #22c55e;
+                --accent-soft:  rgba(34, 197, 94, 0.16);
+                --accent-glow:  rgba(34, 197, 94, 0.45);
+                --shadow-sm:    0 1px 2px rgba(0,0,0,0.4);
+                --shadow-md:    0 6px 24px rgba(0,0,0,0.4);
+            }
+        }
+
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        html { -webkit-text-size-adjust: 100%; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                         "Inter", "Segoe UI", Roboto, system-ui, sans-serif;
+            font-size: 16px;
+            line-height: 1.45;
+            min-height: 100dvh;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+        a { color: inherit; text-decoration: none; }
+        h1, h2, h3 { font-weight: 700; letter-spacing: -0.01em; margin: 0; }
+
+        .app {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            padding: max(env(safe-area-inset-top), 12px) var(--pad-x)
+                     calc(env(safe-area-inset-bottom) + 32px);
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 4px 0 14px;
+        }
+        .topbar .back {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 15px;
+            color: var(--text-dim);
+            padding: 6px 8px 6px 0;
+            margin-right: 4px;
+        }
+        .topbar .back:active { color: var(--text); }
+
+        .page-title {
+            font-size: clamp(26px, 6vw, 34px);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        .page-sub {
+            color: var(--text-dim);
+            font-size: 14px;
+            margin-top: 6px;
+        }
+
+        /* ----- inputs ----- */
+        .search {
+            position: relative;
+            margin: 18px 0 8px;
+        }
+        .search input {
+            width: 100%;
+            font: inherit;
+            font-size: 16px;
+            padding: 14px 40px 14px 44px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            box-shadow: var(--shadow-sm);
+            outline: none;
+            -webkit-appearance: none;
+            transition: border-color 120ms ease, box-shadow 120ms ease;
+        }
+        .search input::placeholder { color: var(--text-faint); }
+        .search input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-soft);
+        }
+        .search .icon {
+            position: absolute;
+            top: 50%;
+            left: 14px;
+            transform: translateY(-50%);
+            color: var(--text-faint);
+            pointer-events: none;
+            line-height: 0;
+        }
+        .search .clear {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            border: 0;
+            background: var(--surface-2);
+            color: var(--text-dim);
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            line-height: 1;
+            padding: 0;
+        }
+        .search.has-value .clear { display: inline-flex; }
+
+        .count {
+            color: var(--text-faint);
+            font-size: 13px;
+            margin: 4px 4px 12px;
+        }
+
+        /* ----- station list ----- */
+        .station-list {
+            list-style: none;
+            padding: 0;
+            margin: 8px 0 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .station-list li + li { border-top: 1px solid var(--border); }
+        .station-list a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 16px;
+            min-height: 64px;
+            transition: background 100ms ease;
+        }
+        .station-list a:active { background: var(--surface-2); }
+        @media (hover: hover) {
+            .station-list a:hover { background: var(--surface-2); }
+        }
+        .station-list .name {
+            flex: 1;
+            font-size: 17px;
+            font-weight: 500;
+            min-width: 0;
+        }
+        .station-list .chev {
+            color: var(--text-faint);
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .empty {
+            margin-top: 24px;
+            padding: 32px 16px;
+            text-align: center;
+            color: var(--text-dim);
+            background: var(--surface);
+            border: 1px dashed var(--border-strong);
+            border-radius: var(--radius-md);
+        }
+        .empty h3 { color: var(--text); margin-bottom: 4px; font-size: 17px; }
+
+        .data-footer {
+            margin: 28px 0 8px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-faint);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ----- schedule-type toggle ----- */
+        .sched-toggle {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            margin: 14px 0 4px;
+            padding-bottom: 4px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .sched-toggle::-webkit-scrollbar { display: none; }
+        .sched-toggle a {
+            white-space: nowrap;
+            padding: 7px 13px;
+            border-radius: 999px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+            transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+        }
+        @media (hover: hover) {
+            .sched-toggle a:hover { border-color: var(--border-strong); }
+        }
+        .sched-toggle a[aria-current="true"] {
+            background: var(--accent);
+            border-color: transparent;
+            color: #fff;
+        }
+
+        /* ----- schedule cards ----- */
+        .schedule-list { list-style: none; padding: 0; margin: 8px 0 0; }
+        .schedule-card {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(96px, auto) 1fr auto;
+            grid-template-areas:
+                "time main line"
+                "time sub  sub";
+            column-gap: 16px;
+            row-gap: 2px;
+            align-items: center;
+            padding: 16px 16px;
+            margin: 10px 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            transition: opacity 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+        }
+        .schedule-card[data-state="past"] {
+            opacity: 0.42;
+        }
+        .schedule-card.is-link { cursor: pointer; }
+        /* Stretched link: an empty anchor overlays the whole card so the
+           grid layout is untouched but the entire card is tappable. */
+        .schedule-card .stretch-link {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            border-radius: inherit;
+        }
+        .schedule-card.is-link:active { box-shadow: var(--shadow-md); }
+        @media (hover: hover) {
+            .schedule-card.is-link:hover { box-shadow: var(--shadow-md); }
+        }
+        .schedule-card[data-state="next"] {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow-md);
+            background: linear-gradient(180deg,
+                color-mix(in srgb, var(--accent-soft) 60%, var(--surface)) 0%,
+                var(--surface) 60%);
+        }
+        .schedule-card .time {
+            grid-area: time;
+            font-size: clamp(28px, 7vw, 34px);
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+        .schedule-card .next-day {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            color: #c2410c;
+            background: #fff3e6;
+            border-radius: 4px;
+            padding: 1px 5px;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+        @media (prefers-color-scheme: dark) {
+            .schedule-card .next-day { color: #fdba74; background: rgba(253, 186, 116, 0.12); }
+        }
+        .schedule-card .main {
+            grid-area: main;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            min-width: 0;
+        }
+        .schedule-card .train-num {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dim);
+            font-variant-numeric: tabular-nums;
+        }
+        .schedule-card .arrow {
+            color: var(--text-faint);
+            font-size: 14px;
+        }
+        .schedule-card .dest {
+            font-size: 16px;
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .schedule-card .sub {
+            grid-area: sub;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            color: var(--text-faint);
+            font-size: 12px;
+        }
+        .schedule-card .sub .sub-label {
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        /* Estimated departure + live "in N min" status, pushed to the
+           right of the sub line. Empty until the client fills it in. */
+        .schedule-card .sub .sub-end {
+            margin-left: auto;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .schedule-card .sub .est { font-variant-numeric: tabular-nums; }
+        /* Historical delay stats (median / p95 of past days' readings) —
+           quiet reference info, visually behind the live estimate. */
+        .schedule-card .sub .delay {
+            color: var(--text-dim);
+            font-variant-numeric: tabular-nums;
+        }
+        /* Posted track from the live board — only rendered once the
+           station has assigned one. */
+        .schedule-card .sub .track {
+            font-weight: 700;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .schedule-card .sub .status {
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+        .schedule-card .sub .status[data-live="due"]  { color: var(--accent); }
+        .schedule-card .sub .status[data-live="soon"] { color: var(--text); }
+        .schedule-card .sub .status[data-live="past"] { color: var(--text-faint); }
+        .schedule-card .line {
+            grid-area: line;
+            align-self: start;
+        }
+        .line-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: var(--surface-2);
+            color: var(--text);
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            border: 1px solid var(--border);
+        }
+        .schedule-card[data-state="next"] .line-pill {
+            background: var(--accent);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .now-marker {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 18px 4px 6px;
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .now-marker::before,
+        .now-marker::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.6;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0s !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0s !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        
+<header class="topbar">
+    <a class="back" href="/schedules/lyons/" aria-label="Back to Lyons departures">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"/>
+        </svg>
+        Lyons
+    </a>
+</header>
+
+<h1 class="page-title">Lyons</h1>
+<p class="page-sub">Overall stats</p>
+
+<nav class="sched-toggle" aria-label="Schedule type">
+    
+    <a href="/schedules/lyons/">Auto</a>
+    
+    <a href="/schedules/lyons/stats/" aria-current="true">Overall stats</a>
+    
+    <a href="/schedules/lyons/weekday/">Weekday</a>
+    
+    <a href="/schedules/lyons/weekend/">Weekend</a>
+    
+    <a href="/schedules/lyons/inclement_weather_lvl_1/">Inclement weather (Level 1)</a>
+    
+    <a href="/schedules/lyons/inclement_weather_lvl_2/">Inclement weather (Level 2)</a>
+    
+</nav>
+
+
+
+<div class="empty">
+    <h3>No history yet</h3>
+    <div>No departure boards have been recorded at this station.</div>
+</div>
+
+
+<style>
+    .histo-card {
+        margin-top: 16px;
+        padding: 18px 16px 14px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+    }
+    .histo-title {
+        margin: 0;
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--text);
+    }
+    .histo-desc {
+        margin: 6px 0 0;
+        font-size: 13px;
+        color: var(--text-dim);
+        line-height: 1.5;
+    }
+    .histo-summary {
+        margin: 10px 0 0;
+        font-size: 13px;
+        color: var(--text-dim);
+        font-variant-numeric: tabular-nums;
+    }
+    .histo {
+        list-style: none;
+        margin: 14px 0 0;
+        padding: 0;
+    }
+    .histo-row {
+        display: grid;
+        grid-template-columns: 82px 1fr max-content;
+        gap: 10px;
+        align-items: center;
+        padding: 3px 0;
+    }
+    .histo-head {
+        padding-bottom: 6px;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 4px;
+    }
+    .histo-head .histo-label,
+    .histo-head .histo-val {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-faint);
+    }
+    .histo-label {
+        font-size: 13px;
+        color: var(--text-dim);
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+    }
+    .histo-track { height: 14px; }
+    .histo-bar {
+        display: block;
+        height: 100%;
+        min-width: 2px;
+        background: var(--accent);
+        border-radius: 0 4px 4px 0;
+    }
+    .is-canceled .histo-bar { background: #6b6f76; }
+    .histo-val {
+        font-size: 12px;
+        color: var(--text-faint);
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+    }
+    .histo-note {
+        margin-top: 12px;
+        font-size: 12px;
+        color: var(--text-faint);
+        line-height: 1.5;
+    }
+</style>
+
+        
+        <footer class="data-footer">Latest data as of Jun 21, 2026</footer>
+        
+    </div>
+</body>
+</html>

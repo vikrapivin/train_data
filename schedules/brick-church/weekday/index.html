@@ -1,0 +1,3547 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#0b0b0e">
+    <title>Brick Church — New Jersey Train Schedules</title>
+    <style>
+        :root {
+            --bg:           #f4f5f7;
+            --surface:      #ffffff;
+            --surface-2:    #f0f1f4;
+            --text:         #0b0b0e;
+            --text-dim:     #6b6f76;
+            --text-faint:   #9aa0a6;
+            --border:       rgba(15, 17, 21, 0.08);
+            --border-strong:rgba(15, 17, 21, 0.16);
+            --accent:       #16a34a;
+            --accent-soft:  rgba(22, 163, 74, 0.12);
+            --accent-glow:  rgba(22, 163, 74, 0.30);
+            --shadow-sm:    0 1px 2px rgba(15, 17, 21, 0.04), 0 1px 1px rgba(15, 17, 21, 0.03);
+            --shadow-md:    0 4px 16px rgba(15, 17, 21, 0.06), 0 1px 2px rgba(15, 17, 21, 0.04);
+            --radius-sm:    10px;
+            --radius-md:    14px;
+            --radius-lg:    20px;
+            --pad-x:        clamp(16px, 4vw, 24px);
+            --max-w:        680px;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg:           #0b0b0e;
+                --surface:      #16171b;
+                --surface-2:    #1d1f24;
+                --text:         #f3f4f6;
+                --text-dim:     #a1a6ae;
+                --text-faint:   #6b6f76;
+                --border:       rgba(255, 255, 255, 0.08);
+                --border-strong:rgba(255, 255, 255, 0.16);
+                --accent:       #22c55e;
+                --accent-soft:  rgba(34, 197, 94, 0.16);
+                --accent-glow:  rgba(34, 197, 94, 0.45);
+                --shadow-sm:    0 1px 2px rgba(0,0,0,0.4);
+                --shadow-md:    0 6px 24px rgba(0,0,0,0.4);
+            }
+        }
+
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        html { -webkit-text-size-adjust: 100%; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                         "Inter", "Segoe UI", Roboto, system-ui, sans-serif;
+            font-size: 16px;
+            line-height: 1.45;
+            min-height: 100dvh;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+        a { color: inherit; text-decoration: none; }
+        h1, h2, h3 { font-weight: 700; letter-spacing: -0.01em; margin: 0; }
+
+        .app {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            padding: max(env(safe-area-inset-top), 12px) var(--pad-x)
+                     calc(env(safe-area-inset-bottom) + 32px);
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 4px 0 14px;
+        }
+        .topbar .back {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 15px;
+            color: var(--text-dim);
+            padding: 6px 8px 6px 0;
+            margin-right: 4px;
+        }
+        .topbar .back:active { color: var(--text); }
+
+        .page-title {
+            font-size: clamp(26px, 6vw, 34px);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        .page-sub {
+            color: var(--text-dim);
+            font-size: 14px;
+            margin-top: 6px;
+        }
+
+        /* ----- inputs ----- */
+        .search {
+            position: relative;
+            margin: 18px 0 8px;
+        }
+        .search input {
+            width: 100%;
+            font: inherit;
+            font-size: 16px;
+            padding: 14px 40px 14px 44px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            box-shadow: var(--shadow-sm);
+            outline: none;
+            -webkit-appearance: none;
+            transition: border-color 120ms ease, box-shadow 120ms ease;
+        }
+        .search input::placeholder { color: var(--text-faint); }
+        .search input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-soft);
+        }
+        .search .icon {
+            position: absolute;
+            top: 50%;
+            left: 14px;
+            transform: translateY(-50%);
+            color: var(--text-faint);
+            pointer-events: none;
+            line-height: 0;
+        }
+        .search .clear {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            border: 0;
+            background: var(--surface-2);
+            color: var(--text-dim);
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            line-height: 1;
+            padding: 0;
+        }
+        .search.has-value .clear { display: inline-flex; }
+
+        .count {
+            color: var(--text-faint);
+            font-size: 13px;
+            margin: 4px 4px 12px;
+        }
+
+        /* ----- station list ----- */
+        .station-list {
+            list-style: none;
+            padding: 0;
+            margin: 8px 0 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .station-list li + li { border-top: 1px solid var(--border); }
+        .station-list a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 16px;
+            min-height: 64px;
+            transition: background 100ms ease;
+        }
+        .station-list a:active { background: var(--surface-2); }
+        @media (hover: hover) {
+            .station-list a:hover { background: var(--surface-2); }
+        }
+        .station-list .name {
+            flex: 1;
+            font-size: 17px;
+            font-weight: 500;
+            min-width: 0;
+        }
+        .station-list .chev {
+            color: var(--text-faint);
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .empty {
+            margin-top: 24px;
+            padding: 32px 16px;
+            text-align: center;
+            color: var(--text-dim);
+            background: var(--surface);
+            border: 1px dashed var(--border-strong);
+            border-radius: var(--radius-md);
+        }
+        .empty h3 { color: var(--text); margin-bottom: 4px; font-size: 17px; }
+
+        .data-footer {
+            margin: 28px 0 8px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-faint);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ----- schedule-type toggle ----- */
+        .sched-toggle {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            margin: 14px 0 4px;
+            padding-bottom: 4px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .sched-toggle::-webkit-scrollbar { display: none; }
+        .sched-toggle a {
+            white-space: nowrap;
+            padding: 7px 13px;
+            border-radius: 999px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+            transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+        }
+        @media (hover: hover) {
+            .sched-toggle a:hover { border-color: var(--border-strong); }
+        }
+        .sched-toggle a[aria-current="true"] {
+            background: var(--accent);
+            border-color: transparent;
+            color: #fff;
+        }
+
+        /* ----- schedule cards ----- */
+        .schedule-list { list-style: none; padding: 0; margin: 8px 0 0; }
+        .schedule-card {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(96px, auto) 1fr auto;
+            grid-template-areas:
+                "time main line"
+                "time sub  sub";
+            column-gap: 16px;
+            row-gap: 2px;
+            align-items: center;
+            padding: 16px 16px;
+            margin: 10px 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            transition: opacity 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+        }
+        .schedule-card[data-state="past"] {
+            opacity: 0.42;
+        }
+        .schedule-card.is-link { cursor: pointer; }
+        /* Stretched link: an empty anchor overlays the whole card so the
+           grid layout is untouched but the entire card is tappable. */
+        .schedule-card .stretch-link {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            border-radius: inherit;
+        }
+        .schedule-card.is-link:active { box-shadow: var(--shadow-md); }
+        @media (hover: hover) {
+            .schedule-card.is-link:hover { box-shadow: var(--shadow-md); }
+        }
+        .schedule-card[data-state="next"] {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow-md);
+            background: linear-gradient(180deg,
+                color-mix(in srgb, var(--accent-soft) 60%, var(--surface)) 0%,
+                var(--surface) 60%);
+        }
+        .schedule-card .time {
+            grid-area: time;
+            font-size: clamp(28px, 7vw, 34px);
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+        .schedule-card .next-day {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            color: #c2410c;
+            background: #fff3e6;
+            border-radius: 4px;
+            padding: 1px 5px;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+        @media (prefers-color-scheme: dark) {
+            .schedule-card .next-day { color: #fdba74; background: rgba(253, 186, 116, 0.12); }
+        }
+        .schedule-card .main {
+            grid-area: main;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            min-width: 0;
+        }
+        .schedule-card .train-num {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dim);
+            font-variant-numeric: tabular-nums;
+        }
+        .schedule-card .arrow {
+            color: var(--text-faint);
+            font-size: 14px;
+        }
+        .schedule-card .dest {
+            font-size: 16px;
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .schedule-card .sub {
+            grid-area: sub;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            color: var(--text-faint);
+            font-size: 12px;
+        }
+        .schedule-card .sub .sub-label {
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        /* Estimated departure + live "in N min" status, pushed to the
+           right of the sub line. Empty until the client fills it in. */
+        .schedule-card .sub .sub-end {
+            margin-left: auto;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .schedule-card .sub .est { font-variant-numeric: tabular-nums; }
+        /* Historical delay stats (median / p95 of past days' readings) —
+           quiet reference info, visually behind the live estimate. */
+        .schedule-card .sub .delay {
+            color: var(--text-dim);
+            font-variant-numeric: tabular-nums;
+        }
+        /* Posted track from the live board — only rendered once the
+           station has assigned one. */
+        .schedule-card .sub .track {
+            font-weight: 700;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .schedule-card .sub .status {
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+        .schedule-card .sub .status[data-live="due"]  { color: var(--accent); }
+        .schedule-card .sub .status[data-live="soon"] { color: var(--text); }
+        .schedule-card .sub .status[data-live="past"] { color: var(--text-faint); }
+        .schedule-card .line {
+            grid-area: line;
+            align-self: start;
+        }
+        .line-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: var(--surface-2);
+            color: var(--text);
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            border: 1px solid var(--border);
+        }
+        .schedule-card[data-state="next"] .line-pill {
+            background: var(--accent);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .now-marker {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 18px 4px 6px;
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .now-marker::before,
+        .now-marker::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.6;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0s !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0s !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        
+<header class="topbar">
+    <a class="back" href="/" aria-label="Back to stations">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"/>
+        </svg>
+        Stations
+    </a>
+</header>
+
+<h1 class="page-title">Brick Church</h1>
+
+<nav class="sched-toggle" aria-label="Schedule type">
+    
+    <a href="/schedules/brick-church/">Auto</a>
+    
+    <a href="/schedules/brick-church/stats/">Overall stats</a>
+    
+    <a href="/schedules/brick-church/weekday/" aria-current="true">Weekday</a>
+    
+    <a href="/schedules/brick-church/weekend/">Weekend</a>
+    
+    <a href="/schedules/brick-church/inclement_weather_lvl_1/">Inclement weather (Level 1)</a>
+    
+    <a href="/schedules/brick-church/inclement_weather_lvl_2/">Inclement weather (Level 2)</a>
+    
+</nav>
+
+
+
+<script>
+// Static-build-only glue. "Auto" pages redirect to the weekend variant
+// when the visitor's NY service date runs weekend service (weekends +
+// NJ holidays, baked in at export time). Train pages point the back
+// button at the station page named by `?from=`, which a static server
+// can't resolve.
+(function () {
+    function nyServiceDate() {
+        var p = {};
+        var parts = new Intl.DateTimeFormat("en-US", {
+            timeZone: "America/New_York", hourCycle: "h23",
+            year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit"
+        }).formatToParts(new Date());
+        for (var i = 0; i < parts.length; i++) p[parts[i].type] = parts[i].value;
+        var d = new Date(Date.UTC(+p.year, +p.month - 1, +p.day));
+        // Before 02:00 NY the previous service day is still running.
+        if (+p.hour < 2) d.setUTCDate(d.getUTCDate() - 1);
+        return d;
+    }
+
+    var weekendEl = document.getElementById("weekend-dates");
+    var weekendUrl = "";
+    if (weekendEl && weekendUrl) {
+        var dates = JSON.parse(weekendEl.textContent);
+        var day = nyServiceDate();
+        var iso = day.toISOString().slice(0, 10);
+        var last = dates.length ? dates[dates.length - 1] : "";
+        // Past the embedded calendar (a very stale build), fall back to
+        // plain Sat/Sun — only holiday awareness is lost.
+        var weekend = dates.indexOf(iso) !== -1 ||
+            (iso > last && (day.getUTCDay() === 0 || day.getUTCDay() === 6));
+        if (weekend) location.replace(weekendUrl + location.search);
+    }
+
+    var linksEl = document.getElementById("station-links");
+    var fromCode = new URLSearchParams(location.search).get("from");
+    if (linksEl && fromCode) {
+        var links = JSON.parse(linksEl.textContent);
+        var origin = links[fromCode];
+        var back = document.querySelector(".topbar .back");
+        if (origin && back) {
+            back.href = origin.url;
+            back.setAttribute("aria-label", "Back to " + origin.name);
+            var label = back.querySelector("[data-back-label]");
+            if (label) label.textContent = origin.name;
+        }
+        // Keep the origin when switching schedule variants.
+        var toggles = document.querySelectorAll(".sched-toggle a");
+        for (var j = 0; j < toggles.length; j++) {
+            toggles[j].href += (toggles[j].href.indexOf("?") === -1 ? "?" : "&") +
+                "from=" + encodeURIComponent(fromCode);
+        }
+    }
+})();
+</script>
+
+
+
+<ul class="schedule-list"
+    id="schedule-list"
+    data-now-time=""
+    data-post-midnight="0">
+    
+    <li class="schedule-card is-link"
+        data-time="04:58:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/643/weekday/?from=brick-church"
+           aria-label="All stops for train 643"></a>
+        <div class="time">
+            04:58
+        </div>
+        <div class="main">
+            <span class="train-num">#643</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="05:04:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/301/weekday/?from=brick-church"
+           aria-label="All stops for train 301"></a>
+        <div class="time">
+            05:04
+        </div>
+        <div class="main">
+            <span class="train-num">#301</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Short Hills</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="05:08:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6602/weekday/?from=brick-church"
+           aria-label="All stops for train 6602"></a>
+        <div class="time">
+            05:08
+        </div>
+        <div class="main">
+            <span class="train-num">#6602</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Secaucus Junction</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="05:09:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6343/weekday/?from=brick-church"
+           aria-label="All stops for train 6343"></a>
+        <div class="time">
+            05:09
+        </div>
+        <div class="main">
+            <span class="train-num">#6343</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Millburn</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="05:26:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/645/weekday/?from=brick-church"
+           aria-label="All stops for train 645"></a>
+        <div class="time">
+            05:26
+        </div>
+        <div class="main">
+            <span class="train-num">#645</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="05:27:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/600/weekday/?from=brick-church"
+           aria-label="All stops for train 600"></a>
+        <div class="time">
+            05:27
+        </div>
+        <div class="main">
+            <span class="train-num">#600</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="06:00:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/432/weekday/?from=brick-church"
+           aria-label="All stops for train 432"></a>
+        <div class="time">
+            06:00
+        </div>
+        <div class="main">
+            <span class="train-num">#432</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="06:00:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6604/weekday/?from=brick-church"
+           aria-label="All stops for train 6604"></a>
+        <div class="time">
+            06:00
+        </div>
+        <div class="main">
+            <span class="train-num">#6604</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Secaucus Junction</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="06:04:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/871/weekday/?from=brick-church"
+           aria-label="All stops for train 871"></a>
+        <div class="time">
+            06:04
+        </div>
+        <div class="main">
+            <span class="train-num">#871</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HACKETTSTOWN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="06:09:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/402/weekday/?from=brick-church"
+           aria-label="All stops for train 402"></a>
+        <div class="time">
+            06:09
+        </div>
+        <div class="main">
+            <span class="train-num">#402</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="06:23:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6305/weekday/?from=brick-church"
+           aria-label="All stops for train 6305"></a>
+        <div class="time">
+            06:23
+        </div>
+        <div class="main">
+            <span class="train-num">#6305</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Millburn</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="06:32:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6606/weekday/?from=brick-church"
+           aria-label="All stops for train 6606"></a>
+        <div class="time">
+            06:32
+        </div>
+        <div class="main">
+            <span class="train-num">#6606</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Newark Broad Street</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="06:41:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/608/weekday/?from=brick-church"
+           aria-label="All stops for train 608"></a>
+        <div class="time">
+            06:41
+        </div>
+        <div class="main">
+            <span class="train-num">#608</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="06:43:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/607/weekday/?from=brick-church"
+           aria-label="All stops for train 607"></a>
+        <div class="time">
+            06:43
+        </div>
+        <div class="main">
+            <span class="train-num">#607</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="06:52:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6610/weekday/?from=brick-church"
+           aria-label="All stops for train 6610"></a>
+        <div class="time">
+            06:52
+        </div>
+        <div class="main">
+            <span class="train-num">#6610</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Secaucus Junction</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:07:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6307/weekday/?from=brick-church"
+           aria-label="All stops for train 6307"></a>
+        <div class="time">
+            07:07
+        </div>
+        <div class="main">
+            <span class="train-num">#6307</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Short Hills</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:11:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6612/weekday/?from=brick-church"
+           aria-label="All stops for train 6612"></a>
+        <div class="time">
+            07:11
+        </div>
+        <div class="main">
+            <span class="train-num">#6612</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Secaucus Junction</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:20:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/308/weekday/?from=brick-church"
+           aria-label="All stops for train 308"></a>
+        <div class="time">
+            07:20
+        </div>
+        <div class="main">
+            <span class="train-num">#308</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:23:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/481/weekday/?from=brick-church"
+           aria-label="All stops for train 481"></a>
+        <div class="time">
+            07:23
+        </div>
+        <div class="main">
+            <span class="train-num">#481</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Bernardsville</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:32:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6607/weekday/?from=brick-church"
+           aria-label="All stops for train 6607"></a>
+        <div class="time">
+            07:32
+        </div>
+        <div class="main">
+            <span class="train-num">#6607</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:44:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6410/weekday/?from=brick-church"
+           aria-label="All stops for train 6410"></a>
+        <div class="time">
+            07:44
+        </div>
+        <div class="main">
+            <span class="train-num">#6410</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Brick Church</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:59:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/309/weekday/?from=brick-church"
+           aria-label="All stops for train 309"></a>
+        <div class="time">
+            07:59
+        </div>
+        <div class="main">
+            <span class="train-num">#309</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Short Hills</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:01:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/312/weekday/?from=brick-church"
+           aria-label="All stops for train 312"></a>
+        <div class="time">
+            08:01
+        </div>
+        <div class="main">
+            <span class="train-num">#312</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:08:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6311/weekday/?from=brick-church"
+           aria-label="All stops for train 6311"></a>
+        <div class="time">
+            08:08
+        </div>
+        <div class="main">
+            <span class="train-num">#6311</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Short Hills</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:12:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6318/weekday/?from=brick-church"
+           aria-label="All stops for train 6318"></a>
+        <div class="time">
+            08:12
+        </div>
+        <div class="main">
+            <span class="train-num">#6318</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Brick Church</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/409/weekday/?from=brick-church"
+           aria-label="All stops for train 409"></a>
+        <div class="time">
+            08:19
+        </div>
+        <div class="main">
+            <span class="train-num">#409</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">GLADSTONE</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:28:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6613/weekday/?from=brick-church"
+           aria-label="All stops for train 6613"></a>
+        <div class="time">
+            08:28
+        </div>
+        <div class="main">
+            <span class="train-num">#6613</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:45:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6320/weekday/?from=brick-church"
+           aria-label="All stops for train 6320"></a>
+        <div class="time">
+            08:45
+        </div>
+        <div class="main">
+            <span class="train-num">#6320</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Newark Broad Street</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:54:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/808/weekday/?from=brick-church"
+           aria-label="All stops for train 808"></a>
+        <div class="time">
+            08:54
+        </div>
+        <div class="main">
+            <span class="train-num">#808</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:00:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6617/weekday/?from=brick-church"
+           aria-label="All stops for train 6617"></a>
+        <div class="time">
+            09:00
+        </div>
+        <div class="main">
+            <span class="train-num">#6617</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:16:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6324/weekday/?from=brick-church"
+           aria-label="All stops for train 6324"></a>
+        <div class="time">
+            09:16
+        </div>
+        <div class="main">
+            <span class="train-num">#6324</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Newark Broad Street</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:17:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/411/weekday/?from=brick-church"
+           aria-label="All stops for train 411"></a>
+        <div class="time">
+            09:17
+        </div>
+        <div class="main">
+            <span class="train-num">#411</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">GLADSTONE</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:25:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/626/weekday/?from=brick-church"
+           aria-label="All stops for train 626"></a>
+        <div class="time">
+            09:25
+        </div>
+        <div class="main">
+            <span class="train-num">#626</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:38:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/851/weekday/?from=brick-church"
+           aria-label="All stops for train 851"></a>
+        <div class="time">
+            09:38
+        </div>
+        <div class="main">
+            <span class="train-num">#851</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HACKETTSTOWN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:45:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6317/weekday/?from=brick-church"
+           aria-label="All stops for train 6317"></a>
+        <div class="time">
+            09:45
+        </div>
+        <div class="main">
+            <span class="train-num">#6317</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Short Hills</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:48:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/480/weekday/?from=brick-church"
+           aria-label="All stops for train 480"></a>
+        <div class="time">
+            09:48
+        </div>
+        <div class="main">
+            <span class="train-num">#480</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="10:01:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/413/weekday/?from=brick-church"
+           aria-label="All stops for train 413"></a>
+        <div class="time">
+            10:01
+        </div>
+        <div class="main">
+            <span class="train-num">#413</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">GLADSTONE</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="10:14:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6328/weekday/?from=brick-church"
+           aria-label="All stops for train 6328"></a>
+        <div class="time">
+            10:14
+        </div>
+        <div class="main">
+            <span class="train-num">#6328</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Newark Broad Street</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="10:29:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6619/weekday/?from=brick-church"
+           aria-label="All stops for train 6619"></a>
+        <div class="time">
+            10:29
+        </div>
+        <div class="main">
+            <span class="train-num">#6619</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="10:50:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6332/weekday/?from=brick-church"
+           aria-label="All stops for train 6332"></a>
+        <div class="time">
+            10:50
+        </div>
+        <div class="main">
+            <span class="train-num">#6332</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Secaucus Junction</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="11:01:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/415/weekday/?from=brick-church"
+           aria-label="All stops for train 415"></a>
+        <div class="time">
+            11:01
+        </div>
+        <div class="main">
+            <span class="train-num">#415</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">GLADSTONE</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="11:11:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6621/weekday/?from=brick-church"
+           aria-label="All stops for train 6621"></a>
+        <div class="time">
+            11:11
+        </div>
+        <div class="main">
+            <span class="train-num">#6621</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="11:12:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/418/weekday/?from=brick-church"
+           aria-label="All stops for train 418"></a>
+        <div class="time">
+            11:12
+        </div>
+        <div class="main">
+            <span class="train-num">#418</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="11:51:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6636/weekday/?from=brick-church"
+           aria-label="All stops for train 6636"></a>
+        <div class="time">
+            11:51
+        </div>
+        <div class="main">
+            <span class="train-num">#6636</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Secaucus Junction</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:01:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/417/weekday/?from=brick-church"
+           aria-label="All stops for train 417"></a>
+        <div class="time">
+            12:01
+        </div>
+        <div class="main">
+            <span class="train-num">#417</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">GLADSTONE</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:05:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/420/weekday/?from=brick-church"
+           aria-label="All stops for train 420"></a>
+        <div class="time">
+            12:05
+        </div>
+        <div class="main">
+            <span class="train-num">#420</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:11:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6625/weekday/?from=brick-church"
+           aria-label="All stops for train 6625"></a>
+        <div class="time">
+            12:11
+        </div>
+        <div class="main">
+            <span class="train-num">#6625</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:58:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6640/weekday/?from=brick-church"
+           aria-label="All stops for train 6640"></a>
+        <div class="time">
+            12:58
+        </div>
+        <div class="main">
+            <span class="train-num">#6640</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Secaucus Junction</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:01:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/419/weekday/?from=brick-church"
+           aria-label="All stops for train 419"></a>
+        <div class="time">
+            13:01
+        </div>
+        <div class="main">
+            <span class="train-num">#419</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">GLADSTONE</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:06:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/422/weekday/?from=brick-church"
+           aria-label="All stops for train 422"></a>
+        <div class="time">
+            13:06
+        </div>
+        <div class="main">
+            <span class="train-num">#422</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:12:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6627/weekday/?from=brick-church"
+           aria-label="All stops for train 6627"></a>
+        <div class="time">
+            13:12
+        </div>
+        <div class="main">
+            <span class="train-num">#6627</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:34:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/854/weekday/?from=brick-church"
+           aria-label="All stops for train 854"></a>
+        <div class="time">
+            13:34
+        </div>
+        <div class="main">
+            <span class="train-num">#854</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:58:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6644/weekday/?from=brick-church"
+           aria-label="All stops for train 6644"></a>
+        <div class="time">
+            13:58
+        </div>
+        <div class="main">
+            <span class="train-num">#6644</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Secaucus Junction</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:02:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/421/weekday/?from=brick-church"
+           aria-label="All stops for train 421"></a>
+        <div class="time">
+            14:02
+        </div>
+        <div class="main">
+            <span class="train-num">#421</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">GLADSTONE</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:06:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/424/weekday/?from=brick-church"
+           aria-label="All stops for train 424"></a>
+        <div class="time">
+            14:06
+        </div>
+        <div class="main">
+            <span class="train-num">#424</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:17:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6631/weekday/?from=brick-church"
+           aria-label="All stops for train 6631"></a>
+        <div class="time">
+            14:17
+        </div>
+        <div class="main">
+            <span class="train-num">#6631</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:46:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/8935/weekday/?from=brick-church"
+           aria-label="All stops for train 8935"></a>
+        <div class="time">
+            14:46
+        </div>
+        <div class="main">
+            <span class="train-num">#8935</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Short Hills</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:57:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6635/weekday/?from=brick-church"
+           aria-label="All stops for train 6635"></a>
+        <div class="time">
+            14:57
+        </div>
+        <div class="main">
+            <span class="train-num">#6635</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:58:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6648/weekday/?from=brick-church"
+           aria-label="All stops for train 6648"></a>
+        <div class="time">
+            14:58
+        </div>
+        <div class="main">
+            <span class="train-num">#6648</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Newark Broad Street</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="15:06:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/423/weekday/?from=brick-church"
+           aria-label="All stops for train 423"></a>
+        <div class="time">
+            15:06
+        </div>
+        <div class="main">
+            <span class="train-num">#423</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">GLADSTONE</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="15:06:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/426/weekday/?from=brick-church"
+           aria-label="All stops for train 426"></a>
+        <div class="time">
+            15:06
+        </div>
+        <div class="main">
+            <span class="train-num">#426</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="15:41:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6650/weekday/?from=brick-church"
+           aria-label="All stops for train 6650"></a>
+        <div class="time">
+            15:41
+        </div>
+        <div class="main">
+            <span class="train-num">#6650</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Secaucus Junction</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="15:45:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6339/weekday/?from=brick-church"
+           aria-label="All stops for train 6339"></a>
+        <div class="time">
+            15:45
+        </div>
+        <div class="main">
+            <span class="train-num">#6339</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Millburn</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="15:54:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/325/weekday/?from=brick-church"
+           aria-label="All stops for train 325"></a>
+        <div class="time">
+            15:54
+        </div>
+        <div class="main">
+            <span class="train-num">#325</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Millburn</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="16:08:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/428/weekday/?from=brick-church"
+           aria-label="All stops for train 428"></a>
+        <div class="time">
+            16:08
+        </div>
+        <div class="main">
+            <span class="train-num">#428</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="16:21:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6654/weekday/?from=brick-church"
+           aria-label="All stops for train 6654"></a>
+        <div class="time">
+            16:21
+        </div>
+        <div class="main">
+            <span class="train-num">#6654</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Newark Broad Street</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="16:32:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6341/weekday/?from=brick-church"
+           aria-label="All stops for train 6341"></a>
+        <div class="time">
+            16:32
+        </div>
+        <div class="main">
+            <span class="train-num">#6341</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Millburn</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="16:55:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/330/weekday/?from=brick-church"
+           aria-label="All stops for train 330"></a>
+        <div class="time">
+            16:55
+        </div>
+        <div class="main">
+            <span class="train-num">#330</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:02:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6658/weekday/?from=brick-church"
+           aria-label="All stops for train 6658"></a>
+        <div class="time">
+            17:02
+        </div>
+        <div class="main">
+            <span class="train-num">#6658</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Secaucus Junction</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:10:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/430/weekday/?from=brick-church"
+           aria-label="All stops for train 430"></a>
+        <div class="time">
+            17:10
+        </div>
+        <div class="main">
+            <span class="train-num">#430</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:21:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/660/weekday/?from=brick-church"
+           aria-label="All stops for train 660"></a>
+        <div class="time">
+            17:21
+        </div>
+        <div class="main">
+            <span class="train-num">#660</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:39:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6431/weekday/?from=brick-church"
+           aria-label="All stops for train 6431"></a>
+        <div class="time">
+            17:39
+        </div>
+        <div class="main">
+            <span class="train-num">#6431</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">GLADSTONE</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:49:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6662/weekday/?from=brick-church"
+           aria-label="All stops for train 6662"></a>
+        <div class="time">
+            17:49
+        </div>
+        <div class="main">
+            <span class="train-num">#6662</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Secaucus Junction</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:50:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/807/weekday/?from=brick-church"
+           aria-label="All stops for train 807"></a>
+        <div class="time">
+            17:50
+        </div>
+        <div class="main">
+            <span class="train-num">#807</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Lake Hopatcong</span>
+        </div>
+        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:01:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6351/weekday/?from=brick-church"
+           aria-label="All stops for train 6351"></a>
+        <div class="time">
+            18:01
+        </div>
+        <div class="main">
+            <span class="train-num">#6351</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Maplewood</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:14:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6653/weekday/?from=brick-church"
+           aria-label="All stops for train 6653"></a>
+        <div class="time">
+            18:14
+        </div>
+        <div class="main">
+            <span class="train-num">#6653</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: South Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:16:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6664/weekday/?from=brick-church"
+           aria-label="All stops for train 6664"></a>
+        <div class="time">
+            18:16
+        </div>
+        <div class="main">
+            <span class="train-num">#6664</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Secaucus Junction</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:30:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/339/weekday/?from=brick-church"
+           aria-label="All stops for train 339"></a>
+        <div class="time">
+            18:30
+        </div>
+        <div class="main">
+            <span class="train-num">#339</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Millburn</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:44:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6655/weekday/?from=brick-church"
+           aria-label="All stops for train 6655"></a>
+        <div class="time">
+            18:44
+        </div>
+        <div class="main">
+            <span class="train-num">#6655</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:46:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6666/weekday/?from=brick-church"
+           aria-label="All stops for train 6666"></a>
+        <div class="time">
+            18:46
+        </div>
+        <div class="main">
+            <span class="train-num">#6666</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Newark Broad Street</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:02:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/657/weekday/?from=brick-church"
+           aria-label="All stops for train 657"></a>
+        <div class="time">
+            19:02
+        </div>
+        <div class="main">
+            <span class="train-num">#657</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:08:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6368/weekday/?from=brick-church"
+           aria-label="All stops for train 6368"></a>
+        <div class="time">
+            19:08
+        </div>
+        <div class="main">
+            <span class="train-num">#6368</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Newark Broad Street</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:16:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6359/weekday/?from=brick-church"
+           aria-label="All stops for train 6359"></a>
+        <div class="time">
+            19:16
+        </div>
+        <div class="main">
+            <span class="train-num">#6359</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Millburn</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:27:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6668/weekday/?from=brick-church"
+           aria-label="All stops for train 6668"></a>
+        <div class="time">
+            19:27
+        </div>
+        <div class="main">
+            <span class="train-num">#6668</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Secaucus Junction</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:41:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6363/weekday/?from=brick-church"
+           aria-label="All stops for train 6363"></a>
+        <div class="time">
+            19:41
+        </div>
+        <div class="main">
+            <span class="train-num">#6363</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Millburn</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:54:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/336/weekday/?from=brick-church"
+           aria-label="All stops for train 336"></a>
+        <div class="time">
+            19:54
+        </div>
+        <div class="main">
+            <span class="train-num">#336</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:59:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/665/weekday/?from=brick-church"
+           aria-label="All stops for train 665"></a>
+        <div class="time">
+            19:59
+        </div>
+        <div class="main">
+            <span class="train-num">#665</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="20:00:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6670/weekday/?from=brick-church"
+           aria-label="All stops for train 6670"></a>
+        <div class="time">
+            20:00
+        </div>
+        <div class="main">
+            <span class="train-num">#6670</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Secaucus Junction</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="20:29:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6667/weekday/?from=brick-church"
+           aria-label="All stops for train 6667"></a>
+        <div class="time">
+            20:29
+        </div>
+        <div class="main">
+            <span class="train-num">#6667</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="20:40:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/882/weekday/?from=brick-church"
+           aria-label="All stops for train 882"></a>
+        <div class="time">
+            20:40
+        </div>
+        <div class="main">
+            <span class="train-num">#882</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="20:54:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6672/weekday/?from=brick-church"
+           aria-label="All stops for train 6672"></a>
+        <div class="time">
+            20:54
+        </div>
+        <div class="main">
+            <span class="train-num">#6672</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Secaucus Junction</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:09:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/447/weekday/?from=brick-church"
+           aria-label="All stops for train 447"></a>
+        <div class="time">
+            21:09
+        </div>
+        <div class="main">
+            <span class="train-num">#447</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">GLADSTONE</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:17:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6671/weekday/?from=brick-church"
+           aria-label="All stops for train 6671"></a>
+        <div class="time">
+            21:17
+        </div>
+        <div class="main">
+            <span class="train-num">#6671</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:22:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/674/weekday/?from=brick-church"
+           aria-label="All stops for train 674"></a>
+        <div class="time">
+            21:22
+        </div>
+        <div class="main">
+            <span class="train-num">#674</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:38:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6674/weekday/?from=brick-church"
+           aria-label="All stops for train 6674"></a>
+        <div class="time">
+            21:38
+        </div>
+        <div class="main">
+            <span class="train-num">#6674</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Secaucus Junction</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="22:00:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/884/weekday/?from=brick-church"
+           aria-label="All stops for train 884"></a>
+        <div class="time">
+            22:00
+        </div>
+        <div class="main">
+            <span class="train-num">#884</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="22:09:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/449/weekday/?from=brick-church"
+           aria-label="All stops for train 449"></a>
+        <div class="time">
+            22:09
+        </div>
+        <div class="main">
+            <span class="train-num">#449</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">GLADSTONE</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="22:17:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6675/weekday/?from=brick-church"
+           aria-label="All stops for train 6675"></a>
+        <div class="time">
+            22:17
+        </div>
+        <div class="main">
+            <span class="train-num">#6675</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="22:31:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6676/weekday/?from=brick-church"
+           aria-label="All stops for train 6676"></a>
+        <div class="time">
+            22:31
+        </div>
+        <div class="main">
+            <span class="train-num">#6676</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Secaucus Junction</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Broad Street</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="22:39:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/438/weekday/?from=brick-church"
+           aria-label="All stops for train 438"></a>
+        <div class="time">
+            22:39
+        </div>
+        <div class="main">
+            <span class="train-num">#438</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="22:40:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6677/weekday/?from=brick-church"
+           aria-label="All stops for train 6677"></a>
+        <div class="time">
+            22:40
+        </div>
+        <div class="main">
+            <span class="train-num">#6677</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="23:14:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/451/weekday/?from=brick-church"
+           aria-label="All stops for train 451"></a>
+        <div class="time">
+            23:14
+        </div>
+        <div class="main">
+            <span class="train-num">#451</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">GLADSTONE</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="23:22:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/6679/weekday/?from=brick-church"
+           aria-label="All stops for train 6679"></a>
+        <div class="time">
+            23:22
+        </div>
+        <div class="main">
+            <span class="train-num">#6679</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="23:29:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/682/weekday/?from=brick-church"
+           aria-label="All stops for train 682"></a>
+        <div class="time">
+            23:29
+        </div>
+        <div class="main">
+            <span class="train-num">#682</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="23:56:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/440/weekday/?from=brick-church"
+           aria-label="All stops for train 440"></a>
+        <div class="time">
+            23:56
+        </div>
+        <div class="main">
+            <span class="train-num">#440</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="00:20:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/453/weekday/?from=brick-church"
+           aria-label="All stops for train 453"></a>
+        <div class="time">
+            00:20<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#453</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">GLADSTONE</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="00:28:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/6601/weekday/?from=brick-church"
+           aria-label="All stops for train 6601"></a>
+        <div class="time">
+            00:28<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#6601</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="00:59:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/442/weekday/?from=brick-church"
+           aria-label="All stops for train 442"></a>
+        <div class="time">
+            00:59<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#442</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: East Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="01:22:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/6603/weekday/?from=brick-church"
+           aria-label="All stops for train 6603"></a>
+        <div class="time">
+            01:22<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#6603</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">DOVER</span>
+        </div>
+        <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Orange</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+</ul>
+
+
+<script>
+// Turn each card's latest estimated-departure datetime into a live
+// "in N min" status. The estimate is the source of truth for timing.
+function fillCountdowns(cards) {
+    const realNow = new Date();
+    for (const card of cards) {
+        const iso = card.dataset.estimate;
+        const statusEl = card.querySelector(".status");
+        if (!iso || !statusEl) continue;
+        const mins = Math.round((new Date(iso) - realNow) / 60000);
+        if (mins <= -1) {
+            statusEl.textContent = "Departed";
+            statusEl.dataset.live = "past";
+        } else if (mins <= 0) {
+            statusEl.textContent = "Due";
+            statusEl.dataset.live = "due";
+        } else if (mins === 1) {
+            statusEl.textContent = "in 1 min";
+            statusEl.dataset.live = "due";
+        } else {
+            statusEl.textContent = "in " + mins + " min";
+            statusEl.dataset.live = mins <= 5 ? "due" : "soon";
+        }
+    }
+}
+
+(function () {
+    const list = document.getElementById("schedule-list");
+    if (!list) return;
+    let now = list.dataset.nowTime;
+    let postMidnight = list.dataset.postMidnight === "1";
+    if (!now) {
+        // Static build: no server clock — use the visitor's, in NY time.
+        const p = {};
+        for (const part of new Intl.DateTimeFormat("en-US", {
+            timeZone: "America/New_York", hourCycle: "h23",
+            hour: "2-digit", minute: "2-digit", second: "2-digit"
+        }).formatToParts(new Date())) p[part.type] = part.value;
+        now = p.hour + ":" + p.minute + ":" + p.second;
+        postMidnight = Number(p.hour) < 2;
+    }
+    // Sortable key: "0|HH:MM:SS" for same-day stops, "1|HH:MM:SS" for
+    // next_day stops. Between midnight and the 2am service-day cutoff
+    // the wall clock IS the next_day frame, so flip the prefix.
+    const nowPrefix = postMidnight ? "1|" : "0|";
+    const nowKey = nowPrefix + now;
+    const cards = Array.from(list.querySelectorAll(".schedule-card"));
+    fillCountdowns(cards);
+    let next = null;
+    for (const card of cards) {
+        const key = (card.dataset.nextDay === "1" ? "1|" : "0|") + card.dataset.time;
+        if (key >= nowKey) { next = card; break; }
+        card.dataset.state = "past";
+    }
+    const target = next || cards[cards.length - 1];
+    if (!target) return;
+    target.dataset.state = "next";
+    const marker = document.createElement("li");
+    marker.className = "now-marker";
+    marker.setAttribute("aria-hidden", "true");
+    marker.textContent = "Now";
+    target.parentNode.insertBefore(marker, target);
+    // Wait a frame so layout settles before scrolling.
+    requestAnimationFrame(function () {
+        target.scrollIntoView({ block: "center", behavior: "auto" });
+    });
+})();
+</script>
+
+        
+        <footer class="data-footer">Latest data as of Jun 21, 2026</footer>
+        
+    </div>
+</body>
+</html>

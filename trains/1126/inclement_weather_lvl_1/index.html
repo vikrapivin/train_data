@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#0b0b0e">
+    <title>Train #1126 — New Jersey Train Schedules</title>
+    <style>
+        :root {
+            --bg:           #f4f5f7;
+            --surface:      #ffffff;
+            --surface-2:    #f0f1f4;
+            --text:         #0b0b0e;
+            --text-dim:     #6b6f76;
+            --text-faint:   #9aa0a6;
+            --border:       rgba(15, 17, 21, 0.08);
+            --border-strong:rgba(15, 17, 21, 0.16);
+            --accent:       #16a34a;
+            --accent-soft:  rgba(22, 163, 74, 0.12);
+            --accent-glow:  rgba(22, 163, 74, 0.30);
+            --shadow-sm:    0 1px 2px rgba(15, 17, 21, 0.04), 0 1px 1px rgba(15, 17, 21, 0.03);
+            --shadow-md:    0 4px 16px rgba(15, 17, 21, 0.06), 0 1px 2px rgba(15, 17, 21, 0.04);
+            --radius-sm:    10px;
+            --radius-md:    14px;
+            --radius-lg:    20px;
+            --pad-x:        clamp(16px, 4vw, 24px);
+            --max-w:        680px;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg:           #0b0b0e;
+                --surface:      #16171b;
+                --surface-2:    #1d1f24;
+                --text:         #f3f4f6;
+                --text-dim:     #a1a6ae;
+                --text-faint:   #6b6f76;
+                --border:       rgba(255, 255, 255, 0.08);
+                --border-strong:rgba(255, 255, 255, 0.16);
+                --accent:       #22c55e;
+                --accent-soft:  rgba(34, 197, 94, 0.16);
+                --accent-glow:  rgba(34, 197, 94, 0.45);
+                --shadow-sm:    0 1px 2px rgba(0,0,0,0.4);
+                --shadow-md:    0 6px 24px rgba(0,0,0,0.4);
+            }
+        }
+
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        html { -webkit-text-size-adjust: 100%; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                         "Inter", "Segoe UI", Roboto, system-ui, sans-serif;
+            font-size: 16px;
+            line-height: 1.45;
+            min-height: 100dvh;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+        a { color: inherit; text-decoration: none; }
+        h1, h2, h3 { font-weight: 700; letter-spacing: -0.01em; margin: 0; }
+
+        .app {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            padding: max(env(safe-area-inset-top), 12px) var(--pad-x)
+                     calc(env(safe-area-inset-bottom) + 32px);
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 4px 0 14px;
+        }
+        .topbar .back {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 15px;
+            color: var(--text-dim);
+            padding: 6px 8px 6px 0;
+            margin-right: 4px;
+        }
+        .topbar .back:active { color: var(--text); }
+
+        .page-title {
+            font-size: clamp(26px, 6vw, 34px);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        .page-sub {
+            color: var(--text-dim);
+            font-size: 14px;
+            margin-top: 6px;
+        }
+
+        /* ----- inputs ----- */
+        .search {
+            position: relative;
+            margin: 18px 0 8px;
+        }
+        .search input {
+            width: 100%;
+            font: inherit;
+            font-size: 16px;
+            padding: 14px 40px 14px 44px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            box-shadow: var(--shadow-sm);
+            outline: none;
+            -webkit-appearance: none;
+            transition: border-color 120ms ease, box-shadow 120ms ease;
+        }
+        .search input::placeholder { color: var(--text-faint); }
+        .search input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-soft);
+        }
+        .search .icon {
+            position: absolute;
+            top: 50%;
+            left: 14px;
+            transform: translateY(-50%);
+            color: var(--text-faint);
+            pointer-events: none;
+            line-height: 0;
+        }
+        .search .clear {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            border: 0;
+            background: var(--surface-2);
+            color: var(--text-dim);
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            line-height: 1;
+            padding: 0;
+        }
+        .search.has-value .clear { display: inline-flex; }
+
+        .count {
+            color: var(--text-faint);
+            font-size: 13px;
+            margin: 4px 4px 12px;
+        }
+
+        /* ----- station list ----- */
+        .station-list {
+            list-style: none;
+            padding: 0;
+            margin: 8px 0 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .station-list li + li { border-top: 1px solid var(--border); }
+        .station-list a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 16px;
+            min-height: 64px;
+            transition: background 100ms ease;
+        }
+        .station-list a:active { background: var(--surface-2); }
+        @media (hover: hover) {
+            .station-list a:hover { background: var(--surface-2); }
+        }
+        .station-list .name {
+            flex: 1;
+            font-size: 17px;
+            font-weight: 500;
+            min-width: 0;
+        }
+        .station-list .chev {
+            color: var(--text-faint);
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .empty {
+            margin-top: 24px;
+            padding: 32px 16px;
+            text-align: center;
+            color: var(--text-dim);
+            background: var(--surface);
+            border: 1px dashed var(--border-strong);
+            border-radius: var(--radius-md);
+        }
+        .empty h3 { color: var(--text); margin-bottom: 4px; font-size: 17px; }
+
+        .data-footer {
+            margin: 28px 0 8px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-faint);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ----- schedule-type toggle ----- */
+        .sched-toggle {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            margin: 14px 0 4px;
+            padding-bottom: 4px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .sched-toggle::-webkit-scrollbar { display: none; }
+        .sched-toggle a {
+            white-space: nowrap;
+            padding: 7px 13px;
+            border-radius: 999px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+            transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+        }
+        @media (hover: hover) {
+            .sched-toggle a:hover { border-color: var(--border-strong); }
+        }
+        .sched-toggle a[aria-current="true"] {
+            background: var(--accent);
+            border-color: transparent;
+            color: #fff;
+        }
+
+        /* ----- schedule cards ----- */
+        .schedule-list { list-style: none; padding: 0; margin: 8px 0 0; }
+        .schedule-card {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(96px, auto) 1fr auto;
+            grid-template-areas:
+                "time main line"
+                "time sub  sub";
+            column-gap: 16px;
+            row-gap: 2px;
+            align-items: center;
+            padding: 16px 16px;
+            margin: 10px 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            transition: opacity 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+        }
+        .schedule-card[data-state="past"] {
+            opacity: 0.42;
+        }
+        .schedule-card.is-link { cursor: pointer; }
+        /* Stretched link: an empty anchor overlays the whole card so the
+           grid layout is untouched but the entire card is tappable. */
+        .schedule-card .stretch-link {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            border-radius: inherit;
+        }
+        .schedule-card.is-link:active { box-shadow: var(--shadow-md); }
+        @media (hover: hover) {
+            .schedule-card.is-link:hover { box-shadow: var(--shadow-md); }
+        }
+        .schedule-card[data-state="next"] {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow-md);
+            background: linear-gradient(180deg,
+                color-mix(in srgb, var(--accent-soft) 60%, var(--surface)) 0%,
+                var(--surface) 60%);
+        }
+        .schedule-card .time {
+            grid-area: time;
+            font-size: clamp(28px, 7vw, 34px);
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+        .schedule-card .next-day {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            color: #c2410c;
+            background: #fff3e6;
+            border-radius: 4px;
+            padding: 1px 5px;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+        @media (prefers-color-scheme: dark) {
+            .schedule-card .next-day { color: #fdba74; background: rgba(253, 186, 116, 0.12); }
+        }
+        .schedule-card .main {
+            grid-area: main;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            min-width: 0;
+        }
+        .schedule-card .train-num {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dim);
+            font-variant-numeric: tabular-nums;
+        }
+        .schedule-card .arrow {
+            color: var(--text-faint);
+            font-size: 14px;
+        }
+        .schedule-card .dest {
+            font-size: 16px;
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .schedule-card .sub {
+            grid-area: sub;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            color: var(--text-faint);
+            font-size: 12px;
+        }
+        .schedule-card .sub .sub-label {
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        /* Estimated departure + live "in N min" status, pushed to the
+           right of the sub line. Empty until the client fills it in. */
+        .schedule-card .sub .sub-end {
+            margin-left: auto;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .schedule-card .sub .est { font-variant-numeric: tabular-nums; }
+        /* Historical delay stats (median / p95 of past days' readings) —
+           quiet reference info, visually behind the live estimate. */
+        .schedule-card .sub .delay {
+            color: var(--text-dim);
+            font-variant-numeric: tabular-nums;
+        }
+        /* Posted track from the live board — only rendered once the
+           station has assigned one. */
+        .schedule-card .sub .track {
+            font-weight: 700;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .schedule-card .sub .status {
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+        .schedule-card .sub .status[data-live="due"]  { color: var(--accent); }
+        .schedule-card .sub .status[data-live="soon"] { color: var(--text); }
+        .schedule-card .sub .status[data-live="past"] { color: var(--text-faint); }
+        .schedule-card .line {
+            grid-area: line;
+            align-self: start;
+        }
+        .line-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: var(--surface-2);
+            color: var(--text);
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            border: 1px solid var(--border);
+        }
+        .schedule-card[data-state="next"] .line-pill {
+            background: var(--accent);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .now-marker {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 18px 4px 6px;
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .now-marker::before,
+        .now-marker::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.6;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0s !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0s !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        
+<header class="topbar">
+    
+    <a class="back" href="/" aria-label="Back to stations">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"/>
+        </svg>
+        <span data-back-label>Stations</span>
+    </a>
+    
+</header>
+
+<h1 class="page-title">Train #1126</h1>
+<p class="page-sub">Bergen County Line</p>
+
+<nav class="sched-toggle" aria-label="Schedule type">
+    
+    <a href="/trains/1126/">Auto</a>
+    
+    <a href="/trains/1126/weekday/">Weekday</a>
+    
+    <a href="/trains/1126/weekend/">Weekend</a>
+    
+    <a href="/trains/1126/inclement_weather_lvl_1/" aria-current="true">Inclement weather (Level 1)</a>
+    
+    <a href="/trains/1126/inclement_weather_lvl_2/">Inclement weather (Level 2)</a>
+    
+</nav>
+
+
+<script id="station-links" type="application/json">{"33rd-street": {"name": "arrive 33rd Street", "url": "/schedules/33rd-street/"}, "aberdeen-matawan": {"name": "Aberdeen-Matawan", "url": "/schedules/aberdeen-matawan/"}, "absecon": {"name": "Absecon", "url": "/schedules/absecon/"}, "allendale": {"name": "Allendale", "url": "/schedules/allendale/"}, "allenhurst": {"name": "Allenhurst", "url": "/schedules/allenhurst/"}, "anderson-street": {"name": "Anderson Street", "url": "/schedules/anderson-street/"}, "annandale": {"name": "Annandale", "url": "/schedules/annandale/"}, "arrive-hoboken-ferry": {"name": "arrive Hoboken (via Ferry)", "url": "/schedules/arrive-hoboken-ferry/"}, "arrive-hoboken-path": {"name": "arrive HOBOKEN (via PATH)", "url": "/schedules/arrive-hoboken-path/"}, "asbury-park": {"name": "Asbury Park", "url": "/schedules/asbury-park/"}, "atco": {"name": "Atco", "url": "/schedules/atco/"}, "atlantic-city": {"name": "ATLANTIC CITY", "url": "/schedules/atlantic-city/"}, "avenel": {"name": "Avenel", "url": "/schedules/avenel/"}, "basking-ridge": {"name": "Basking Ridge", "url": "/schedules/basking-ridge/"}, "bay-head": {"name": "BAY HEAD", "url": "/schedules/bay-head/"}, "bay-street-montclair": {"name": "Bay Street (Montclair)", "url": "/schedules/bay-street-montclair/"}, "belmar": {"name": "Belmar", "url": "/schedules/belmar/"}, "berkeley-heights": {"name": "Berkeley Heights", "url": "/schedules/berkeley-heights/"}, "bernardsville": {"name": "Bernardsville", "url": "/schedules/bernardsville/"}, "bloomfield": {"name": "Bloomfield", "url": "/schedules/bloomfield/"}, "boonton": {"name": "Boonton", "url": "/schedules/boonton/"}, "bound-brook": {"name": "Bound Brook", "url": "/schedules/bound-brook/"}, "bradley-beach": {"name": "Bradley Beach", "url": "/schedules/bradley-beach/"}, "brick-church": {"name": "Brick Church", "url": "/schedules/brick-church/"}, "bridgewater": {"name": "Bridgewater", "url": "/schedules/bridgewater/"}, "broadway": {"name": "Broadway", "url": "/schedules/broadway/"}, "camden-transit-center-broadway": {"name": "Camden Transit Center-Broadway", "url": "/schedules/camden-transit-center-broadway/"}, "campbell-hall": {"name": "Campbell Hall", "url": "/schedules/campbell-hall/"}, "chatham": {"name": "Chatham", "url": "/schedules/chatham/"}, "cherry-hill": {"name": "Cherry Hill", "url": "/schedules/cherry-hill/"}, "clifton": {"name": "Clifton", "url": "/schedules/clifton/"}, "convent": {"name": "Convent", "url": "/schedules/convent/"}, "cranford": {"name": "Cranford", "url": "/schedules/cranford/"}, "delawanna": {"name": "Delawanna", "url": "/schedules/delawanna/"}, "denville": {"name": "Denville", "url": "/schedules/denville/"}, "dover": {"name": "DOVER", "url": "/schedules/dover/"}, "dunellen": {"name": "Dunellen", "url": "/schedules/dunellen/"}, "east-orange": {"name": "East Orange", "url": "/schedules/east-orange/"}, "edison": {"name": "Edison", "url": "/schedules/edison/"}, "egg-harbor-city": {"name": "Egg Harbor City", "url": "/schedules/egg-harbor-city/"}, "elberon": {"name": "Elberon", "url": "/schedules/elberon/"}, "elizabeth": {"name": "Elizabeth", "url": "/schedules/elizabeth/"}, "emerson": {"name": "Emerson", "url": "/schedules/emerson/"}, "essex-street": {"name": "Essex Street", "url": "/schedules/essex-street/"}, "fanwood": {"name": "Fanwood", "url": "/schedules/fanwood/"}, "far-hills": {"name": "Far Hills", "url": "/schedules/far-hills/"}, "garfield": {"name": "Garfield", "url": "/schedules/garfield/"}, "garwood": {"name": "Garwood", "url": "/schedules/garwood/"}, "gillette": {"name": "Gillette", "url": "/schedules/gillette/"}, "gladstone": {"name": "GLADSTONE", "url": "/schedules/gladstone/"}, "glen-ridge": {"name": "Glen Ridge", "url": "/schedules/glen-ridge/"}, "glen-rock-boro-hall": {"name": "Glen Rock - Boro Hall", "url": "/schedules/glen-rock-boro-hall/"}, "glen-rock-main-line": {"name": "Glen Rock - Main Line", "url": "/schedules/glen-rock-main-line/"}, "hackettstown": {"name": "HACKETTSTOWN", "url": "/schedules/hackettstown/"}, "hamilton": {"name": "Hamilton", "url": "/schedules/hamilton/"}, "hammonton": {"name": "Hammonton", "url": "/schedules/hammonton/"}, "harriman": {"name": "Harriman", "url": "/schedules/harriman/"}, "hawthorne": {"name": "Hawthorne", "url": "/schedules/hawthorne/"}, "hazlet": {"name": "Hazlet", "url": "/schedules/hazlet/"}, "high-bridge": {"name": "HIGH BRIDGE", "url": "/schedules/high-bridge/"}, "highland-avenue": {"name": "Highland Avenue", "url": "/schedules/highland-avenue/"}, "hillsdale": {"name": "Hillsdale", "url": "/schedules/hillsdale/"}, "ho-ho-kus": {"name": "Ho-Ho-Kus", "url": "/schedules/ho-ho-kus/"}, "hoboken": {"name": "HOBOKEN", "url": "/schedules/hoboken/"}, "jersey-avenue": {"name": "Jersey Avenue", "url": "/schedules/jersey-avenue/"}, "lake-hopatcong": {"name": "Lake Hopatcong", "url": "/schedules/lake-hopatcong/"}, "lebanon": {"name": "Lebanon", "url": "/schedules/lebanon/"}, "lincoln-park": {"name": "Lincoln Park", "url": "/schedules/lincoln-park/"}, "linden": {"name": "Linden", "url": "/schedules/linden/"}, "lindenwold": {"name": "Lindenwold", "url": "/schedules/lindenwold/"}, "little-falls": {"name": "Little Falls", "url": "/schedules/little-falls/"}, "little-silver": {"name": "Little Silver", "url": "/schedules/little-silver/"}, "long-branch": {"name": "LONG BRANCH", "url": "/schedules/long-branch/"}, "lyndhurst": {"name": "Lyndhurst", "url": "/schedules/lyndhurst/"}, "lyons": {"name": "Lyons", "url": "/schedules/lyons/"}, "madison": {"name": "Madison", "url": "/schedules/madison/"}, "mahwah": {"name": "Mahwah", "url": "/schedules/mahwah/"}, "manasquan": {"name": "Manasquan", "url": "/schedules/manasquan/"}, "maplewood": {"name": "Maplewood", "url": "/schedules/maplewood/"}, "metropark": {"name": "Metropark", "url": "/schedules/metropark/"}, "metuchen": {"name": "Metuchen", "url": "/schedules/metuchen/"}, "middletown-ny": {"name": "Middletown, NY", "url": "/schedules/middletown-ny/"}, "millburn": {"name": "Millburn", "url": "/schedules/millburn/"}, "millington": {"name": "Millington", "url": "/schedules/millington/"}, "monmouth-park": {"name": "Monmouth Park", "url": "/schedules/monmouth-park/"}, "montclair-heights": {"name": "Montclair Heights", "url": "/schedules/montclair-heights/"}, "montclair-st-univ": {"name": "Montclair State University", "url": "/schedules/montclair-st-univ/"}, "montvale-nj": {"name": "Montvale, NJ", "url": "/schedules/montvale-nj/"}, "morris-plains": {"name": "Morris Plains", "url": "/schedules/morris-plains/"}, "morristown": {"name": "Morristown", "url": "/schedules/morristown/"}, "mount-arlington": {"name": "Mount Arlington", "url": "/schedules/mount-arlington/"}, "mount-olive": {"name": "Mount Olive", "url": "/schedules/mount-olive/"}, "mount-tabor": {"name": "Mount Tabor", "url": "/schedules/mount-tabor/"}, "mountain-avenue": {"name": "Mountain Avenue", "url": "/schedules/mountain-avenue/"}, "mountain-lakes": {"name": "Mountain Lakes", "url": "/schedules/mountain-lakes/"}, "mountain-station": {"name": "Mountain Station", "url": "/schedules/mountain-station/"}, "mountain-view": {"name": "Mountain View", "url": "/schedules/mountain-view/"}, "murray-hill": {"name": "Murray Hill", "url": "/schedules/murray-hill/"}, "nanuet-ny": {"name": "Nanuet, NY", "url": "/schedules/nanuet-ny/"}, "netcong": {"name": "Netcong", "url": "/schedules/netcong/"}, "netherwood": {"name": "Netherwood", "url": "/schedules/netherwood/"}, "new-bridge-landing": {"name": "New Bridge Landing", "url": "/schedules/new-bridge-landing/"}, "new-brunswick": {"name": "New Brunswick", "url": "/schedules/new-brunswick/"}, "new-providence": {"name": "New Providence", "url": "/schedules/new-providence/"}, "new-york": {"name": "NEW YORK PENN STATION", "url": "/schedules/new-york/"}, "newark-broad-street": {"name": "Newark Broad Street", "url": "/schedules/newark-broad-street/"}, "newark-int-l-airport": {"name": "Newark Int'l. Airport", "url": "/schedules/newark-int-l-airport/"}, "newark-penn-station": {"name": "NEWARK PENN STATION", "url": "/schedules/newark-penn-station/"}, "north-branch": {"name": "North Branch", "url": "/schedules/north-branch/"}, "north-elizabeth": {"name": "North Elizabeth", "url": "/schedules/north-elizabeth/"}, "oradell": {"name": "Oradell", "url": "/schedules/oradell/"}, "orange": {"name": "Orange", "url": "/schedules/orange/"}, "otisville": {"name": "Otisville", "url": "/schedules/otisville/"}, "park-ridge": {"name": "Park Ridge", "url": "/schedules/park-ridge/"}, "passaic": {"name": "Passaic", "url": "/schedules/passaic/"}, "paterson": {"name": "Paterson", "url": "/schedules/paterson/"}, "peapack": {"name": "Peapack", "url": "/schedules/peapack/"}, "pearl-river-ny": {"name": "Pearl River, NY", "url": "/schedules/pearl-river-ny/"}, "pennsauken": {"name": "Pennsauken", "url": "/schedules/pennsauken/"}, "perth-amboy": {"name": "Perth Amboy", "url": "/schedules/perth-amboy/"}, "plainfield": {"name": "Plainfield", "url": "/schedules/plainfield/"}, "plauderville": {"name": "Plauderville", "url": "/schedules/plauderville/"}, "point-pleasant-beach": {"name": "Point Pleasant Beach", "url": "/schedules/point-pleasant-beach/"}, "port-jervis": {"name": "PORT JERVIS", "url": "/schedules/port-jervis/"}, "princeton-junction": {"name": "Princeton Junction", "url": "/schedules/princeton-junction/"}, "radburn": {"name": "Radburn", "url": "/schedules/radburn/"}, "rahway": {"name": "Rahway", "url": "/schedules/rahway/"}, "ramsey": {"name": "Ramsey", "url": "/schedules/ramsey/"}, "ramsey-route-17": {"name": "Ramsey Route 17", "url": "/schedules/ramsey-route-17/"}, "raritan": {"name": "RARITAN", "url": "/schedules/raritan/"}, "red-bank": {"name": "Red Bank", "url": "/schedules/red-bank/"}, "ridgewood": {"name": "Ridgewood", "url": "/schedules/ridgewood/"}, "river-edge": {"name": "River Edge", "url": "/schedules/river-edge/"}, "roselle-park": {"name": "Roselle Park", "url": "/schedules/roselle-park/"}, "rutherford": {"name": "Rutherford", "url": "/schedules/rutherford/"}, "salisbury-mills": {"name": "Salisbury Mills", "url": "/schedules/salisbury-mills/"}, "secaucus-junction": {"name": "Secaucus Junction", "url": "/schedules/secaucus-junction/"}, "short-hills": {"name": "Short Hills", "url": "/schedules/short-hills/"}, "sloatsburg": {"name": "Sloatsburg", "url": "/schedules/sloatsburg/"}, "somerville": {"name": "Somerville", "url": "/schedules/somerville/"}, "south-amboy": {"name": "South Amboy", "url": "/schedules/south-amboy/"}, "south-orange": {"name": "South Orange", "url": "/schedules/south-orange/"}, "spring-lake": {"name": "Spring Lake", "url": "/schedules/spring-lake/"}, "spring-valley": {"name": "SPRING VALLEY", "url": "/schedules/spring-valley/"}, "stirling": {"name": "Stirling", "url": "/schedules/stirling/"}, "suffern": {"name": "SUFFERN", "url": "/schedules/suffern/"}, "summit": {"name": "Summit", "url": "/schedules/summit/"}, "teterboro": {"name": "Teterboro", "url": "/schedules/teterboro/"}, "towaco": {"name": "Towaco", "url": "/schedules/towaco/"}, "trenton": {"name": "TRENTON", "url": "/schedules/trenton/"}, "trenton-transit-center": {"name": "Trenton Transit Center", "url": "/schedules/trenton-transit-center/"}, "tuxedo": {"name": "Tuxedo", "url": "/schedules/tuxedo/"}, "union-station": {"name": "Union Station", "url": "/schedules/union-station/"}, "upper-montclair": {"name": "Upper Montclair", "url": "/schedules/upper-montclair/"}, "waldwick": {"name": "Waldwick", "url": "/schedules/waldwick/"}, "walnut-street": {"name": "Walnut Street", "url": "/schedules/walnut-street/"}, "watchung-avenue": {"name": "Watchung Avenue", "url": "/schedules/watchung-avenue/"}, "watsessing-avenue": {"name": "Watsessing Avenue", "url": "/schedules/watsessing-avenue/"}, "wayne-route-23": {"name": "Wayne/Route 23", "url": "/schedules/wayne-route-23/"}, "wesmont": {"name": "Wesmont", "url": "/schedules/wesmont/"}, "westfield": {"name": "Westfield", "url": "/schedules/westfield/"}, "westwood": {"name": "Westwood", "url": "/schedules/westwood/"}, "white-house": {"name": "White House", "url": "/schedules/white-house/"}, "wood-ridge": {"name": "Wood-Ridge", "url": "/schedules/wood-ridge/"}, "woodcliff-lake": {"name": "Woodcliff Lake", "url": "/schedules/woodcliff-lake/"}}</script>
+<script>
+// Static-build-only glue. "Auto" pages redirect to the weekend variant
+// when the visitor's NY service date runs weekend service (weekends +
+// NJ holidays, baked in at export time). Train pages point the back
+// button at the station page named by `?from=`, which a static server
+// can't resolve.
+(function () {
+    function nyServiceDate() {
+        var p = {};
+        var parts = new Intl.DateTimeFormat("en-US", {
+            timeZone: "America/New_York", hourCycle: "h23",
+            year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit"
+        }).formatToParts(new Date());
+        for (var i = 0; i < parts.length; i++) p[parts[i].type] = parts[i].value;
+        var d = new Date(Date.UTC(+p.year, +p.month - 1, +p.day));
+        // Before 02:00 NY the previous service day is still running.
+        if (+p.hour < 2) d.setUTCDate(d.getUTCDate() - 1);
+        return d;
+    }
+
+    var weekendEl = document.getElementById("weekend-dates");
+    var weekendUrl = "";
+    if (weekendEl && weekendUrl) {
+        var dates = JSON.parse(weekendEl.textContent);
+        var day = nyServiceDate();
+        var iso = day.toISOString().slice(0, 10);
+        var last = dates.length ? dates[dates.length - 1] : "";
+        // Past the embedded calendar (a very stale build), fall back to
+        // plain Sat/Sun — only holiday awareness is lost.
+        var weekend = dates.indexOf(iso) !== -1 ||
+            (iso > last && (day.getUTCDay() === 0 || day.getUTCDay() === 6));
+        if (weekend) location.replace(weekendUrl + location.search);
+    }
+
+    var linksEl = document.getElementById("station-links");
+    var fromCode = new URLSearchParams(location.search).get("from");
+    if (linksEl && fromCode) {
+        var links = JSON.parse(linksEl.textContent);
+        var origin = links[fromCode];
+        var back = document.querySelector(".topbar .back");
+        if (origin && back) {
+            back.href = origin.url;
+            back.setAttribute("aria-label", "Back to " + origin.name);
+            var label = back.querySelector("[data-back-label]");
+            if (label) label.textContent = origin.name;
+        }
+        // Keep the origin when switching schedule variants.
+        var toggles = document.querySelectorAll(".sched-toggle a");
+        for (var j = 0; j < toggles.length; j++) {
+            toggles[j].href += (toggles[j].href.indexOf("?") === -1 ? "?" : "&") +
+                "from=" + encodeURIComponent(fromCode);
+        }
+    }
+})();
+</script>
+
+
+
+<div class="empty">
+    <h3>No stops today</h3>
+    <div>This train has no active scheduled stops on today's schedule.</div>
+</div>
+
+
+<script>
+// Turn each stop's latest estimated-departure datetime into a live
+// "in N min" status. The estimate is the source of truth for timing.
+function fillCountdowns(cards) {
+    const realNow = new Date();
+    for (const card of cards) {
+        const iso = card.dataset.estimate;
+        const statusEl = card.querySelector(".status");
+        if (!iso || !statusEl) continue;
+        const mins = Math.round((new Date(iso) - realNow) / 60000);
+        if (mins <= -1) {
+            statusEl.textContent = "Departed";
+            statusEl.dataset.live = "past";
+        } else if (mins <= 0) {
+            statusEl.textContent = "Due";
+            statusEl.dataset.live = "due";
+        } else if (mins === 1) {
+            statusEl.textContent = "in 1 min";
+            statusEl.dataset.live = "due";
+        } else {
+            statusEl.textContent = "in " + mins + " min";
+            statusEl.dataset.live = mins <= 5 ? "due" : "soon";
+        }
+    }
+}
+
+(function () {
+    const list = document.getElementById("schedule-list");
+    if (!list) return;
+    let now = list.dataset.nowTime;
+    let postMidnight = list.dataset.postMidnight === "1";
+    if (!now) {
+        // Static build: no server clock — use the visitor's, in NY time.
+        const p = {};
+        for (const part of new Intl.DateTimeFormat("en-US", {
+            timeZone: "America/New_York", hourCycle: "h23",
+            hour: "2-digit", minute: "2-digit", second: "2-digit"
+        }).formatToParts(new Date())) p[part.type] = part.value;
+        now = p.hour + ":" + p.minute + ":" + p.second;
+        postMidnight = Number(p.hour) < 2;
+    }
+    // Sortable key: "0|HH:MM:SS" for same-day stops, "1|HH:MM:SS" for
+    // next_day stops. Between midnight and the 2am service-day cutoff
+    // the wall clock IS the next_day frame, so flip the prefix.
+    const nowPrefix = postMidnight ? "1|" : "0|";
+    const nowKey = nowPrefix + now;
+    const cards = Array.from(list.querySelectorAll(".schedule-card"));
+    fillCountdowns(cards);
+    let next = null;
+    for (const card of cards) {
+        const key = (card.dataset.nextDay === "1" ? "1|" : "0|") + card.dataset.time;
+        if (key >= nowKey) { next = card; break; }
+        card.dataset.state = "past";
+    }
+    // If every stop is already in the past, the train has finished its run
+    // — highlight nothing and don't scroll. (Unlike the station board, a
+    // completed train has no meaningful "next" stop to surface.)
+    if (!next) return;
+    next.dataset.state = "next";
+    const marker = document.createElement("li");
+    marker.className = "now-marker";
+    marker.setAttribute("aria-hidden", "true");
+    marker.textContent = "Now";
+    next.parentNode.insertBefore(marker, next);
+    // Wait a frame so layout settles before scrolling.
+    requestAnimationFrame(function () {
+        next.scrollIntoView({ block: "center", behavior: "auto" });
+    });
+})();
+</script>
+
+        
+        <footer class="data-footer">Latest data as of Jun 21, 2026</footer>
+        
+    </div>
+</body>
+</html>

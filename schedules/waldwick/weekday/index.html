@@ -1,0 +1,2953 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#0b0b0e">
+    <title>Waldwick — New Jersey Train Schedules</title>
+    <style>
+        :root {
+            --bg:           #f4f5f7;
+            --surface:      #ffffff;
+            --surface-2:    #f0f1f4;
+            --text:         #0b0b0e;
+            --text-dim:     #6b6f76;
+            --text-faint:   #9aa0a6;
+            --border:       rgba(15, 17, 21, 0.08);
+            --border-strong:rgba(15, 17, 21, 0.16);
+            --accent:       #16a34a;
+            --accent-soft:  rgba(22, 163, 74, 0.12);
+            --accent-glow:  rgba(22, 163, 74, 0.30);
+            --shadow-sm:    0 1px 2px rgba(15, 17, 21, 0.04), 0 1px 1px rgba(15, 17, 21, 0.03);
+            --shadow-md:    0 4px 16px rgba(15, 17, 21, 0.06), 0 1px 2px rgba(15, 17, 21, 0.04);
+            --radius-sm:    10px;
+            --radius-md:    14px;
+            --radius-lg:    20px;
+            --pad-x:        clamp(16px, 4vw, 24px);
+            --max-w:        680px;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg:           #0b0b0e;
+                --surface:      #16171b;
+                --surface-2:    #1d1f24;
+                --text:         #f3f4f6;
+                --text-dim:     #a1a6ae;
+                --text-faint:   #6b6f76;
+                --border:       rgba(255, 255, 255, 0.08);
+                --border-strong:rgba(255, 255, 255, 0.16);
+                --accent:       #22c55e;
+                --accent-soft:  rgba(34, 197, 94, 0.16);
+                --accent-glow:  rgba(34, 197, 94, 0.45);
+                --shadow-sm:    0 1px 2px rgba(0,0,0,0.4);
+                --shadow-md:    0 6px 24px rgba(0,0,0,0.4);
+            }
+        }
+
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        html { -webkit-text-size-adjust: 100%; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                         "Inter", "Segoe UI", Roboto, system-ui, sans-serif;
+            font-size: 16px;
+            line-height: 1.45;
+            min-height: 100dvh;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+        a { color: inherit; text-decoration: none; }
+        h1, h2, h3 { font-weight: 700; letter-spacing: -0.01em; margin: 0; }
+
+        .app {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            padding: max(env(safe-area-inset-top), 12px) var(--pad-x)
+                     calc(env(safe-area-inset-bottom) + 32px);
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 4px 0 14px;
+        }
+        .topbar .back {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 15px;
+            color: var(--text-dim);
+            padding: 6px 8px 6px 0;
+            margin-right: 4px;
+        }
+        .topbar .back:active { color: var(--text); }
+
+        .page-title {
+            font-size: clamp(26px, 6vw, 34px);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        .page-sub {
+            color: var(--text-dim);
+            font-size: 14px;
+            margin-top: 6px;
+        }
+
+        /* ----- inputs ----- */
+        .search {
+            position: relative;
+            margin: 18px 0 8px;
+        }
+        .search input {
+            width: 100%;
+            font: inherit;
+            font-size: 16px;
+            padding: 14px 40px 14px 44px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            box-shadow: var(--shadow-sm);
+            outline: none;
+            -webkit-appearance: none;
+            transition: border-color 120ms ease, box-shadow 120ms ease;
+        }
+        .search input::placeholder { color: var(--text-faint); }
+        .search input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-soft);
+        }
+        .search .icon {
+            position: absolute;
+            top: 50%;
+            left: 14px;
+            transform: translateY(-50%);
+            color: var(--text-faint);
+            pointer-events: none;
+            line-height: 0;
+        }
+        .search .clear {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            border: 0;
+            background: var(--surface-2);
+            color: var(--text-dim);
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            line-height: 1;
+            padding: 0;
+        }
+        .search.has-value .clear { display: inline-flex; }
+
+        .count {
+            color: var(--text-faint);
+            font-size: 13px;
+            margin: 4px 4px 12px;
+        }
+
+        /* ----- station list ----- */
+        .station-list {
+            list-style: none;
+            padding: 0;
+            margin: 8px 0 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .station-list li + li { border-top: 1px solid var(--border); }
+        .station-list a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 16px;
+            min-height: 64px;
+            transition: background 100ms ease;
+        }
+        .station-list a:active { background: var(--surface-2); }
+        @media (hover: hover) {
+            .station-list a:hover { background: var(--surface-2); }
+        }
+        .station-list .name {
+            flex: 1;
+            font-size: 17px;
+            font-weight: 500;
+            min-width: 0;
+        }
+        .station-list .chev {
+            color: var(--text-faint);
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .empty {
+            margin-top: 24px;
+            padding: 32px 16px;
+            text-align: center;
+            color: var(--text-dim);
+            background: var(--surface);
+            border: 1px dashed var(--border-strong);
+            border-radius: var(--radius-md);
+        }
+        .empty h3 { color: var(--text); margin-bottom: 4px; font-size: 17px; }
+
+        .data-footer {
+            margin: 28px 0 8px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-faint);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ----- schedule-type toggle ----- */
+        .sched-toggle {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            margin: 14px 0 4px;
+            padding-bottom: 4px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .sched-toggle::-webkit-scrollbar { display: none; }
+        .sched-toggle a {
+            white-space: nowrap;
+            padding: 7px 13px;
+            border-radius: 999px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+            transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+        }
+        @media (hover: hover) {
+            .sched-toggle a:hover { border-color: var(--border-strong); }
+        }
+        .sched-toggle a[aria-current="true"] {
+            background: var(--accent);
+            border-color: transparent;
+            color: #fff;
+        }
+
+        /* ----- schedule cards ----- */
+        .schedule-list { list-style: none; padding: 0; margin: 8px 0 0; }
+        .schedule-card {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(96px, auto) 1fr auto;
+            grid-template-areas:
+                "time main line"
+                "time sub  sub";
+            column-gap: 16px;
+            row-gap: 2px;
+            align-items: center;
+            padding: 16px 16px;
+            margin: 10px 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            transition: opacity 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+        }
+        .schedule-card[data-state="past"] {
+            opacity: 0.42;
+        }
+        .schedule-card.is-link { cursor: pointer; }
+        /* Stretched link: an empty anchor overlays the whole card so the
+           grid layout is untouched but the entire card is tappable. */
+        .schedule-card .stretch-link {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            border-radius: inherit;
+        }
+        .schedule-card.is-link:active { box-shadow: var(--shadow-md); }
+        @media (hover: hover) {
+            .schedule-card.is-link:hover { box-shadow: var(--shadow-md); }
+        }
+        .schedule-card[data-state="next"] {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow-md);
+            background: linear-gradient(180deg,
+                color-mix(in srgb, var(--accent-soft) 60%, var(--surface)) 0%,
+                var(--surface) 60%);
+        }
+        .schedule-card .time {
+            grid-area: time;
+            font-size: clamp(28px, 7vw, 34px);
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+        .schedule-card .next-day {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            color: #c2410c;
+            background: #fff3e6;
+            border-radius: 4px;
+            padding: 1px 5px;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+        @media (prefers-color-scheme: dark) {
+            .schedule-card .next-day { color: #fdba74; background: rgba(253, 186, 116, 0.12); }
+        }
+        .schedule-card .main {
+            grid-area: main;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            min-width: 0;
+        }
+        .schedule-card .train-num {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dim);
+            font-variant-numeric: tabular-nums;
+        }
+        .schedule-card .arrow {
+            color: var(--text-faint);
+            font-size: 14px;
+        }
+        .schedule-card .dest {
+            font-size: 16px;
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .schedule-card .sub {
+            grid-area: sub;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            color: var(--text-faint);
+            font-size: 12px;
+        }
+        .schedule-card .sub .sub-label {
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        /* Estimated departure + live "in N min" status, pushed to the
+           right of the sub line. Empty until the client fills it in. */
+        .schedule-card .sub .sub-end {
+            margin-left: auto;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .schedule-card .sub .est { font-variant-numeric: tabular-nums; }
+        /* Historical delay stats (median / p95 of past days' readings) —
+           quiet reference info, visually behind the live estimate. */
+        .schedule-card .sub .delay {
+            color: var(--text-dim);
+            font-variant-numeric: tabular-nums;
+        }
+        /* Posted track from the live board — only rendered once the
+           station has assigned one. */
+        .schedule-card .sub .track {
+            font-weight: 700;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .schedule-card .sub .status {
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+        .schedule-card .sub .status[data-live="due"]  { color: var(--accent); }
+        .schedule-card .sub .status[data-live="soon"] { color: var(--text); }
+        .schedule-card .sub .status[data-live="past"] { color: var(--text-faint); }
+        .schedule-card .line {
+            grid-area: line;
+            align-self: start;
+        }
+        .line-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: var(--surface-2);
+            color: var(--text);
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            border: 1px solid var(--border);
+        }
+        .schedule-card[data-state="next"] .line-pill {
+            background: var(--accent);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .now-marker {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 18px 4px 6px;
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .now-marker::before,
+        .now-marker::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.6;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0s !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0s !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        
+<header class="topbar">
+    <a class="back" href="/" aria-label="Back to stations">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"/>
+        </svg>
+        Stations
+    </a>
+</header>
+
+<h1 class="page-title">Waldwick</h1>
+
+<nav class="sched-toggle" aria-label="Schedule type">
+    
+    <a href="/schedules/waldwick/">Auto</a>
+    
+    <a href="/schedules/waldwick/stats/">Overall stats</a>
+    
+    <a href="/schedules/waldwick/weekday/" aria-current="true">Weekday</a>
+    
+    <a href="/schedules/waldwick/weekend/">Weekend</a>
+    
+    <a href="/schedules/waldwick/inclement_weather_lvl_1/">Inclement weather (Level 1)</a>
+    
+    <a href="/schedules/waldwick/inclement_weather_lvl_2/">Inclement weather (Level 2)</a>
+    
+</nav>
+
+
+
+<script>
+// Static-build-only glue. "Auto" pages redirect to the weekend variant
+// when the visitor's NY service date runs weekend service (weekends +
+// NJ holidays, baked in at export time). Train pages point the back
+// button at the station page named by `?from=`, which a static server
+// can't resolve.
+(function () {
+    function nyServiceDate() {
+        var p = {};
+        var parts = new Intl.DateTimeFormat("en-US", {
+            timeZone: "America/New_York", hourCycle: "h23",
+            year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit"
+        }).formatToParts(new Date());
+        for (var i = 0; i < parts.length; i++) p[parts[i].type] = parts[i].value;
+        var d = new Date(Date.UTC(+p.year, +p.month - 1, +p.day));
+        // Before 02:00 NY the previous service day is still running.
+        if (+p.hour < 2) d.setUTCDate(d.getUTCDate() - 1);
+        return d;
+    }
+
+    var weekendEl = document.getElementById("weekend-dates");
+    var weekendUrl = "";
+    if (weekendEl && weekendUrl) {
+        var dates = JSON.parse(weekendEl.textContent);
+        var day = nyServiceDate();
+        var iso = day.toISOString().slice(0, 10);
+        var last = dates.length ? dates[dates.length - 1] : "";
+        // Past the embedded calendar (a very stale build), fall back to
+        // plain Sat/Sun — only holiday awareness is lost.
+        var weekend = dates.indexOf(iso) !== -1 ||
+            (iso > last && (day.getUTCDay() === 0 || day.getUTCDay() === 6));
+        if (weekend) location.replace(weekendUrl + location.search);
+    }
+
+    var linksEl = document.getElementById("station-links");
+    var fromCode = new URLSearchParams(location.search).get("from");
+    if (linksEl && fromCode) {
+        var links = JSON.parse(linksEl.textContent);
+        var origin = links[fromCode];
+        var back = document.querySelector(".topbar .back");
+        if (origin && back) {
+            back.href = origin.url;
+            back.setAttribute("aria-label", "Back to " + origin.name);
+            var label = back.querySelector("[data-back-label]");
+            if (label) label.textContent = origin.name;
+        }
+        // Keep the origin when switching schedule variants.
+        var toggles = document.querySelectorAll(".sched-toggle a");
+        for (var j = 0; j < toggles.length; j++) {
+            toggles[j].href += (toggles[j].href.indexOf("?") === -1 ? "?" : "&") +
+                "from=" + encodeURIComponent(fromCode);
+        }
+    }
+})();
+</script>
+
+
+
+<ul class="schedule-list"
+    id="schedule-list"
+    data-now-time=""
+    data-post-midnight="0">
+    
+    <li class="schedule-card is-link"
+        data-time="05:07:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1100/weekday/?from=waldwick"
+           aria-label="All stops for train 1100"></a>
+        <div class="time">
+            05:07
+        </div>
+        <div class="main">
+            <span class="train-num">#1100</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="05:35:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1102/weekday/?from=waldwick"
+           aria-label="All stops for train 1102"></a>
+        <div class="time">
+            05:35
+        </div>
+        <div class="main">
+            <span class="train-num">#1102</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="05:43:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1146/weekday/?from=waldwick"
+           aria-label="All stops for train 1146"></a>
+        <div class="time">
+            05:43
+        </div>
+        <div class="main">
+            <span class="train-num">#1146</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="06:07:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1148/weekday/?from=waldwick"
+           aria-label="All stops for train 1148"></a>
+        <div class="time">
+            06:07
+        </div>
+        <div class="main">
+            <span class="train-num">#1148</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="06:22:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1202/weekday/?from=waldwick"
+           aria-label="All stops for train 1202"></a>
+        <div class="time">
+            06:22
+        </div>
+        <div class="main">
+            <span class="train-num">#1202</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="06:38:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1150/weekday/?from=waldwick"
+           aria-label="All stops for train 1150"></a>
+        <div class="time">
+            06:38
+        </div>
+        <div class="main">
+            <span class="train-num">#1150</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="06:41:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1103/weekday/?from=waldwick"
+           aria-label="All stops for train 1103"></a>
+        <div class="time">
+            06:41
+        </div>
+        <div class="main">
+            <span class="train-num">#1103</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ramsey Route 17</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="06:48:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1204/weekday/?from=waldwick"
+           aria-label="All stops for train 1204"></a>
+        <div class="time">
+            06:48
+        </div>
+        <div class="main">
+            <span class="train-num">#1204</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="06:53:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1152/weekday/?from=waldwick"
+           aria-label="All stops for train 1152"></a>
+        <div class="time">
+            06:53
+        </div>
+        <div class="main">
+            <span class="train-num">#1152</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:10:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1252/weekday/?from=waldwick"
+           aria-label="All stops for train 1252"></a>
+        <div class="time">
+            07:10
+        </div>
+        <div class="main">
+            <span class="train-num">#1252</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1243/weekday/?from=waldwick"
+           aria-label="All stops for train 1243"></a>
+        <div class="time">
+            07:19
+        </div>
+        <div class="main">
+            <span class="train-num">#1243</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:21:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1206/weekday/?from=waldwick"
+           aria-label="All stops for train 1206"></a>
+        <div class="time">
+            07:21
+        </div>
+        <div class="main">
+            <span class="train-num">#1206</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:27:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1154/weekday/?from=waldwick"
+           aria-label="All stops for train 1154"></a>
+        <div class="time">
+            07:27
+        </div>
+        <div class="main">
+            <span class="train-num">#1154</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:39:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1254/weekday/?from=waldwick"
+           aria-label="All stops for train 1254"></a>
+        <div class="time">
+            07:39
+        </div>
+        <div class="main">
+            <span class="train-num">#1254</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:50:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1105/weekday/?from=waldwick"
+           aria-label="All stops for train 1105"></a>
+        <div class="time">
+            07:50
+        </div>
+        <div class="main">
+            <span class="train-num">#1105</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:53:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1208/weekday/?from=waldwick"
+           aria-label="All stops for train 1208"></a>
+        <div class="time">
+            07:53
+        </div>
+        <div class="main">
+            <span class="train-num">#1208</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:59:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1156/weekday/?from=waldwick"
+           aria-label="All stops for train 1156"></a>
+        <div class="time">
+            07:59
+        </div>
+        <div class="main">
+            <span class="train-num">#1156</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:11:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1247/weekday/?from=waldwick"
+           aria-label="All stops for train 1247"></a>
+        <div class="time">
+            08:11
+        </div>
+        <div class="main">
+            <span class="train-num">#1247</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:18:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1258/weekday/?from=waldwick"
+           aria-label="All stops for train 1258"></a>
+        <div class="time">
+            08:18
+        </div>
+        <div class="main">
+            <span class="train-num">#1258</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:29:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1107/weekday/?from=waldwick"
+           aria-label="All stops for train 1107"></a>
+        <div class="time">
+            08:29
+        </div>
+        <div class="main">
+            <span class="train-num">#1107</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:37:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1210/weekday/?from=waldwick"
+           aria-label="All stops for train 1210"></a>
+        <div class="time">
+            08:37
+        </div>
+        <div class="main">
+            <span class="train-num">#1210</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:42:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1147/weekday/?from=waldwick"
+           aria-label="All stops for train 1147"></a>
+        <div class="time">
+            08:42
+        </div>
+        <div class="main">
+            <span class="train-num">#1147</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:49:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1160/weekday/?from=waldwick"
+           aria-label="All stops for train 1160"></a>
+        <div class="time">
+            08:49
+        </div>
+        <div class="main">
+            <span class="train-num">#1160</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:00:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1212/weekday/?from=waldwick"
+           aria-label="All stops for train 1212"></a>
+        <div class="time">
+            09:00
+        </div>
+        <div class="main">
+            <span class="train-num">#1212</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:21:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1249/weekday/?from=waldwick"
+           aria-label="All stops for train 1249"></a>
+        <div class="time">
+            09:21
+        </div>
+        <div class="main">
+            <span class="train-num">#1249</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:30:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1162/weekday/?from=waldwick"
+           aria-label="All stops for train 1162"></a>
+        <div class="time">
+            09:30
+        </div>
+        <div class="main">
+            <span class="train-num">#1162</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:31:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1109/weekday/?from=waldwick"
+           aria-label="All stops for train 1109"></a>
+        <div class="time">
+            09:31
+        </div>
+        <div class="main">
+            <span class="train-num">#1109</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="10:12:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1110/weekday/?from=waldwick"
+           aria-label="All stops for train 1110"></a>
+        <div class="time">
+            10:12
+        </div>
+        <div class="main">
+            <span class="train-num">#1110</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="10:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1264/weekday/?from=waldwick"
+           aria-label="All stops for train 1264"></a>
+        <div class="time">
+            10:19
+        </div>
+        <div class="main">
+            <span class="train-num">#1264</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="10:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1207/weekday/?from=waldwick"
+           aria-label="All stops for train 1207"></a>
+        <div class="time">
+            10:24
+        </div>
+        <div class="main">
+            <span class="train-num">#1207</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="11:12:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1112/weekday/?from=waldwick"
+           aria-label="All stops for train 1112"></a>
+        <div class="time">
+            11:12
+        </div>
+        <div class="main">
+            <span class="train-num">#1112</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="11:20:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1266/weekday/?from=waldwick"
+           aria-label="All stops for train 1266"></a>
+        <div class="time">
+            11:20
+        </div>
+        <div class="main">
+            <span class="train-num">#1266</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="11:38:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1111/weekday/?from=waldwick"
+           aria-label="All stops for train 1111"></a>
+        <div class="time">
+            11:38
+        </div>
+        <div class="main">
+            <span class="train-num">#1111</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:13:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1114/weekday/?from=waldwick"
+           aria-label="All stops for train 1114"></a>
+        <div class="time">
+            12:13
+        </div>
+        <div class="main">
+            <span class="train-num">#1114</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1168/weekday/?from=waldwick"
+           aria-label="All stops for train 1168"></a>
+        <div class="time">
+            12:19
+        </div>
+        <div class="main">
+            <span class="train-num">#1168</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:37:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1113/weekday/?from=waldwick"
+           aria-label="All stops for train 1113"></a>
+        <div class="time">
+            12:37
+        </div>
+        <div class="main">
+            <span class="train-num">#1113</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:12:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1116/weekday/?from=waldwick"
+           aria-label="All stops for train 1116"></a>
+        <div class="time">
+            13:12
+        </div>
+        <div class="main">
+            <span class="train-num">#1116</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:20:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/62/weekday/?from=waldwick"
+           aria-label="All stops for train 62"></a>
+        <div class="time">
+            13:20
+        </div>
+        <div class="main">
+            <span class="train-num">#62</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:28:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1155/weekday/?from=waldwick"
+           aria-label="All stops for train 1155"></a>
+        <div class="time">
+            13:28
+        </div>
+        <div class="main">
+            <span class="train-num">#1155</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:40:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1211/weekday/?from=waldwick"
+           aria-label="All stops for train 1211"></a>
+        <div class="time">
+            13:40
+        </div>
+        <div class="main">
+            <span class="train-num">#1211</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:10:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1118/weekday/?from=waldwick"
+           aria-label="All stops for train 1118"></a>
+        <div class="time">
+            14:10
+        </div>
+        <div class="main">
+            <span class="train-num">#1118</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:15:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1272/weekday/?from=waldwick"
+           aria-label="All stops for train 1272"></a>
+        <div class="time">
+            14:15
+        </div>
+        <div class="main">
+            <span class="train-num">#1272</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:29:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1157/weekday/?from=waldwick"
+           aria-label="All stops for train 1157"></a>
+        <div class="time">
+            14:29
+        </div>
+        <div class="main">
+            <span class="train-num">#1157</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:38:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1213/weekday/?from=waldwick"
+           aria-label="All stops for train 1213"></a>
+        <div class="time">
+            14:38
+        </div>
+        <div class="main">
+            <span class="train-num">#1213</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="15:05:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1120/weekday/?from=waldwick"
+           aria-label="All stops for train 1120"></a>
+        <div class="time">
+            15:05
+        </div>
+        <div class="main">
+            <span class="train-num">#1120</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="15:25:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1159/weekday/?from=waldwick"
+           aria-label="All stops for train 1159"></a>
+        <div class="time">
+            15:25
+        </div>
+        <div class="main">
+            <span class="train-num">#1159</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="15:27:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1174/weekday/?from=waldwick"
+           aria-label="All stops for train 1174"></a>
+        <div class="time">
+            15:27
+        </div>
+        <div class="main">
+            <span class="train-num">#1174</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="15:37:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1220/weekday/?from=waldwick"
+           aria-label="All stops for train 1220"></a>
+        <div class="time">
+            15:37
+        </div>
+        <div class="main">
+            <span class="train-num">#1220</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="15:39:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1115/weekday/?from=waldwick"
+           aria-label="All stops for train 1115"></a>
+        <div class="time">
+            15:39
+        </div>
+        <div class="main">
+            <span class="train-num">#1115</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="16:12:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1161/weekday/?from=waldwick"
+           aria-label="All stops for train 1161"></a>
+        <div class="time">
+            16:12
+        </div>
+        <div class="main">
+            <span class="train-num">#1161</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="16:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1122/weekday/?from=waldwick"
+           aria-label="All stops for train 1122"></a>
+        <div class="time">
+            16:24
+        </div>
+        <div class="main">
+            <span class="train-num">#1122</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="16:29:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1215/weekday/?from=waldwick"
+           aria-label="All stops for train 1215"></a>
+        <div class="time">
+            16:29
+        </div>
+        <div class="main">
+            <span class="train-num">#1215</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="16:43:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1178/weekday/?from=waldwick"
+           aria-label="All stops for train 1178"></a>
+        <div class="time">
+            16:43
+        </div>
+        <div class="main">
+            <span class="train-num">#1178</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:02:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1117/weekday/?from=waldwick"
+           aria-label="All stops for train 1117"></a>
+        <div class="time">
+            17:02
+        </div>
+        <div class="main">
+            <span class="train-num">#1117</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:10:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1263/weekday/?from=waldwick"
+           aria-label="All stops for train 1263"></a>
+        <div class="time">
+            17:10
+        </div>
+        <div class="main">
+            <span class="train-num">#1263</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:13:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1124/weekday/?from=waldwick"
+           aria-label="All stops for train 1124"></a>
+        <div class="time">
+            17:13
+        </div>
+        <div class="main">
+            <span class="train-num">#1124</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:36:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1165/weekday/?from=waldwick"
+           aria-label="All stops for train 1165"></a>
+        <div class="time">
+            17:36
+        </div>
+        <div class="main">
+            <span class="train-num">#1165</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:05:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1126/weekday/?from=waldwick"
+           aria-label="All stops for train 1126"></a>
+        <div class="time">
+            18:05
+        </div>
+        <div class="main">
+            <span class="train-num">#1126</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:05:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1167/weekday/?from=waldwick"
+           aria-label="All stops for train 1167"></a>
+        <div class="time">
+            18:05
+        </div>
+        <div class="main">
+            <span class="train-num">#1167</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:11:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1221/weekday/?from=waldwick"
+           aria-label="All stops for train 1221"></a>
+        <div class="time">
+            18:11
+        </div>
+        <div class="main">
+            <span class="train-num">#1221</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:21:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1269/weekday/?from=waldwick"
+           aria-label="All stops for train 1269"></a>
+        <div class="time">
+            18:21
+        </div>
+        <div class="main">
+            <span class="train-num">#1269</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:33:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1169/weekday/?from=waldwick"
+           aria-label="All stops for train 1169"></a>
+        <div class="time">
+            18:33
+        </div>
+        <div class="main">
+            <span class="train-num">#1169</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:41:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1128/weekday/?from=waldwick"
+           aria-label="All stops for train 1128"></a>
+        <div class="time">
+            18:41
+        </div>
+        <div class="main">
+            <span class="train-num">#1128</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:42:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1223/weekday/?from=waldwick"
+           aria-label="All stops for train 1223"></a>
+        <div class="time">
+            18:42
+        </div>
+        <div class="main">
+            <span class="train-num">#1223</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:56:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1271/weekday/?from=waldwick"
+           aria-label="All stops for train 1271"></a>
+        <div class="time">
+            18:56
+        </div>
+        <div class="main">
+            <span class="train-num">#1271</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:03:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1171/weekday/?from=waldwick"
+           aria-label="All stops for train 1171"></a>
+        <div class="time">
+            19:03
+        </div>
+        <div class="main">
+            <span class="train-num">#1171</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:17:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1225/weekday/?from=waldwick"
+           aria-label="All stops for train 1225"></a>
+        <div class="time">
+            19:17
+        </div>
+        <div class="main">
+            <span class="train-num">#1225</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:30:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1130/weekday/?from=waldwick"
+           aria-label="All stops for train 1130"></a>
+        <div class="time">
+            19:30
+        </div>
+        <div class="main">
+            <span class="train-num">#1130</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:34:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1173/weekday/?from=waldwick"
+           aria-label="All stops for train 1173"></a>
+        <div class="time">
+            19:34
+        </div>
+        <div class="main">
+            <span class="train-num">#1173</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:49:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1125/weekday/?from=waldwick"
+           aria-label="All stops for train 1125"></a>
+        <div class="time">
+            19:49
+        </div>
+        <div class="main">
+            <span class="train-num">#1125</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:52:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1278/weekday/?from=waldwick"
+           aria-label="All stops for train 1278"></a>
+        <div class="time">
+            19:52
+        </div>
+        <div class="main">
+            <span class="train-num">#1278</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="20:09:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1175/weekday/?from=waldwick"
+           aria-label="All stops for train 1175"></a>
+        <div class="time">
+            20:09
+        </div>
+        <div class="main">
+            <span class="train-num">#1175</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="20:12:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1132/weekday/?from=waldwick"
+           aria-label="All stops for train 1132"></a>
+        <div class="time">
+            20:12
+        </div>
+        <div class="main">
+            <span class="train-num">#1132</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="20:38:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1127/weekday/?from=waldwick"
+           aria-label="All stops for train 1127"></a>
+        <div class="time">
+            20:38
+        </div>
+        <div class="main">
+            <span class="train-num">#1127</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:03:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1177/weekday/?from=waldwick"
+           aria-label="All stops for train 1177"></a>
+        <div class="time">
+            21:03
+        </div>
+        <div class="main">
+            <span class="train-num">#1177</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:07:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1134/weekday/?from=waldwick"
+           aria-label="All stops for train 1134"></a>
+        <div class="time">
+            21:07
+        </div>
+        <div class="main">
+            <span class="train-num">#1134</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:39:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1129/weekday/?from=waldwick"
+           aria-label="All stops for train 1129"></a>
+        <div class="time">
+            21:39
+        </div>
+        <div class="main">
+            <span class="train-num">#1129</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="22:01:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1179/weekday/?from=waldwick"
+           aria-label="All stops for train 1179"></a>
+        <div class="time">
+            22:01
+        </div>
+        <div class="main">
+            <span class="train-num">#1179</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="22:07:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1136/weekday/?from=waldwick"
+           aria-label="All stops for train 1136"></a>
+        <div class="time">
+            22:07
+        </div>
+        <div class="main">
+            <span class="train-num">#1136</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="22:49:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/67/weekday/?from=waldwick"
+           aria-label="All stops for train 67"></a>
+        <div class="time">
+            22:49
+        </div>
+        <div class="main">
+            <span class="train-num">#67</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">PORT JERVIS</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="23:08:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1281/weekday/?from=waldwick"
+           aria-label="All stops for train 1281"></a>
+        <div class="time">
+            23:08
+        </div>
+        <div class="main">
+            <span class="train-num">#1281</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Waldwick</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="23:37:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1234/weekday/?from=waldwick"
+           aria-label="All stops for train 1234"></a>
+        <div class="time">
+            23:37
+        </div>
+        <div class="main">
+            <span class="train-num">#1234</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">HOBOKEN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Ho-Ho-Kus</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="23:47:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/1131/weekday/?from=waldwick"
+           aria-label="All stops for train 1131"></a>
+        <div class="time">
+            23:47
+        </div>
+        <div class="main">
+            <span class="train-num">#1131</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="00:06:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/1183/weekday/?from=waldwick"
+           aria-label="All stops for train 1183"></a>
+        <div class="time">
+            00:06<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#1183</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="00:59:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/1133/weekday/?from=waldwick"
+           aria-label="All stops for train 1133"></a>
+        <div class="time">
+            00:59<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#1133</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="01:29:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/41/weekday/?from=waldwick"
+           aria-label="All stops for train 41"></a>
+        <div class="time">
+            01:29<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#41</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">PORT JERVIS</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="02:23:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/1101/weekday/?from=waldwick"
+           aria-label="All stops for train 1101"></a>
+        <div class="time">
+            02:23<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#1101</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">SUFFERN</span>
+        </div>
+        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Allendale</span>
+            <span class="sub-end">
+                
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+</ul>
+
+
+<script>
+// Turn each card's latest estimated-departure datetime into a live
+// "in N min" status. The estimate is the source of truth for timing.
+function fillCountdowns(cards) {
+    const realNow = new Date();
+    for (const card of cards) {
+        const iso = card.dataset.estimate;
+        const statusEl = card.querySelector(".status");
+        if (!iso || !statusEl) continue;
+        const mins = Math.round((new Date(iso) - realNow) / 60000);
+        if (mins <= -1) {
+            statusEl.textContent = "Departed";
+            statusEl.dataset.live = "past";
+        } else if (mins <= 0) {
+            statusEl.textContent = "Due";
+            statusEl.dataset.live = "due";
+        } else if (mins === 1) {
+            statusEl.textContent = "in 1 min";
+            statusEl.dataset.live = "due";
+        } else {
+            statusEl.textContent = "in " + mins + " min";
+            statusEl.dataset.live = mins <= 5 ? "due" : "soon";
+        }
+    }
+}
+
+(function () {
+    const list = document.getElementById("schedule-list");
+    if (!list) return;
+    let now = list.dataset.nowTime;
+    let postMidnight = list.dataset.postMidnight === "1";
+    if (!now) {
+        // Static build: no server clock — use the visitor's, in NY time.
+        const p = {};
+        for (const part of new Intl.DateTimeFormat("en-US", {
+            timeZone: "America/New_York", hourCycle: "h23",
+            hour: "2-digit", minute: "2-digit", second: "2-digit"
+        }).formatToParts(new Date())) p[part.type] = part.value;
+        now = p.hour + ":" + p.minute + ":" + p.second;
+        postMidnight = Number(p.hour) < 2;
+    }
+    // Sortable key: "0|HH:MM:SS" for same-day stops, "1|HH:MM:SS" for
+    // next_day stops. Between midnight and the 2am service-day cutoff
+    // the wall clock IS the next_day frame, so flip the prefix.
+    const nowPrefix = postMidnight ? "1|" : "0|";
+    const nowKey = nowPrefix + now;
+    const cards = Array.from(list.querySelectorAll(".schedule-card"));
+    fillCountdowns(cards);
+    let next = null;
+    for (const card of cards) {
+        const key = (card.dataset.nextDay === "1" ? "1|" : "0|") + card.dataset.time;
+        if (key >= nowKey) { next = card; break; }
+        card.dataset.state = "past";
+    }
+    const target = next || cards[cards.length - 1];
+    if (!target) return;
+    target.dataset.state = "next";
+    const marker = document.createElement("li");
+    marker.className = "now-marker";
+    marker.setAttribute("aria-hidden", "true");
+    marker.textContent = "Now";
+    target.parentNode.insertBefore(marker, target);
+    // Wait a frame so layout settles before scrolling.
+    requestAnimationFrame(function () {
+        target.scrollIntoView({ block: "center", behavior: "auto" });
+    });
+})();
+</script>
+
+        
+        <footer class="data-footer">Latest data as of Jun 21, 2026</footer>
+        
+    </div>
+</body>
+</html>
