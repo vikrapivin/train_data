@@ -211,6 +211,42 @@
             font-variant-numeric: tabular-nums;
         }
 
+        /* ----- featured stats callout ----- */
+        .stats-callout {
+            margin: 14px 0 6px;
+            padding: 14px 16px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+        }
+        .stats-callout p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+        .stats-callout .callout-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+        .stats-callout .callout-links a {
+            white-space: nowrap;
+            padding: 7px 13px;
+            border-radius: 999px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+        }
+        .stats-callout .callout-links a:active { opacity: 0.85; }
+        .stats-callout .callout-note {
+            font-size: 12px;
+            color: var(--text-faint);
+        }
+
         /* ----- schedule-type toggle ----- */
         .sched-toggle {
             display: flex;
@@ -523,7 +559,7 @@
 <ul class="schedule-list"
     id="schedule-list"
     data-now-time=""
-    data-post-midnight="0">
+    data-post-midnight="1">
     
     <li class="schedule-card"
         data-time="19:23:00"

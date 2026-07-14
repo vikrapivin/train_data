@@ -211,6 +211,42 @@
             font-variant-numeric: tabular-nums;
         }
 
+        /* ----- featured stats callout ----- */
+        .stats-callout {
+            margin: 14px 0 6px;
+            padding: 14px 16px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+        }
+        .stats-callout p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+        .stats-callout .callout-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+        .stats-callout .callout-links a {
+            white-space: nowrap;
+            padding: 7px 13px;
+            border-radius: 999px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+        }
+        .stats-callout .callout-links a:active { opacity: 0.85; }
+        .stats-callout .callout-note {
+            font-size: 12px;
+            color: var(--text-faint);
+        }
+
         /* ----- schedule-type toggle ----- */
         .sched-toggle {
             display: flex;
@@ -433,6 +469,22 @@
         
 <h1 class="page-title">New Jersey Train Schedules</h1>
 <p class="page-sub">Pick a station to see today's departures.</p>
+
+
+<section class="stats-callout" aria-label="Delay statistics for major stations">
+    <p>How late do trains actually leave? See the delay stats for major stations:</p>
+    <div class="callout-links">
+        
+        <a href="/schedules/newark-int-l-airport/stats/">Newark Int&#x27;l. Airport</a>
+        
+        <a href="/schedules/secaucus-junction/stats/">Secaucus Junction</a>
+        
+        <a href="/schedules/new-york/stats/">NEW YORK PENN STATION</a>
+        
+    </div>
+    <p class="callout-note">Stats for individual trains are on each station’s schedule.</p>
+</section>
+
 
 
 <div class="search" id="search" role="search">
