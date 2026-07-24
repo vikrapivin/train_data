@@ -351,6 +351,27 @@
             gap: 8px;
             min-width: 0;
         }
+        /* Connecting rows on a train run: destinations reached by
+           transfer, not stops this train makes — dashed outline + pill
+           so they can't be mistaken for a physical stop. */
+        .schedule-card.is-connecting {
+            border-style: dashed;
+            border-color: var(--border-strong);
+            box-shadow: none;
+        }
+        .schedule-card.is-connecting .time { color: var(--text-dim); }
+        .schedule-card .connect-pill {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-dim);
+            background: var(--surface-2);
+            border: 1px dashed var(--border-strong);
+            border-radius: 4px;
+            padding: 1px 6px;
+            white-space: nowrap;
+        }
         .schedule-card .train-num {
             font-size: 15px;
             font-weight: 700;
@@ -468,12 +489,12 @@
     <div class="app">
         
 <header class="topbar">
-    <a class="back" href="/schedules/rutherford/" aria-label="Back to Rutherford departures">
+    <a class="back" href="/" aria-label="Back to stations">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <polyline points="15 18 9 12 15 6"/>
         </svg>
-        Rutherford
+        Stations
     </a>
 </header>
 
@@ -498,10 +519,127 @@
 
 
 
-<div class="empty">
-    <h3>No history yet</h3>
-    <div>No departure boards have been recorded at this station.</div>
-</div>
+<section class="histo-card">
+    <h2 class="histo-title">Train departure statistics</h2>
+    <p class="histo-desc">
+        Every recorded departure at this station, grouped by how many minutes
+        behind schedule the train left. “On time” means within 5 minutes of
+        the scheduled departure time.
+    </p>
+    
+<p class="histo-summary">
+    1377 train departures ·
+    median -1m · p95 +7m · canceled 0%
+</p>
+
+<ul class="histo" aria-label="Departures grouped by minutes behind schedule">
+    <li class="histo-row histo-head" aria-hidden="true">
+        <span class="histo-label">Minutes late</span>
+        <span></span>
+        <span class="histo-val">Departures · share</span>
+    </li>
+    
+    <li class="histo-row">
+        <span class="histo-label">&lt; -5</span>
+        <span class="histo-track"></span>
+        <span class="histo-val">0 · 0.0%</span>
+    </li>
+    
+    <li class="histo-row">
+        <span class="histo-label">On time</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 100.0%"></span></span>
+        <span class="histo-val">1251 · 90.8%</span>
+    </li>
+    
+    <li class="histo-row">
+        <span class="histo-label">5 to 10</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 6.0%"></span></span>
+        <span class="histo-val">75 · 5.4%</span>
+    </li>
+    
+    <li class="histo-row">
+        <span class="histo-label">10 to 15</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 1.92%"></span></span>
+        <span class="histo-val">24 · 1.7%</span>
+    </li>
+    
+    <li class="histo-row">
+        <span class="histo-label">15 to 20</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.56%"></span></span>
+        <span class="histo-val">7 · 0.5%</span>
+    </li>
+    
+    <li class="histo-row">
+        <span class="histo-label">20 to 25</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.32%"></span></span>
+        <span class="histo-val">4 · 0.3%</span>
+    </li>
+    
+    <li class="histo-row">
+        <span class="histo-label">25 to 30</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.16%"></span></span>
+        <span class="histo-val">2 · 0.1%</span>
+    </li>
+    
+    <li class="histo-row">
+        <span class="histo-label">30 to 35</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.08%"></span></span>
+        <span class="histo-val">1 · 0.1%</span>
+    </li>
+    
+    <li class="histo-row">
+        <span class="histo-label">35 to 40</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.16%"></span></span>
+        <span class="histo-val">2 · 0.1%</span>
+    </li>
+    
+    <li class="histo-row">
+        <span class="histo-label">40 to 45</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.08%"></span></span>
+        <span class="histo-val">1 · 0.1%</span>
+    </li>
+    
+    <li class="histo-row">
+        <span class="histo-label">45 to 50</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.08%"></span></span>
+        <span class="histo-val">1 · 0.1%</span>
+    </li>
+    
+    <li class="histo-row">
+        <span class="histo-label">50 to 55</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.08%"></span></span>
+        <span class="histo-val">1 · 0.1%</span>
+    </li>
+    
+    <li class="histo-row">
+        <span class="histo-label">55 to 60</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.24%"></span></span>
+        <span class="histo-val">3 · 0.2%</span>
+    </li>
+    
+    <li class="histo-row">
+        <span class="histo-label">60+</span>
+        <span class="histo-track"></span>
+        <span class="histo-val">0 · 0.0%</span>
+    </li>
+    
+    <li class="histo-row is-canceled">
+        <span class="histo-label">Canceled</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.4%"></span></span>
+        <span class="histo-val">5 · 0.4%</span>
+    </li>
+    
+</ul>
+
+
+    <p class="histo-note">
+    One count per train per operational day, resolved to the nearest 5 minutes,
+    based on the operator’s published estimated departures.
+</p>
+    
+</section>
+
+
 
 
 <style>
@@ -586,7 +724,7 @@
 </style>
 
         
-        <footer class="data-footer">Latest data as of Jun 21, 2026</footer>
+        <footer class="data-footer">Latest data as of Jul 23, 2026</footer>
         
     </div>
 </body>

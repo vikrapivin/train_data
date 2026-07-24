@@ -351,6 +351,27 @@
             gap: 8px;
             min-width: 0;
         }
+        /* Connecting rows on a train run: destinations reached by
+           transfer, not stops this train makes — dashed outline + pill
+           so they can't be mistaken for a physical stop. */
+        .schedule-card.is-connecting {
+            border-style: dashed;
+            border-color: var(--border-strong);
+            box-shadow: none;
+        }
+        .schedule-card.is-connecting .time { color: var(--text-dim); }
+        .schedule-card .connect-pill {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-dim);
+            background: var(--surface-2);
+            border: 1px dashed var(--border-strong);
+            border-radius: 4px;
+            padding: 1px 6px;
+            white-space: nowrap;
+        }
         .schedule-card .train-num {
             font-size: 15px;
             font-weight: 700;
@@ -561,33 +582,6 @@
     data-post-midnight="0">
     
     <li class="schedule-card is-link"
-        data-time="03:50:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3209/?from=hoboken"
-           aria-label="All stops for train 3209"></a>
-        <div class="time">
-            03:50
-        </div>
-        <div class="main">
-            <span class="train-num">#3209</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="04:35:00"
         data-next-day="0"
         >
@@ -606,7 +600,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Broad Street</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med — &middot; p95 — &middot; cxl 100%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -669,60 +663,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="05:05:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3503/?from=hoboken"
-           aria-label="All stops for train 3503"></a>
-        <div class="time">
-            05:05
-        </div>
-        <div class="main">
-            <span class="train-num">#3503</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="05:05:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3215/?from=hoboken"
-           aria-label="All stops for train 3215"></a>
-        <div class="time">
-            05:05
-        </div>
-        <div class="main">
-            <span class="train-num">#3215</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="05:06:00"
         data-next-day="0"
         >
@@ -767,33 +707,6 @@
         <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: Newark Broad Street</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="05:12:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3202/?from=hoboken"
-           aria-label="All stops for train 3202"></a>
-        <div class="time">
-            05:12
-        </div>
-        <div class="main">
-            <span class="train-num">#3202</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -1074,60 +987,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="06:11:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3204/?from=hoboken"
-           aria-label="All stops for train 3204"></a>
-        <div class="time">
-            06:11
-        </div>
-        <div class="main">
-            <span class="train-num">#3204</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="06:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3217/?from=hoboken"
-           aria-label="All stops for train 3217"></a>
-        <div class="time">
-            06:14
-        </div>
-        <div class="main">
-            <span class="train-num">#3217</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="06:18:00"
         data-next-day="0"
         >
@@ -1361,33 +1220,6 @@
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="06:44:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3221/?from=hoboken"
-           aria-label="All stops for train 3221"></a>
-        <div class="time">
-            06:44
-        </div>
-        <div class="main">
-            <span class="train-num">#3221</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -1659,61 +1491,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="07:08:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4310/?from=hoboken"
-           aria-label="All stops for train 4310"></a>
-        <div class="time">
-            07:08
-        </div>
-        <div class="main">
-            <span class="train-num">#4310</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="07:08:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3210/?from=hoboken"
-           aria-label="All stops for train 3210"></a>
-        <div class="time">
-            07:08
-        </div>
-        <div class="main">
-            <span class="train-num">#3210</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med — &middot; p95 — &middot; cxl 100%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1911,33 +1689,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="07:29:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3223/?from=hoboken"
-           aria-label="All stops for train 3223"></a>
-        <div class="time">
-            07:29
-        </div>
-        <div class="main">
-            <span class="train-num">#3223</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="07:32:00"
         data-next-day="0"
         >
@@ -1953,33 +1704,6 @@
             <span class="dest">HOBOKEN</span>
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="07:32:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3312/?from=hoboken"
-           aria-label="All stops for train 3312"></a>
-        <div class="time">
-            07:32
-        </div>
-        <div class="main">
-            <span class="train-num">#3312</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
@@ -2208,33 +1932,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="07:45:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3218/?from=hoboken"
-           aria-label="All stops for train 3218"></a>
-        <div class="time">
-            07:45
-        </div>
-        <div class="main">
-            <span class="train-num">#3218</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="07:47:00"
         data-next-day="0"
         >
@@ -2439,33 +2136,6 @@
             <span class="dest">HOBOKEN</span>
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="07:58:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3320/?from=hoboken"
-           aria-label="All stops for train 3320"></a>
-        <div class="time">
-            07:58
-        </div>
-        <div class="main">
-            <span class="train-num">#3320</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
@@ -2802,33 +2472,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="08:26:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3502/?from=hoboken"
-           aria-label="All stops for train 3502"></a>
-        <div class="time">
-            08:26
-        </div>
-        <div class="main">
-            <span class="train-num">#3502</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="08:27:00"
         data-next-day="0"
         >
@@ -2846,33 +2489,6 @@
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="08:29:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3227/?from=hoboken"
-           aria-label="All stops for train 3227"></a>
-        <div class="time">
-            08:29
-        </div>
-        <div class="main">
-            <span class="train-num">#3227</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -3238,33 +2854,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/3504/?from=hoboken"
-           aria-label="All stops for train 3504"></a>
-        <div class="time">
-            08:55
-        </div>
-        <div class="main">
-            <span class="train-num">#3504</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="08:55:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/1618/?from=hoboken"
            aria-label="All stops for train 1618"></a>
         <div class="time">
@@ -3279,7 +2868,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med — &middot; p95 — &middot; cxl 100%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3427,33 +3016,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/3326/?from=hoboken"
-           aria-label="All stops for train 3326"></a>
-        <div class="time">
-            09:10
-        </div>
-        <div class="main">
-            <span class="train-num">#3326</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="09:10:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/1620/?from=hoboken"
            aria-label="All stops for train 1620"></a>
         <div class="time">
@@ -3573,33 +3135,6 @@
             <span class="dest">HOBOKEN</span>
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="09:15:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3506/?from=hoboken"
-           aria-label="All stops for train 3506"></a>
-        <div class="time">
-            09:15
-        </div>
-        <div class="main">
-            <span class="train-num">#3506</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
@@ -3751,33 +3286,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/3231/?from=hoboken"
-           aria-label="All stops for train 3231"></a>
-        <div class="time">
-            09:34
-        </div>
-        <div class="main">
-            <span class="train-num">#3231</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="09:34:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/1651/?from=hoboken"
            aria-label="All stops for train 1651"></a>
         <div class="time">
@@ -3870,33 +3378,6 @@
             <span class="dest">HOBOKEN</span>
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="09:43:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3228/?from=hoboken"
-           aria-label="All stops for train 3228"></a>
-        <div class="time">
-            09:43
-        </div>
-        <div class="main">
-            <span class="train-num">#3228</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
@@ -4129,60 +3610,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/3230/?from=hoboken"
-           aria-label="All stops for train 3230"></a>
-        <div class="time">
-            10:00
-        </div>
-        <div class="main">
-            <span class="train-num">#3230</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="10:00:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4330/?from=hoboken"
-           aria-label="All stops for train 4330"></a>
-        <div class="time">
-            10:00
-        </div>
-        <div class="main">
-            <span class="train-num">#4330</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="10:00:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/1622/?from=hoboken"
            aria-label="All stops for train 1622"></a>
         <div class="time">
@@ -4196,33 +3623,6 @@
         <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="10:05:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3508/?from=hoboken"
-           aria-label="All stops for train 3508"></a>
-        <div class="time">
-            10:05
-        </div>
-        <div class="main">
-            <span class="train-num">#3508</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -4250,33 +3650,6 @@
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="10:20:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3235/?from=hoboken"
-           aria-label="All stops for train 3235"></a>
-        <div class="time">
-            10:20
-        </div>
-        <div class="main">
-            <span class="train-num">#3235</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -4422,33 +3795,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="10:41:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3234/?from=hoboken"
-           aria-label="All stops for train 3234"></a>
-        <div class="time">
-            10:41
-        </div>
-        <div class="main">
-            <span class="train-num">#3234</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="10:45:00"
         data-next-day="0"
         >
@@ -4466,33 +3812,6 @@
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="11:00:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3239/?from=hoboken"
-           aria-label="All stops for train 3239"></a>
-        <div class="time">
-            11:00
-        </div>
-        <div class="main">
-            <span class="train-num">#3239</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -4665,33 +3984,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="11:20:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3236/?from=hoboken"
-           aria-label="All stops for train 3236"></a>
-        <div class="time">
-            11:20
-        </div>
-        <div class="main">
-            <span class="train-num">#3236</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="11:36:00"
         data-next-day="0"
         >
@@ -4854,33 +4146,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="12:00:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3241/?from=hoboken"
-           aria-label="All stops for train 3241"></a>
-        <div class="time">
-            12:00
-        </div>
-        <div class="main">
-            <span class="train-num">#3241</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="12:05:00"
         data-next-day="0"
         >
@@ -4979,60 +4244,6 @@
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="12:20:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3243/?from=hoboken"
-           aria-label="All stops for train 3243"></a>
-        <div class="time">
-            12:20
-        </div>
-        <div class="main">
-            <span class="train-num">#3243</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="12:23:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3240/?from=hoboken"
-           aria-label="All stops for train 3240"></a>
-        <div class="time">
-            12:23
-        </div>
-        <div class="main">
-            <span class="train-num">#3240</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -5313,60 +4524,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="13:20:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3244/?from=hoboken"
-           aria-label="All stops for train 3244"></a>
-        <div class="time">
-            13:20
-        </div>
-        <div class="main">
-            <span class="train-num">#3244</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="13:20:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3247/?from=hoboken"
-           aria-label="All stops for train 3247"></a>
-        <div class="time">
-            13:20
-        </div>
-        <div class="main">
-            <span class="train-num">#3247</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="13:29:00"
         data-next-day="0"
         >
@@ -5610,33 +4767,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="14:00:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/8249/?from=hoboken"
-           aria-label="All stops for train 8249"></a>
-        <div class="time">
-            14:00
-        </div>
-        <div class="main">
-            <span class="train-num">#8249</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="14:06:00"
         data-next-day="0"
         >
@@ -5681,60 +4811,6 @@
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="14:18:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3248/?from=hoboken"
-           aria-label="All stops for train 3248"></a>
-        <div class="time">
-            14:18
-        </div>
-        <div class="main">
-            <span class="train-num">#3248</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="14:20:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3251/?from=hoboken"
-           aria-label="All stops for train 3251"></a>
-        <div class="time">
-            14:20
-        </div>
-        <div class="main">
-            <span class="train-num">#3251</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -6015,33 +5091,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="15:00:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/8353/?from=hoboken"
-           aria-label="All stops for train 8353"></a>
-        <div class="time">
-            15:00
-        </div>
-        <div class="main">
-            <span class="train-num">#8353</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="15:02:00"
         data-next-day="0"
         >
@@ -6154,33 +5203,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/3509/?from=hoboken"
-           aria-label="All stops for train 3509"></a>
-        <div class="time">
-            15:14
-        </div>
-        <div class="main">
-            <span class="train-num">#3509</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="15:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/1653/?from=hoboken"
            aria-label="All stops for train 1653"></a>
         <div class="time">
@@ -6194,33 +5216,6 @@
         <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="15:20:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3252/?from=hoboken"
-           aria-label="All stops for train 3252"></a>
-        <div class="time">
-            15:20
-        </div>
-        <div class="main">
-            <span class="train-num">#3252</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -6383,60 +5378,6 @@
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="15:36:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3255/?from=hoboken"
-           aria-label="All stops for train 3255"></a>
-        <div class="time">
-            15:36
-        </div>
-        <div class="main">
-            <span class="train-num">#3255</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="15:36:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4355/?from=hoboken"
-           aria-label="All stops for train 4355"></a>
-        <div class="time">
-            15:36
-        </div>
-        <div class="main">
-            <span class="train-num">#4355</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -6717,33 +5658,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="16:17:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3256/?from=hoboken"
-           aria-label="All stops for train 3256"></a>
-        <div class="time">
-            16:17
-        </div>
-        <div class="main">
-            <span class="train-num">#3256</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="16:19:00"
         data-next-day="0"
         >
@@ -6815,33 +5729,6 @@
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="16:23:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3361/?from=hoboken"
-           aria-label="All stops for train 3361"></a>
-        <div class="time">
-            16:23
-        </div>
-        <div class="main">
-            <span class="train-num">#3361</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -7068,33 +5955,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="16:44:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3363/?from=hoboken"
-           aria-label="All stops for train 3363"></a>
-        <div class="time">
-            16:44
-        </div>
-        <div class="main">
-            <span class="train-num">#3363</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="16:47:00"
         data-next-day="0"
         >
@@ -7112,33 +5972,6 @@
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="16:49:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3511/?from=hoboken"
-           aria-label="All stops for train 3511"></a>
-        <div class="time">
-            16:49
-        </div>
-        <div class="main">
-            <span class="train-num">#3511</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -7193,33 +6026,6 @@
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="17:01:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3265/?from=hoboken"
-           aria-label="All stops for train 3265"></a>
-        <div class="time">
-            17:01
-        </div>
-        <div class="main">
-            <span class="train-num">#3265</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -7392,33 +6198,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="17:16:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3260/?from=hoboken"
-           aria-label="All stops for train 3260"></a>
-        <div class="time">
-            17:16
-        </div>
-        <div class="main">
-            <span class="train-num">#3260</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="17:17:00"
         data-next-day="0"
         >
@@ -7527,25 +6306,25 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="17:21:00"
+        data-time="17:23:00"
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/3513/?from=hoboken"
-           aria-label="All stops for train 3513"></a>
+           href="/trains/267/?from=hoboken"
+           aria-label="All stops for train 267"></a>
         <div class="time">
-            17:21
+            17:23
         </div>
         <div class="main">
-            <span class="train-num">#3513</span>
+            <span class="train-num">#267</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
+            <span class="dest">Montclair Heights</span>
         </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-label">Next stop: Newark Broad Street</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med — &middot; p95 — &middot; cxl 100%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7572,34 +6351,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Broad Street</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="17:23:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/267/?from=hoboken"
-           aria-label="All stops for train 267"></a>
-        <div class="time">
-            17:23
-        </div>
-        <div class="main">
-            <span class="train-num">#267</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Montclair Heights</span>
-        </div>
-        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Broad Street</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med — &middot; p95 — &middot; cxl 100%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7625,60 +6377,6 @@
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="17:27:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3267/?from=hoboken"
-           aria-label="All stops for train 3267"></a>
-        <div class="time">
-            17:27
-        </div>
-        <div class="main">
-            <span class="train-num">#3267</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="17:27:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4367/?from=hoboken"
-           aria-label="All stops for train 4367"></a>
-        <div class="time">
-            17:27
-        </div>
-        <div class="main">
-            <span class="train-num">#4367</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -8003,60 +6701,6 @@
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="17:49:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3373/?from=hoboken"
-           aria-label="All stops for train 3373"></a>
-        <div class="time">
-            17:49
-        </div>
-        <div class="main">
-            <span class="train-num">#3373</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="17:49:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3271/?from=hoboken"
-           aria-label="All stops for train 3271"></a>
-        <div class="time">
-            17:49
-        </div>
-        <div class="main">
-            <span class="train-num">#3271</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -8409,34 +7053,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Broad Street</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="18:11:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3266/?from=hoboken"
-           aria-label="All stops for train 3266"></a>
-        <div class="time">
-            18:11
-        </div>
-        <div class="main">
-            <span class="train-num">#3266</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med — &middot; p95 — &middot; cxl 100%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8462,33 +7079,6 @@
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="18:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3275/?from=hoboken"
-           aria-label="All stops for train 3275"></a>
-        <div class="time">
-            18:14
-        </div>
-        <div class="main">
-            <span class="train-num">#3275</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -8543,33 +7133,6 @@
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="18:20:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3515/?from=hoboken"
-           aria-label="All stops for train 3515"></a>
-        <div class="time">
-            18:20
-        </div>
-        <div class="main">
-            <span class="train-num">#3515</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -8796,33 +7359,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="18:44:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3279/?from=hoboken"
-           aria-label="All stops for train 3279"></a>
-        <div class="time">
-            18:44
-        </div>
-        <div class="main">
-            <span class="train-num">#3279</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="18:45:00"
         data-next-day="0"
         >
@@ -8931,33 +7467,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="18:55:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3270/?from=hoboken"
-           aria-label="All stops for train 3270"></a>
-        <div class="time">
-            18:55
-        </div>
-        <div class="main">
-            <span class="train-num">#3270</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="18:57:00"
         data-next-day="0"
         >
@@ -9002,33 +7511,6 @@
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="19:17:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3512/?from=hoboken"
-           aria-label="All stops for train 3512"></a>
-        <div class="time">
-            19:17
-        </div>
-        <div class="main">
-            <span class="train-num">#3512</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -9138,7 +7620,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med — &middot; p95 — &middot; cxl 100%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9165,7 +7647,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med — &middot; p95 — &middot; cxl 100%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9191,33 +7673,6 @@
         <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="19:30:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3272/?from=hoboken"
-           aria-label="All stops for train 3272"></a>
-        <div class="time">
-            19:30
-        </div>
-        <div class="main">
-            <span class="train-num">#3272</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -9300,7 +7755,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Broad Street</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med — &middot; p95 — &middot; cxl 100%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9444,60 +7899,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="19:46:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3283/?from=hoboken"
-           aria-label="All stops for train 3283"></a>
-        <div class="time">
-            19:46
-        </div>
-        <div class="main">
-            <span class="train-num">#3283</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="19:52:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3276/?from=hoboken"
-           aria-label="All stops for train 3276"></a>
-        <div class="time">
-            19:52
-        </div>
-        <div class="main">
-            <span class="train-num">#3276</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="19:57:00"
         data-next-day="0"
         >
@@ -9606,33 +8007,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="20:13:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4383/?from=hoboken"
-           aria-label="All stops for train 4383"></a>
-        <div class="time">
-            20:13
-        </div>
-        <div class="main">
-            <span class="train-num">#4383</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="20:16:00"
         data-next-day="0"
         >
@@ -9731,60 +8105,6 @@
         <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="20:24:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3285/?from=hoboken"
-           aria-label="All stops for train 3285"></a>
-        <div class="time">
-            20:24
-        </div>
-        <div class="main">
-            <span class="train-num">#3285</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="20:42:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3514/?from=hoboken"
-           aria-label="All stops for train 3514"></a>
-        <div class="time">
-            20:42
-        </div>
-        <div class="main">
-            <span class="train-num">#3514</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -9920,33 +8240,6 @@
         <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="21:01:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3278/?from=hoboken"
-           aria-label="All stops for train 3278"></a>
-        <div class="time">
-            21:01
-        </div>
-        <div class="main">
-            <span class="train-num">#3278</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
             <span class="sub-end">
                 
                 
@@ -10119,33 +8412,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="21:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3289/?from=hoboken"
-           aria-label="All stops for train 3289"></a>
-        <div class="time">
-            21:14
-        </div>
-        <div class="main">
-            <span class="train-num">#3289</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="21:19:00"
         data-next-day="0"
         >
@@ -10190,33 +8456,6 @@
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="21:36:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3516/?from=hoboken"
-           aria-label="All stops for train 3516"></a>
-        <div class="time">
-            21:36
-        </div>
-        <div class="main">
-            <span class="train-num">#3516</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -10352,33 +8591,6 @@
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="22:00:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3293/?from=hoboken"
-           aria-label="All stops for train 3293"></a>
-        <div class="time">
-            22:00
-        </div>
-        <div class="main">
-            <span class="train-num">#3293</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -10632,33 +8844,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="22:34:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3284/?from=hoboken"
-           aria-label="All stops for train 3284"></a>
-        <div class="time">
-            22:34
-        </div>
-        <div class="main">
-            <span class="train-num">#3284</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="22:50:00"
         data-next-day="0"
         >
@@ -10730,33 +8915,6 @@
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="23:00:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3297/?from=hoboken"
-           aria-label="All stops for train 3297"></a>
-        <div class="time">
-            23:00
-        </div>
-        <div class="main">
-            <span class="train-num">#3297</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -10956,33 +9114,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="23:49:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3288/?from=hoboken"
-           aria-label="All stops for train 3288"></a>
-        <div class="time">
-            23:49
-        </div>
-        <div class="main">
-            <span class="train-num">#3288</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="23:55:00"
         data-next-day="0"
         >
@@ -11172,33 +9303,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="00:30:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/3205/?from=hoboken"
-           aria-label="All stops for train 3205"></a>
-        <div class="time">
-            00:30<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#3205</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="00:39:00"
         data-next-day="1"
         >
@@ -11243,33 +9347,6 @@
         <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="00:58:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/3292/?from=hoboken"
-           aria-label="All stops for train 3292"></a>
-        <div class="time">
-            00:58<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#3292</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -11361,33 +9438,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="01:56:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/5200/?from=hoboken"
-           aria-label="All stops for train 5200"></a>
-        <div class="time">
-            01:56<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#5200</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="02:00:00"
         data-next-day="1"
         >
@@ -11405,33 +9455,6 @@
         <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="11:20:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/3201/?from=hoboken"
-           aria-label="All stops for train 3201"></a>
-        <div class="time">
-            11:20<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#3201</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Rahway</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -11514,7 +9537,7 @@ function fillCountdowns(cards) {
 </script>
 
         
-        <footer class="data-footer">Latest data as of Jun 21, 2026</footer>
+        <footer class="data-footer">Latest data as of Jul 23, 2026</footer>
         
     </div>
 </body>

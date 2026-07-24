@@ -351,6 +351,27 @@
             gap: 8px;
             min-width: 0;
         }
+        /* Connecting rows on a train run: destinations reached by
+           transfer, not stops this train makes — dashed outline + pill
+           so they can't be mistaken for a physical stop. */
+        .schedule-card.is-connecting {
+            border-style: dashed;
+            border-color: var(--border-strong);
+            box-shadow: none;
+        }
+        .schedule-card.is-connecting .time { color: var(--text-dim); }
+        .schedule-card .connect-pill {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-dim);
+            background: var(--surface-2);
+            border: 1px dashed var(--border-strong);
+            border-radius: 4px;
+            padding: 1px 6px;
+            white-space: nowrap;
+        }
         .schedule-card .train-num {
             font-size: 15px;
             font-weight: 700;
@@ -573,7 +594,7 @@
         <div class="main">
             <span class="train-num">#6602</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Secaucus Junction</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -762,7 +783,7 @@
         <div class="main">
             <span class="train-num">#6604</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Secaucus Junction</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -843,7 +864,7 @@
         <div class="main">
             <span class="train-num">#6606</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Newark Broad Street</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -924,7 +945,7 @@
         <div class="main">
             <span class="train-num">#6610</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Secaucus Junction</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -978,11 +999,11 @@
         <div class="main">
             <span class="train-num">#6406</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Maplewood</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
-            <span class="sub-label">Final stop</span>
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
                 
                 
@@ -1086,7 +1107,7 @@
         <div class="main">
             <span class="train-num">#6314</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Secaucus Junction</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -1194,7 +1215,7 @@
         <div class="main">
             <span class="train-num">#6318</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Brick Church</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -1329,7 +1350,7 @@
         <div class="main">
             <span class="train-num">#6320</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Newark Broad Street</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -1410,7 +1431,7 @@
         <div class="main">
             <span class="train-num">#6324</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Newark Broad Street</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -1599,7 +1620,7 @@
         <div class="main">
             <span class="train-num">#6328</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Newark Broad Street</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -1653,7 +1674,7 @@
         <div class="main">
             <span class="train-num">#6332</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Secaucus Junction</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -1788,7 +1809,7 @@
         <div class="main">
             <span class="train-num">#6636</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Secaucus Junction</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -1896,7 +1917,7 @@
         <div class="main">
             <span class="train-num">#6640</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Secaucus Junction</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -2031,7 +2052,7 @@
         <div class="main">
             <span class="train-num">#6644</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Secaucus Junction</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -2139,7 +2160,7 @@
         <div class="main">
             <span class="train-num">#6648</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Newark Broad Street</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -2274,7 +2295,7 @@
         <div class="main">
             <span class="train-num">#6650</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Secaucus Junction</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -2382,7 +2403,7 @@
         <div class="main">
             <span class="train-num">#6654</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Newark Broad Street</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -2517,7 +2538,7 @@
         <div class="main">
             <span class="train-num">#6658</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Secaucus Junction</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -2598,7 +2619,7 @@
         <div class="main">
             <span class="train-num">#6662</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Secaucus Junction</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -2679,7 +2700,7 @@
         <div class="main">
             <span class="train-num">#6664</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Secaucus Junction</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -2787,7 +2808,7 @@
         <div class="main">
             <span class="train-num">#6666</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Newark Broad Street</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -2868,7 +2889,7 @@
         <div class="main">
             <span class="train-num">#6368</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Newark Broad Street</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -2922,7 +2943,7 @@
         <div class="main">
             <span class="train-num">#6668</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Secaucus Junction</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -3003,7 +3024,7 @@
         <div class="main">
             <span class="train-num">#6670</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Secaucus Junction</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -3138,7 +3159,7 @@
         <div class="main">
             <span class="train-num">#6672</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Secaucus Junction</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -3219,7 +3240,7 @@
         <div class="main">
             <span class="train-num">#6674</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Secaucus Junction</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -3273,7 +3294,7 @@
         <div class="main">
             <span class="train-num">#6676</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Secaucus Junction</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="morris-essex-line">Morris &amp; Essex</span></div>
         <div class="sub">
@@ -3684,7 +3705,7 @@ function fillCountdowns(cards) {
 </script>
 
         
-        <footer class="data-footer">Latest data as of Jun 21, 2026</footer>
+        <footer class="data-footer">Latest data as of Jul 23, 2026</footer>
         
     </div>
 </body>

@@ -351,6 +351,27 @@
             gap: 8px;
             min-width: 0;
         }
+        /* Connecting rows on a train run: destinations reached by
+           transfer, not stops this train makes — dashed outline + pill
+           so they can't be mistaken for a physical stop. */
+        .schedule-card.is-connecting {
+            border-style: dashed;
+            border-color: var(--border-strong);
+            box-shadow: none;
+        }
+        .schedule-card.is-connecting .time { color: var(--text-dim); }
+        .schedule-card .connect-pill {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-dim);
+            background: var(--surface-2);
+            border: 1px dashed var(--border-strong);
+            border-radius: 4px;
+            padding: 1px 6px;
+            white-space: nowrap;
+        }
         .schedule-card .train-num {
             font-size: 15px;
             font-weight: 700;
@@ -660,7 +681,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +5m &middot; cxl 6%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +5m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -741,7 +762,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: New Brunswick</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +16m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +16m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -768,7 +789,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: New Brunswick</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +1m &middot; cxl 7%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +1m &middot; cxl 6%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -795,7 +816,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +10m &middot; cxl 6%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +10m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -822,7 +843,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: New Brunswick</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +16m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +15m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -876,7 +897,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: New Brunswick</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +19m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +19m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -903,7 +924,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +15m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +15m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -957,7 +978,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: New Brunswick</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +18m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +17m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1065,7 +1086,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +11m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +13m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1092,7 +1113,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: New Brunswick</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +21m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +21m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1146,7 +1167,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +19m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +15m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1227,7 +1248,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +7m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +10m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1254,7 +1275,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: New Brunswick</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +19m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +19m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1308,7 +1329,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +13m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +18m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1389,7 +1410,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: New Brunswick</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +11m &middot; cxl 7%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +11m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1416,7 +1437,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +10m &middot; cxl 7%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +32m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1470,7 +1491,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +20m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +48m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1497,7 +1518,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: New Brunswick</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +10m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 +10m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1551,7 +1572,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: New Brunswick</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +11m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +11m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1578,7 +1599,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +19m &middot; cxl 7%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +19m &middot; cxl 10%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1632,7 +1653,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +29m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +29m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1686,7 +1707,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +33m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +42m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1713,7 +1734,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: New Brunswick</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +15m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +20m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1740,7 +1761,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +23m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +28m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1767,7 +1788,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: New Brunswick</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +14m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +14m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1794,7 +1815,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +4m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +14m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1821,7 +1842,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: New Brunswick</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +22m &middot; cxl 11%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +17m &middot; cxl 8%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1848,7 +1869,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +21m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +22m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1902,7 +1923,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +13m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +20m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1929,7 +1950,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: New Brunswick</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +13m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +5m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1956,7 +1977,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +11m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +24m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2037,7 +2058,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +4m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +4m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2091,7 +2112,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: New Brunswick</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +5m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 +5m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2118,7 +2139,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +17m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +17m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2145,7 +2166,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +17m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +18m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2172,7 +2193,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: New Brunswick</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +22m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +11m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2199,7 +2220,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +13m &middot; cxl 6%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +13m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2226,7 +2247,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +10m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +10m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2253,7 +2274,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: New Brunswick</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +15m &middot; cxl 5%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +15m &middot; cxl 3%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2280,7 +2301,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +17m &middot; cxl 6%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +19m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2307,7 +2328,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +40m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +25m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2361,7 +2382,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +11m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +26m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2415,7 +2436,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +25m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +14m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2442,7 +2463,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +16m &middot; cxl 14%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +33m &middot; cxl 16%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2523,7 +2544,7 @@ function fillCountdowns(cards) {
 </script>
 
         
-        <footer class="data-footer">Latest data as of Jun 21, 2026</footer>
+        <footer class="data-footer">Latest data as of Jul 23, 2026</footer>
         
     </div>
 </body>

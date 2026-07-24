@@ -351,6 +351,27 @@
             gap: 8px;
             min-width: 0;
         }
+        /* Connecting rows on a train run: destinations reached by
+           transfer, not stops this train makes — dashed outline + pill
+           so they can't be mistaken for a physical stop. */
+        .schedule-card.is-connecting {
+            border-style: dashed;
+            border-color: var(--border-strong);
+            box-shadow: none;
+        }
+        .schedule-card.is-connecting .time { color: var(--text-dim); }
+        .schedule-card .connect-pill {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-dim);
+            background: var(--surface-2);
+            border: 1px dashed var(--border-strong);
+            border-radius: 4px;
+            padding: 1px 6px;
+            white-space: nowrap;
+        }
         .schedule-card .train-num {
             font-size: 15px;
             font-weight: 700;
@@ -579,7 +600,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -15m &middot; p95 -10m &middot; cxl 9%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -15m &middot; p95 -10m &middot; cxl 7%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -619,21 +640,21 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1855/weekend/?from=new-york"
-           aria-label="All stops for train 1855"></a>
+           href="/trains/7217/weekend/?from=new-york"
+           aria-label="All stops for train 7217"></a>
         <div class="time">
             05:53
         </div>
         <div class="main">
-            <span class="train-num">#1855</span>
+            <span class="train-num">#7217</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Waldwick</span>
+            <span class="dest">Little Silver</span>
         </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
+            <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -18m &middot; p95 -8m &middot; cxl 17%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -660,61 +681,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -18m &middot; p95 +22m &middot; cxl 17%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="05:53:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7217/weekend/?from=new-york"
-           aria-label="All stops for train 7217"></a>
-        <div class="time">
-            05:53
-        </div>
-        <div class="main">
-            <span class="train-num">#7217</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -18m &middot; p95 +22m &middot; cxl 17%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="06:13:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1705/weekend/?from=new-york"
-           aria-label="All stops for train 1705"></a>
-        <div class="time">
-            06:13
-        </div>
-        <div class="main">
-            <span class="train-num">#1705</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">SUFFERN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -18m &middot; p95 -8m &middot; cxl 17%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -741,7 +708,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +2m &middot; cxl 50%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +2m &middot; cxl 40%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -768,7 +735,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +8m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +8m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -795,7 +762,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +8m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +8m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -822,7 +789,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +15m &middot; cxl 6%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +15m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -849,7 +816,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 4%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 6%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -876,7 +843,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 4%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 6%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -966,60 +933,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="07:11:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1857/weekend/?from=new-york"
-           aria-label="All stops for train 1857"></a>
-        <div class="time">
-            07:11
-        </div>
-        <div class="main">
-            <span class="train-num">#1857</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Waldwick</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="07:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1707/weekend/?from=new-york"
-           aria-label="All stops for train 1707"></a>
-        <div class="time">
-            07:14
-        </div>
-        <div class="main">
-            <span class="train-num">#1707</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">SUFFERN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="07:14:00"
         data-next-day="0"
         >
@@ -1039,33 +952,6 @@
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
                 <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -5m &middot; p95 -2m &middot; cxl 17%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="07:35:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/70/weekend/?from=new-york"
-           aria-label="All stops for train 70"></a>
-        <div class="time">
-            07:35
-        </div>
-        <div class="main">
-            <span class="train-num">#70</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1128,33 +1014,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="07:39:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1752/weekend/?from=new-york"
-           aria-label="All stops for train 1752"></a>
-        <div class="time">
-            07:39
-        </div>
-        <div class="main">
-            <span class="train-num">#1752</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="07:41:00"
         data-next-day="0"
         >
@@ -1200,7 +1059,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +38m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +38m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1227,7 +1086,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +38m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +38m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1308,7 +1167,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +3m &middot; cxl 40%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +3m &middot; cxl 43%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1335,7 +1194,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +3m &middot; cxl 40%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +3m &middot; cxl 43%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1483,33 +1342,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1859/weekend/?from=new-york"
-           aria-label="All stops for train 1859"></a>
-        <div class="time">
-            08:11
-        </div>
-        <div class="main">
-            <span class="train-num">#1859</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Waldwick</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="08:11:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/6915/weekend/?from=new-york"
            aria-label="All stops for train 6915"></a>
         <div class="time">
@@ -1524,34 +1356,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +38m &middot; cxl 0%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="08:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1709/weekend/?from=new-york"
-           aria-label="All stops for train 1709"></a>
-        <div class="time">
-            08:14
-        </div>
-        <div class="main">
-            <span class="train-num">#1709</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">SUFFERN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +38m &middot; cxl 12%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1645,33 +1450,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1704/weekend/?from=new-york"
-           aria-label="All stops for train 1704"></a>
-        <div class="time">
-            08:32
-        </div>
-        <div class="main">
-            <span class="train-num">#1704</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="08:32:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/7812/weekend/?from=new-york"
            aria-label="All stops for train 7812"></a>
         <div class="time">
@@ -1686,7 +1464,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +18m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +18m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1722,52 +1500,25 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="08:39:00"
+        data-time="08:42:00"
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1854/weekend/?from=new-york"
-           aria-label="All stops for train 1854"></a>
+           href="/trains/7212/weekend/?from=new-york"
+           aria-label="All stops for train 7212"></a>
         <div class="time">
-            08:39
+            08:42
         </div>
         <div class="main">
-            <span class="train-num">#1854</span>
+            <span class="train-num">#7212</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="08:39:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/94/weekend/?from=new-york"
-           aria-label="All stops for train 94"></a>
-        <div class="time">
-            08:39
-        </div>
-        <div class="main">
-            <span class="train-num">#94</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +28m &middot; cxl 8%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1794,34 +1545,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +28m &middot; cxl 6%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="08:42:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7212/weekend/?from=new-york"
-           aria-label="All stops for train 7212"></a>
-        <div class="time">
-            08:42
-        </div>
-        <div class="main">
-            <span class="train-num">#7212</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +28m &middot; cxl 6%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +28m &middot; cxl 8%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1875,7 +1599,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +11m &middot; cxl 6%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +21m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1902,7 +1626,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 4%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 6%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1929,7 +1653,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 4%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 6%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1956,7 +1680,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 5%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1996,60 +1720,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1711/weekend/?from=new-york"
-           aria-label="All stops for train 1711"></a>
-        <div class="time">
-            09:14
-        </div>
-        <div class="main">
-            <span class="train-num">#1711</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">SUFFERN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="09:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/71/weekend/?from=new-york"
-           aria-label="All stops for train 71"></a>
-        <div class="time">
-            09:14
-        </div>
-        <div class="main">
-            <span class="train-num">#71</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">PORT JERVIS</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="09:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/7829/weekend/?from=new-york"
            aria-label="All stops for train 7829"></a>
         <div class="time">
@@ -2064,34 +1734,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 4%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="09:32:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1706/weekend/?from=new-york"
-           aria-label="All stops for train 1706"></a>
-        <div class="time">
-            09:32
-        </div>
-        <div class="main">
-            <span class="train-num">#1706</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 3%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2181,33 +1824,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="09:39:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1856/weekend/?from=new-york"
-           aria-label="All stops for train 1856"></a>
-        <div class="time">
-            09:39
-        </div>
-        <div class="main">
-            <span class="train-num">#1856</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="09:41:00"
         data-next-day="0"
         >
@@ -2239,21 +1855,21 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/72/weekend/?from=new-york"
-           aria-label="All stops for train 72"></a>
+           href="/trains/7216/weekend/?from=new-york"
+           aria-label="All stops for train 7216"></a>
         <div class="time">
             09:42
         </div>
         <div class="main">
-            <span class="train-num">#72</span>
+            <span class="train-num">#7216</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +38m &middot; cxl 12%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2280,34 +1896,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +38m &middot; cxl 13%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="09:42:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7216/weekend/?from=new-york"
-           aria-label="All stops for train 7216"></a>
-        <div class="time">
-            09:42
-        </div>
-        <div class="main">
-            <span class="train-num">#7216</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +38m &middot; cxl 13%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +38m &middot; cxl 12%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2334,7 +1923,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +27m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +27m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2361,7 +1950,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 7%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 8%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2388,7 +1977,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 7%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 8%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2428,33 +2017,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1863/weekend/?from=new-york"
-           aria-label="All stops for train 1863"></a>
-        <div class="time">
-            10:11
-        </div>
-        <div class="main">
-            <span class="train-num">#1863</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Waldwick</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="10:11:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/6919/weekend/?from=new-york"
            aria-label="All stops for train 6919"></a>
         <div class="time">
@@ -2469,34 +2031,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +38m &middot; cxl 4%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="10:16:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1713/weekend/?from=new-york"
-           aria-label="All stops for train 1713"></a>
-        <div class="time">
-            10:16
-        </div>
-        <div class="main">
-            <span class="train-num">#1713</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">SUFFERN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +38m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2536,33 +2071,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1708/weekend/?from=new-york"
-           aria-label="All stops for train 1708"></a>
-        <div class="time">
-            10:34
-        </div>
-        <div class="main">
-            <span class="train-num">#1708</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="10:34:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/7620/weekend/?from=new-york"
            aria-label="All stops for train 7620"></a>
         <div class="time">
@@ -2590,33 +2098,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1858/weekend/?from=new-york"
-           aria-label="All stops for train 1858"></a>
-        <div class="time">
-            10:36
-        </div>
-        <div class="main">
-            <span class="train-num">#1858</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="10:36:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/7820/weekend/?from=new-york"
            aria-label="All stops for train 7820"></a>
         <div class="time">
@@ -2631,7 +2112,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +19m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +19m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2658,7 +2139,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +9m &middot; p95 +33m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +6m &middot; p95 +33m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2685,7 +2166,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +9m &middot; p95 +33m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +6m &middot; p95 +33m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2739,7 +2220,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +7m &middot; p95 +37m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +7m &middot; p95 +22m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2766,7 +2247,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 5%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 7%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2793,7 +2274,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 5%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 7%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2820,61 +2301,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 18%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="11:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1715/weekend/?from=new-york"
-           aria-label="All stops for train 1715"></a>
-        <div class="time">
-            11:14
-        </div>
-        <div class="main">
-            <span class="train-num">#1715</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">SUFFERN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="11:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/73/weekend/?from=new-york"
-           aria-label="All stops for train 73"></a>
-        <div class="time">
-            11:14
-        </div>
-        <div class="main">
-            <span class="train-num">#73</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">PORT JERVIS</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 12%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2914,33 +2341,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1710/weekend/?from=new-york"
-           aria-label="All stops for train 1710"></a>
-        <div class="time">
-            11:31
-        </div>
-        <div class="main">
-            <span class="train-num">#1710</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="11:31:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/7624/weekend/?from=new-york"
            aria-label="All stops for train 7624"></a>
         <div class="time">
@@ -2955,7 +2355,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +9m &middot; cxl 7%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +9m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2995,33 +2395,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/74/weekend/?from=new-york"
-           aria-label="All stops for train 74"></a>
-        <div class="time">
-            11:34
-        </div>
-        <div class="main">
-            <span class="train-num">#74</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="11:34:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/7824/weekend/?from=new-york"
            aria-label="All stops for train 7824"></a>
         <div class="time">
@@ -3036,7 +2409,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +6m &middot; p95 +26m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +6m &middot; p95 +21m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3063,7 +2436,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +8m &middot; p95 +28m &middot; cxl 6%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +8m &middot; p95 +28m &middot; cxl 8%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3090,7 +2463,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +8m &middot; p95 +28m &middot; cxl 6%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +8m &middot; p95 +28m &middot; cxl 8%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3117,7 +2490,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +9m &middot; p95 +24m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +19m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3144,7 +2517,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 25%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3171,34 +2544,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="12:07:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7241/weekend/?from=new-york"
-           aria-label="All stops for train 7241"></a>
-        <div class="time">
-            12:07
-        </div>
-        <div class="main">
-            <span class="train-num">#7241</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 25%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3225,7 +2571,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 3%</span>
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:07:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7241/weekend/?from=new-york"
+           aria-label="All stops for train 7241"></a>
+        <div class="time">
+            12:07
+        </div>
+        <div class="main">
+            <span class="train-num">#7241</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 3%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3265,33 +2638,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1867/weekend/?from=new-york"
-           aria-label="All stops for train 1867"></a>
-        <div class="time">
-            12:11
-        </div>
-        <div class="main">
-            <span class="train-num">#1867</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Waldwick</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="12:11:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/6923/weekend/?from=new-york"
            aria-label="All stops for train 6923"></a>
         <div class="time">
@@ -3306,34 +2652,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -1m &middot; cxl 0%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="12:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1717/weekend/?from=new-york"
-           aria-label="All stops for train 1717"></a>
-        <div class="time">
-            12:14
-        </div>
-        <div class="main">
-            <span class="train-num">#1717</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">SUFFERN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -1m &middot; cxl 6%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3373,33 +2692,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1712/weekend/?from=new-york"
-           aria-label="All stops for train 1712"></a>
-        <div class="time">
-            12:36
-        </div>
-        <div class="main">
-            <span class="train-num">#1712</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="12:36:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/7828/weekend/?from=new-york"
            aria-label="All stops for train 7828"></a>
         <div class="time">
@@ -3414,34 +2706,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +29m &middot; cxl 3%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="12:40:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1862/weekend/?from=new-york"
-           aria-label="All stops for train 1862"></a>
-        <div class="time">
-            12:40
-        </div>
-        <div class="main">
-            <span class="train-num">#1862</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +29m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3468,7 +2733,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +8m &middot; p95 +38m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +8m &middot; p95 +43m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3495,7 +2760,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +8m &middot; p95 +38m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +8m &middot; p95 +43m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3603,7 +2868,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 5%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 7%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3630,7 +2895,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 5%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 7%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3666,87 +2931,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="13:11:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1869/weekend/?from=new-york"
-           aria-label="All stops for train 1869"></a>
-        <div class="time">
-            13:11
-        </div>
-        <div class="main">
-            <span class="train-num">#1869</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Waldwick</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="13:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1719/weekend/?from=new-york"
-           aria-label="All stops for train 1719"></a>
-        <div class="time">
-            13:14
-        </div>
-        <div class="main">
-            <span class="train-num">#1719</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">SUFFERN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="13:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/75/weekend/?from=new-york"
-           aria-label="All stops for train 75"></a>
-        <div class="time">
-            13:14
-        </div>
-        <div class="main">
-            <span class="train-num">#75</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">PORT JERVIS</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="13:14:00"
         data-next-day="0"
         >
@@ -3765,61 +2949,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 8%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="13:36:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1714/weekend/?from=new-york"
-           aria-label="All stops for train 1714"></a>
-        <div class="time">
-            13:36
-        </div>
-        <div class="main">
-            <span class="train-num">#1714</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="13:36:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/76/weekend/?from=new-york"
-           aria-label="All stops for train 76"></a>
-        <div class="time">
-            13:36
-        </div>
-        <div class="main">
-            <span class="train-num">#76</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3900,7 +3030,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +17m &middot; p95 +42m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +17m &middot; p95 +42m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3927,7 +3057,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +17m &middot; p95 +42m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +17m &middot; p95 +42m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3954,7 +3084,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +31m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +26m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4008,34 +3138,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="13:56:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7632/weekend/?from=new-york"
-           aria-label="All stops for train 7632"></a>
-        <div class="time">
-            13:56
-        </div>
-        <div class="main">
-            <span class="train-num">#7632</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +14m &middot; cxl 7%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 20%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4062,7 +3165,34 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +14m &middot; cxl 7%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +14m &middot; cxl 5%</span>
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:56:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7632/weekend/?from=new-york"
+           aria-label="All stops for train 7632"></a>
+        <div class="time">
+            13:56
+        </div>
+        <div class="main">
+            <span class="train-num">#7632</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Final stop</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +14m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4089,7 +3219,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 5%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 7%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4116,7 +3246,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 5%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 7%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4179,60 +3309,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="14:11:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1871/weekend/?from=new-york"
-           aria-label="All stops for train 1871"></a>
-        <div class="time">
-            14:11
-        </div>
-        <div class="main">
-            <span class="train-num">#1871</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Waldwick</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="14:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1721/weekend/?from=new-york"
-           aria-label="All stops for train 1721"></a>
-        <div class="time">
-            14:14
-        </div>
-        <div class="main">
-            <span class="train-num">#1721</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">SUFFERN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="14:14:00"
         data-next-day="0"
         >
@@ -4264,33 +3340,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1716/weekend/?from=new-york"
-           aria-label="All stops for train 1716"></a>
-        <div class="time">
-            14:33
-        </div>
-        <div class="main">
-            <span class="train-num">#1716</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="14:33:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/7836/weekend/?from=new-york"
            aria-label="All stops for train 7836"></a>
         <div class="time">
@@ -4305,34 +3354,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Edison</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +22m &middot; cxl 3%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="14:39:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1866/weekend/?from=new-york"
-           aria-label="All stops for train 1866"></a>
-        <div class="time">
-            14:39
-        </div>
-        <div class="main">
-            <span class="train-num">#1866</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +81m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4359,7 +3381,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +21m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +41m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4413,7 +3435,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +32m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +32m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4440,7 +3462,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +32m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +32m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4467,7 +3489,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +34m &middot; cxl 25%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +34m &middot; cxl 38%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4557,60 +3579,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="15:11:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1873/weekend/?from=new-york"
-           aria-label="All stops for train 1873"></a>
-        <div class="time">
-            15:11
-        </div>
-        <div class="main">
-            <span class="train-num">#1873</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Waldwick</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="15:15:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1723/weekend/?from=new-york"
-           aria-label="All stops for train 1723"></a>
-        <div class="time">
-            15:15
-        </div>
-        <div class="main">
-            <span class="train-num">#1723</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">SUFFERN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="15:15:00"
         data-next-day="0"
         >
@@ -4669,33 +3637,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1718/weekend/?from=new-york"
-           aria-label="All stops for train 1718"></a>
-        <div class="time">
-            15:34
-        </div>
-        <div class="main">
-            <span class="train-num">#1718</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="15:34:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/7840/weekend/?from=new-york"
            aria-label="All stops for train 7840"></a>
         <div class="time">
@@ -4710,7 +3651,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +26m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +31m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4746,25 +3687,25 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="15:39:00"
+        data-time="15:42:00"
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1868/weekend/?from=new-york"
-           aria-label="All stops for train 1868"></a>
+           href="/trains/7240/weekend/?from=new-york"
+           aria-label="All stops for train 7240"></a>
         <div class="time">
-            15:39
+            15:42
         </div>
         <div class="main">
-            <span class="train-num">#1868</span>
+            <span class="train-num">#7240</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +43m &middot; cxl 8%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4791,34 +3732,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +43m &middot; cxl 3%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="15:42:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7240/weekend/?from=new-york"
-           aria-label="All stops for train 7240"></a>
-        <div class="time">
-            15:42
-        </div>
-        <div class="main">
-            <span class="train-num">#7240</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +43m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +43m &middot; cxl 8%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4872,34 +3786,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +27m &middot; cxl 7%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="15:52:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/77/weekend/?from=new-york"
-           aria-label="All stops for train 77"></a>
-        <div class="time">
-            15:52
-        </div>
-        <div class="main">
-            <span class="train-num">#77</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">PORT JERVIS</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +37m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4953,7 +3840,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med — &middot; p95 — &middot; cxl 100%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 80%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4980,7 +3867,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 8%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +14m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5007,7 +3894,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 8%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +14m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5070,60 +3957,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="16:11:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1875/weekend/?from=new-york"
-           aria-label="All stops for train 1875"></a>
-        <div class="time">
-            16:11
-        </div>
-        <div class="main">
-            <span class="train-num">#1875</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Waldwick</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="16:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1725/weekend/?from=new-york"
-           aria-label="All stops for train 1725"></a>
-        <div class="time">
-            16:14
-        </div>
-        <div class="main">
-            <span class="train-num">#1725</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">SUFFERN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="16:14:00"
         data-next-day="0"
         >
@@ -5143,33 +3976,6 @@
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
                 <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 0%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="16:33:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1720/weekend/?from=new-york"
-           aria-label="All stops for train 1720"></a>
-        <div class="time">
-            16:33
-        </div>
-        <div class="main">
-            <span class="train-num">#1720</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5205,25 +4011,25 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="16:39:00"
+        data-time="16:43:00"
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1870/weekend/?from=new-york"
-           aria-label="All stops for train 1870"></a>
+           href="/trains/7244/weekend/?from=new-york"
+           aria-label="All stops for train 7244"></a>
         <div class="time">
-            16:39
+            16:43
         </div>
         <div class="main">
-            <span class="train-num">#1870</span>
+            <span class="train-num">#7244</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +12m &middot; p95 +27m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5250,34 +4056,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +8m &middot; p95 +27m &middot; cxl 0%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="16:43:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7244/weekend/?from=new-york"
-           aria-label="All stops for train 7244"></a>
-        <div class="time">
-            16:43
-        </div>
-        <div class="main">
-            <span class="train-num">#7244</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +8m &middot; p95 +27m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +12m &middot; p95 +27m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5466,7 +4245,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEWARK PENN STATION</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 67%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 73%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5493,7 +4272,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -1m &middot; cxl 9%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +13m &middot; cxl 11%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5520,7 +4299,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -1m &middot; cxl 9%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +13m &middot; cxl 11%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5583,87 +4362,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="17:11:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1877/weekend/?from=new-york"
-           aria-label="All stops for train 1877"></a>
-        <div class="time">
-            17:11
-        </div>
-        <div class="main">
-            <span class="train-num">#1877</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Waldwick</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="17:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1727/weekend/?from=new-york"
-           aria-label="All stops for train 1727"></a>
-        <div class="time">
-            17:14
-        </div>
-        <div class="main">
-            <span class="train-num">#1727</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">SUFFERN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="17:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/93/weekend/?from=new-york"
-           aria-label="All stops for train 93"></a>
-        <div class="time">
-            17:14
-        </div>
-        <div class="main">
-            <span class="train-num">#93</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">PORT JERVIS</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="17:14:00"
         data-next-day="0"
         >
@@ -5682,88 +4380,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -4m &middot; p95 -2m &middot; cxl 60%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="17:36:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1722/weekend/?from=new-york"
-           aria-label="All stops for train 1722"></a>
-        <div class="time">
-            17:36
-        </div>
-        <div class="main">
-            <span class="train-num">#1722</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="17:36:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1872/weekend/?from=new-york"
-           aria-label="All stops for train 1872"></a>
-        <div class="time">
-            17:36
-        </div>
-        <div class="main">
-            <span class="train-num">#1872</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="17:36:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/78/weekend/?from=new-york"
-           aria-label="All stops for train 78"></a>
-        <div class="time">
-            17:36
-        </div>
-        <div class="main">
-            <span class="train-num">#78</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +29m &middot; cxl 30%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5790,7 +4407,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +19m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +19m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5871,7 +4488,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +9m &middot; p95 +29m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +9m &middot; p95 +29m &middot; cxl 3%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5898,7 +4515,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +9m &middot; p95 +29m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +9m &middot; p95 +29m &middot; cxl 3%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6006,34 +4623,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEWARK PENN STATION</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 75%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="18:07:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/79/weekend/?from=new-york"
-           aria-label="All stops for train 79"></a>
-        <div class="time">
-            18:07
-        </div>
-        <div class="main">
-            <span class="train-num">#79</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">PORT JERVIS</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +9m &middot; cxl 67%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6060,7 +4650,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 3%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6087,7 +4677,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 3%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6127,33 +4717,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1879/weekend/?from=new-york"
-           aria-label="All stops for train 1879"></a>
-        <div class="time">
-            18:11
-        </div>
-        <div class="main">
-            <span class="train-num">#1879</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Waldwick</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="18:11:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/6935/weekend/?from=new-york"
            aria-label="All stops for train 6935"></a>
         <div class="time">
@@ -6168,7 +4731,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +38m &middot; cxl 4%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +38m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6208,33 +4771,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1729/weekend/?from=new-york"
-           aria-label="All stops for train 1729"></a>
-        <div class="time">
-            18:16
-        </div>
-        <div class="main">
-            <span class="train-num">#1729</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">SUFFERN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="18:16:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/7865/weekend/?from=new-york"
            aria-label="All stops for train 7865"></a>
         <div class="time">
@@ -6249,61 +4785,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 8%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="18:33:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1724/weekend/?from=new-york"
-           aria-label="All stops for train 1724"></a>
-        <div class="time">
-            18:33
-        </div>
-        <div class="main">
-            <span class="train-num">#1724</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="18:33:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/88/weekend/?from=new-york"
-           aria-label="All stops for train 88"></a>
-        <div class="time">
-            18:33
-        </div>
-        <div class="main">
-            <span class="train-num">#88</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 6%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6330,34 +4812,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +22m &middot; cxl 0%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="18:37:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1874/weekend/?from=new-york"
-           aria-label="All stops for train 1874"></a>
-        <div class="time">
-            18:37
-        </div>
-        <div class="main">
-            <span class="train-num">#1874</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +37m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6384,7 +4839,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +8m &middot; p95 +38m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +8m &middot; p95 +38m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6411,7 +4866,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +8m &middot; p95 +38m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +8m &middot; p95 +38m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6438,7 +4893,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +6m &middot; p95 +26m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +6m &middot; p95 +36m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6519,7 +4974,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +13m &middot; cxl 15%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +14m &middot; cxl 11%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6546,7 +5001,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +13m &middot; cxl 15%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +14m &middot; cxl 11%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6573,34 +5028,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="19:07:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7269/weekend/?from=new-york"
-           aria-label="All stops for train 7269"></a>
-        <div class="time">
-            19:07
-        </div>
-        <div class="main">
-            <span class="train-num">#7269</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 25%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6627,7 +5055,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 4%</span>
+                
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:07:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7269/weekend/?from=new-york"
+           aria-label="All stops for train 7269"></a>
+        <div class="time">
+            19:07
+        </div>
+        <div class="main">
+            <span class="train-num">#7269</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6653,60 +5108,6 @@
         <div class="line"><span class="line-pill" title="raritan-valley-line">Raritan Valley</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="19:11:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1881/weekend/?from=new-york"
-           aria-label="All stops for train 1881"></a>
-        <div class="time">
-            19:11
-        </div>
-        <div class="main">
-            <span class="train-num">#1881</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Waldwick</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="19:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1731/weekend/?from=new-york"
-           aria-label="All stops for train 1731"></a>
-        <div class="time">
-            19:14
-        </div>
-        <div class="main">
-            <span class="train-num">#1731</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">SUFFERN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
             <span class="sub-end">
                 
                 
@@ -6775,33 +5176,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1726/weekend/?from=new-york"
-           aria-label="All stops for train 1726"></a>
-        <div class="time">
-            19:33
-        </div>
-        <div class="main">
-            <span class="train-num">#1726</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="19:33:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/7856/weekend/?from=new-york"
            aria-label="All stops for train 7856"></a>
         <div class="time">
@@ -6856,21 +5230,21 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1876/weekend/?from=new-york"
-           aria-label="All stops for train 1876"></a>
+           href="/trains/7256/weekend/?from=new-york"
+           aria-label="All stops for train 7256"></a>
         <div class="time">
             19:37
         </div>
         <div class="main">
-            <span class="train-num">#1876</span>
+            <span class="train-num">#7256</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +6m &middot; p95 +33m &middot; cxl 8%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6897,34 +5271,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +33m &middot; cxl 7%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="19:37:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7256/weekend/?from=new-york"
-           aria-label="All stops for train 7256"></a>
-        <div class="time">
-            19:37
-        </div>
-        <div class="main">
-            <span class="train-num">#7256</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +33m &middot; cxl 7%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +6m &middot; p95 +33m &middot; cxl 8%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6951,7 +5298,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +17m &middot; cxl 7%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +17m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7005,7 +5352,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEWARK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 40%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7032,34 +5379,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEWARK PENN STATION</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="19:52:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/80/weekend/?from=new-york"
-           aria-label="All stops for train 80"></a>
-        <div class="time">
-            19:52
-        </div>
-        <div class="main">
-            <span class="train-num">#80</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 40%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7086,7 +5406,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +18m &middot; cxl 21%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +18m &middot; cxl 22%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7113,7 +5433,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +18m &middot; cxl 21%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +18m &middot; cxl 22%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7167,7 +5487,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 12%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 11%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7194,7 +5514,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 12%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 11%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7234,33 +5554,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1883/weekend/?from=new-york"
-           aria-label="All stops for train 1883"></a>
-        <div class="time">
-            20:11
-        </div>
-        <div class="main">
-            <span class="train-num">#1883</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Waldwick</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="20:11:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/6939/weekend/?from=new-york"
            aria-label="All stops for train 6939"></a>
         <div class="time">
@@ -7275,34 +5568,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 0%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="20:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1733/weekend/?from=new-york"
-           aria-label="All stops for train 1733"></a>
-        <div class="time">
-            20:14
-        </div>
-        <div class="main">
-            <span class="train-num">#1733</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">SUFFERN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 7%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7329,34 +5595,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +9m &middot; cxl 5%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="20:32:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1728/weekend/?from=new-york"
-           aria-label="All stops for train 1728"></a>
-        <div class="time">
-            20:32
-        </div>
-        <div class="main">
-            <span class="train-num">#1728</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7384,33 +5623,6 @@
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
                 <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +18m &middot; cxl 14%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="20:40:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1878/weekend/?from=new-york"
-           aria-label="All stops for train 1878"></a>
-        <div class="time">
-            20:40
-        </div>
-        <div class="main">
-            <span class="train-num">#1878</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7518,7 +5730,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +39m &middot; cxl 6%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +59m &middot; cxl 7%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7545,7 +5757,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +39m &middot; cxl 6%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +59m &middot; cxl 7%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7585,21 +5797,21 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1835/weekend/?from=new-york"
-           aria-label="All stops for train 1835"></a>
+           href="/trains/7277/weekend/?from=new-york"
+           aria-label="All stops for train 7277"></a>
         <div class="time">
             21:07
         </div>
         <div class="main">
-            <span class="train-num">#1835</span>
+            <span class="train-num">#7277</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Ridgewood</span>
+            <span class="dest">BAY HEAD</span>
         </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
+            <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -1m &middot; cxl 10%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7626,61 +5838,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -1m &middot; cxl 7%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="21:07:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7277/weekend/?from=new-york"
-           aria-label="All stops for train 7277"></a>
-        <div class="time">
-            21:07
-        </div>
-        <div class="main">
-            <span class="train-num">#7277</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -1m &middot; cxl 7%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="21:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/81/weekend/?from=new-york"
-           aria-label="All stops for train 81"></a>
-        <div class="time">
-            21:14
-        </div>
-        <div class="main">
-            <span class="train-num">#81</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">PORT JERVIS</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -1m &middot; cxl 10%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7707,7 +5865,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 4%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 3%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7733,60 +5891,6 @@
         <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="21:38:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1730/weekend/?from=new-york"
-           aria-label="All stops for train 1730"></a>
-        <div class="time">
-            21:38
-        </div>
-        <div class="main">
-            <span class="train-num">#1730</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="21:38:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1880/weekend/?from=new-york"
-           aria-label="All stops for train 1880"></a>
-        <div class="time">
-            21:38
-        </div>
-        <div class="main">
-            <span class="train-num">#1880</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
             <span class="sub-end">
                 
                 
@@ -7869,7 +5973,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +6m &middot; p95 +26m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +6m &middot; p95 +26m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7896,7 +6000,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +6m &middot; p95 +26m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +6m &middot; p95 +26m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7936,21 +6040,21 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1837/weekend/?from=new-york"
-           aria-label="All stops for train 1837"></a>
+           href="/trains/7281/weekend/?from=new-york"
+           aria-label="All stops for train 7281"></a>
         <div class="time">
             22:07
         </div>
         <div class="main">
-            <span class="train-num">#1837</span>
+            <span class="train-num">#7281</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Ridgewood</span>
+            <span class="dest">Little Silver</span>
         </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
+            <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 14%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7977,61 +6081,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 0%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="22:07:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7281/weekend/?from=new-york"
-           aria-label="All stops for train 7281"></a>
-        <div class="time">
-            22:07
-        </div>
-        <div class="main">
-            <span class="train-num">#7281</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 0%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="22:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1787/weekend/?from=new-york"
-           aria-label="All stops for train 1787"></a>
-        <div class="time">
-            22:14
-        </div>
-        <div class="main">
-            <span class="train-num">#1787</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">SUFFERN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 14%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8071,33 +6121,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1732/weekend/?from=new-york"
-           aria-label="All stops for train 1732"></a>
-        <div class="time">
-            22:32
-        </div>
-        <div class="main">
-            <span class="train-num">#1732</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="22:32:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/7668/weekend/?from=new-york"
            aria-label="All stops for train 7668"></a>
         <div class="time">
@@ -8112,34 +6135,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +18m &middot; cxl 7%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="22:39:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1882/weekend/?from=new-york"
-           aria-label="All stops for train 1882"></a>
-        <div class="time">
-            22:39
-        </div>
-        <div class="main">
-            <span class="train-num">#1882</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +18m &middot; cxl 8%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8166,7 +6162,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +18m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +18m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8193,7 +6189,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +44m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +34m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8220,7 +6216,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +44m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +34m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8247,34 +6243,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEWARK PENN STATION</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 8%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="23:07:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1839/weekend/?from=new-york"
-           aria-label="All stops for train 1839"></a>
-        <div class="time">
-            23:07
-        </div>
-        <div class="main">
-            <span class="train-num">#1839</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Ridgewood</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 6%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8301,7 +6270,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 67%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8328,7 +6297,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 67%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8355,7 +6324,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +38m &middot; cxl 4%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +38m &middot; cxl 11%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8395,33 +6364,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/1789/weekend/?from=new-york"
-           aria-label="All stops for train 1789"></a>
-        <div class="time">
-            23:14
-        </div>
-        <div class="main">
-            <span class="train-num">#1789</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">SUFFERN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="23:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/7885/weekend/?from=new-york"
            aria-label="All stops for train 7885"></a>
         <div class="time">
@@ -8436,34 +6378,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 4%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="23:32:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/82/weekend/?from=new-york"
-           aria-label="All stops for train 82"></a>
-        <div class="time">
-            23:32
-        </div>
-        <div class="main">
-            <span class="train-num">#82</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 3%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8490,34 +6405,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +28m &middot; cxl 3%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="23:39:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/1784/weekend/?from=new-york"
-           aria-label="All stops for train 1784"></a>
-        <div class="time">
-            23:39
-        </div>
-        <div class="main">
-            <span class="train-num">#1784</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +28m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8571,7 +6459,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +8m &middot; p95 +48m &middot; cxl 6%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +8m &middot; p95 +48m &middot; cxl 10%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8598,7 +6486,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +8m &middot; p95 +48m &middot; cxl 6%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +8m &middot; p95 +48m &middot; cxl 10%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8625,7 +6513,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +0m &middot; cxl 0%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +0m &middot; cxl 29%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8652,34 +6540,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +0m &middot; cxl 0%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="00:14:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/1801/weekend/?from=new-york"
-           aria-label="All stops for train 1801"></a>
-        <div class="time">
-            00:14<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#1801</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Ridgewood</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +0m &middot; cxl 29%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8706,7 +6567,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -2m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8734,33 +6595,6 @@
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
                 <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +8m &middot; p95 +33m &middot; cxl 3%</span>
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="00:34:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/69/weekend/?from=new-york"
-           aria-label="All stops for train 69"></a>
-        <div class="time">
-            00:34<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#69</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">PORT JERVIS</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8814,7 +6648,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +2m &middot; cxl 17%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +2m &middot; cxl 11%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8841,7 +6675,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +0m &middot; cxl 50%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8868,7 +6702,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +0m &middot; cxl 50%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8922,7 +6756,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +7m &middot; p95 +27m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +7m &middot; p95 +27m &middot; cxl 7%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8949,7 +6783,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +7m &middot; p95 +27m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +7m &middot; p95 +27m &middot; cxl 7%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8985,60 +6819,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="01:22:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/1701/weekend/?from=new-york"
-           aria-label="All stops for train 1701"></a>
-        <div class="time">
-            01:22<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#1701</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Clifton</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Main Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="01:36:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/1786/weekend/?from=new-york"
-           aria-label="All stops for train 1786"></a>
-        <div class="time">
-            01:36<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#1786</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="01:36:00"
         data-next-day="1"
         >
@@ -9057,7 +6837,7 @@
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +19m &middot; cxl 3%</span>
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +19m &middot; cxl 2%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9219,7 +6999,7 @@ function fillCountdowns(cards) {
 </script>
 
         
-        <footer class="data-footer">Latest data as of Jun 21, 2026</footer>
+        <footer class="data-footer">Latest data as of Jul 23, 2026</footer>
         
     </div>
 </body>

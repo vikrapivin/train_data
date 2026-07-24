@@ -351,6 +351,27 @@
             gap: 8px;
             min-width: 0;
         }
+        /* Connecting rows on a train run: destinations reached by
+           transfer, not stops this train makes — dashed outline + pill
+           so they can't be mistaken for a physical stop. */
+        .schedule-card.is-connecting {
+            border-style: dashed;
+            border-color: var(--border-strong);
+            box-shadow: none;
+        }
+        .schedule-card.is-connecting .time { color: var(--text-dim); }
+        .schedule-card .connect-pill {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-dim);
+            background: var(--surface-2);
+            border: 1px dashed var(--border-strong);
+            border-radius: 4px;
+            padding: 1px 6px;
+            white-space: nowrap;
+        }
         .schedule-card .train-num {
             font-size: 15px;
             font-weight: 700;
@@ -750,60 +771,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="11:51:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4668/weekend/?from=trenton-transit-center"
-           aria-label="All stops for train 4668"></a>
-        <div class="time">
-            11:51
-        </div>
-        <div class="main">
-            <span class="train-num">#4668</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Pennsauken</span>
-        </div>
-        <div class="line"><span class="line-pill" title="atlantic-city-line">Atlantic City Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="12:51:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4670/weekend/?from=trenton-transit-center"
-           aria-label="All stops for train 4670"></a>
-        <div class="time">
-            12:51
-        </div>
-        <div class="main">
-            <span class="train-num">#4670</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Pennsauken</span>
-        </div>
-        <div class="line"><span class="line-pill" title="atlantic-city-line">Atlantic City Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="13:44:00"
         data-next-day="0"
         >
@@ -821,33 +788,6 @@
         <div class="line"><span class="line-pill" title="atlantic-city-line">Atlantic City Line</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: Pennsauken</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="14:21:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4674/weekend/?from=trenton-transit-center"
-           aria-label="All stops for train 4674"></a>
-        <div class="time">
-            14:21
-        </div>
-        <div class="main">
-            <span class="train-num">#4674</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Pennsauken</span>
-        </div>
-        <div class="line"><span class="line-pill" title="atlantic-city-line">Atlantic City Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
             <span class="sub-end">
                 
                 
@@ -1254,7 +1194,7 @@ function fillCountdowns(cards) {
 </script>
 
         
-        <footer class="data-footer">Latest data as of Jun 21, 2026</footer>
+        <footer class="data-footer">Latest data as of Jul 23, 2026</footer>
         
     </div>
 </body>

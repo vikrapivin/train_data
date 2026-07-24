@@ -351,6 +351,27 @@
             gap: 8px;
             min-width: 0;
         }
+        /* Connecting rows on a train run: destinations reached by
+           transfer, not stops this train makes — dashed outline + pill
+           so they can't be mistaken for a physical stop. */
+        .schedule-card.is-connecting {
+            border-style: dashed;
+            border-color: var(--border-strong);
+            box-shadow: none;
+        }
+        .schedule-card.is-connecting .time { color: var(--text-dim); }
+        .schedule-card .connect-pill {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-dim);
+            background: var(--surface-2);
+            border: 1px dashed var(--border-strong);
+            border-radius: 4px;
+            padding: 1px 6px;
+            white-space: nowrap;
+        }
         .schedule-card .train-num {
             font-size: 15px;
             font-weight: 700;
@@ -588,33 +609,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="07:25:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/510/inclement_weather_lvl_2/?from=secaucus-junction"
-           aria-label="All stops for train 510"></a>
-        <div class="time">
-            07:25
-        </div>
-        <div class="main">
-            <span class="train-num">#510</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="07:29:00"
         data-next-day="0"
         >
@@ -659,33 +653,6 @@
         <div class="line"><span class="line-pill" title="raritan-valley-line">Raritan Valley</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: NEWARK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="08:20:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/515/inclement_weather_lvl_2/?from=secaucus-junction"
-           aria-label="All stops for train 515"></a>
-        <div class="time">
-            08:20
-        </div>
-        <div class="main">
-            <span class="train-num">#515</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Bay Street (Montclair)</span>
-        </div>
-        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Broad Street</span>
             <span class="sub-end">
                 
                 
@@ -750,33 +717,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="09:25:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/514/inclement_weather_lvl_2/?from=secaucus-junction"
-           aria-label="All stops for train 514"></a>
-        <div class="time">
-            09:25
-        </div>
-        <div class="main">
-            <span class="train-num">#514</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="09:29:00"
         data-next-day="0"
         >
@@ -821,33 +761,6 @@
         <div class="line"><span class="line-pill" title="raritan-valley-line">Raritan Valley</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: NEWARK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="10:20:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/519/inclement_weather_lvl_2/?from=secaucus-junction"
-           aria-label="All stops for train 519"></a>
-        <div class="time">
-            10:20
-        </div>
-        <div class="main">
-            <span class="train-num">#519</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Bay Street (Montclair)</span>
-        </div>
-        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Broad Street</span>
             <span class="sub-end">
                 
                 
@@ -912,33 +825,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="11:25:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/518/inclement_weather_lvl_2/?from=secaucus-junction"
-           aria-label="All stops for train 518"></a>
-        <div class="time">
-            11:25
-        </div>
-        <div class="main">
-            <span class="train-num">#518</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="11:29:00"
         data-next-day="0"
         >
@@ -983,33 +869,6 @@
         <div class="line"><span class="line-pill" title="raritan-valley-line">Raritan Valley</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: NEWARK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="12:20:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/523/inclement_weather_lvl_2/?from=secaucus-junction"
-           aria-label="All stops for train 523"></a>
-        <div class="time">
-            12:20
-        </div>
-        <div class="main">
-            <span class="train-num">#523</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Bay Street (Montclair)</span>
-        </div>
-        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Broad Street</span>
             <span class="sub-end">
                 
                 
@@ -1074,33 +933,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="13:27:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/522/inclement_weather_lvl_2/?from=secaucus-junction"
-           aria-label="All stops for train 522"></a>
-        <div class="time">
-            13:27
-        </div>
-        <div class="main">
-            <span class="train-num">#522</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="13:31:00"
         data-next-day="0"
         >
@@ -1145,33 +977,6 @@
         <div class="line"><span class="line-pill" title="raritan-valley-line">Raritan Valley</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: NEWARK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="14:20:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/527/inclement_weather_lvl_2/?from=secaucus-junction"
-           aria-label="All stops for train 527"></a>
-        <div class="time">
-            14:20
-        </div>
-        <div class="main">
-            <span class="train-num">#527</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Bay Street (Montclair)</span>
-        </div>
-        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Broad Street</span>
             <span class="sub-end">
                 
                 
@@ -1236,33 +1041,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="15:25:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/526/inclement_weather_lvl_2/?from=secaucus-junction"
-           aria-label="All stops for train 526"></a>
-        <div class="time">
-            15:25
-        </div>
-        <div class="main">
-            <span class="train-num">#526</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="15:29:00"
         data-next-day="0"
         >
@@ -1307,33 +1085,6 @@
         <div class="line"><span class="line-pill" title="raritan-valley-line">Raritan Valley</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: NEWARK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="16:20:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/531/inclement_weather_lvl_2/?from=secaucus-junction"
-           aria-label="All stops for train 531"></a>
-        <div class="time">
-            16:20
-        </div>
-        <div class="main">
-            <span class="train-num">#531</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Bay Street (Montclair)</span>
-        </div>
-        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Broad Street</span>
             <span class="sub-end">
                 
                 
@@ -1398,33 +1149,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="17:25:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/530/inclement_weather_lvl_2/?from=secaucus-junction"
-           aria-label="All stops for train 530"></a>
-        <div class="time">
-            17:25
-        </div>
-        <div class="main">
-            <span class="train-num">#530</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="17:33:00"
         data-next-day="0"
         >
@@ -1469,33 +1193,6 @@
         <div class="line"><span class="line-pill" title="raritan-valley-line">Raritan Valley</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: NEWARK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="18:20:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/535/inclement_weather_lvl_2/?from=secaucus-junction"
-           aria-label="All stops for train 535"></a>
-        <div class="time">
-            18:20
-        </div>
-        <div class="main">
-            <span class="train-num">#535</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Bay Street (Montclair)</span>
-        </div>
-        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Broad Street</span>
             <span class="sub-end">
                 
                 
@@ -1560,33 +1257,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="19:27:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/534/inclement_weather_lvl_2/?from=secaucus-junction"
-           aria-label="All stops for train 534"></a>
-        <div class="time">
-            19:27
-        </div>
-        <div class="main">
-            <span class="train-num">#534</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="19:29:00"
         data-next-day="0"
         >
@@ -1641,33 +1311,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="20:20:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/539/inclement_weather_lvl_2/?from=secaucus-junction"
-           aria-label="All stops for train 539"></a>
-        <div class="time">
-            20:20
-        </div>
-        <div class="main">
-            <span class="train-num">#539</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Bay Street (Montclair)</span>
-        </div>
-        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Broad Street</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="20:29:00"
         data-next-day="0"
         >
@@ -1712,33 +1355,6 @@
         <div class="line"><span class="line-pill" title="raritan-valley-line">Raritan Valley</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: NEWARK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="21:25:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/538/inclement_weather_lvl_2/?from=secaucus-junction"
-           aria-label="All stops for train 538"></a>
-        <div class="time">
-            21:25
-        </div>
-        <div class="main">
-            <span class="train-num">#538</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
             <span class="sub-end">
                 
                 
@@ -1857,33 +1473,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="23:20:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/545/inclement_weather_lvl_2/?from=secaucus-junction"
-           aria-label="All stops for train 545"></a>
-        <div class="time">
-            23:20
-        </div>
-        <div class="main">
-            <span class="train-num">#545</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Bay Street (Montclair)</span>
-        </div>
-        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Broad Street</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="23:29:00"
         data-next-day="0"
         >
@@ -1901,33 +1490,6 @@
         <div class="line"><span class="line-pill" title="raritan-valley-line">Raritan Valley</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="00:25:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/544/inclement_weather_lvl_2/?from=secaucus-junction"
-           aria-label="All stops for train 544"></a>
-        <div class="time">
-            00:25<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#544</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">HOBOKEN</span>
-        </div>
-        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: HOBOKEN</span>
             <span class="sub-end">
                 
                 
@@ -1982,33 +1544,6 @@
         <div class="line"><span class="line-pill" title="raritan-valley-line">Raritan Valley</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: NEWARK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="01:28:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/509/inclement_weather_lvl_2/?from=secaucus-junction"
-           aria-label="All stops for train 509"></a>
-        <div class="time">
-            01:28<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#509</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Bay Street (Montclair)</span>
-        </div>
-        <div class="line"><span class="line-pill" title="montclair-boonton-line">Montclair - Boonton Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Broad Street</span>
             <span class="sub-end">
                 
                 
@@ -2091,7 +1626,7 @@ function fillCountdowns(cards) {
 </script>
 
         
-        <footer class="data-footer">Latest data as of Jun 21, 2026</footer>
+        <footer class="data-footer">Latest data as of Jul 23, 2026</footer>
         
     </div>
 </body>

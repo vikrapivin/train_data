@@ -351,6 +351,27 @@
             gap: 8px;
             min-width: 0;
         }
+        /* Connecting rows on a train run: destinations reached by
+           transfer, not stops this train makes — dashed outline + pill
+           so they can't be mistaken for a physical stop. */
+        .schedule-card.is-connecting {
+            border-style: dashed;
+            border-color: var(--border-strong);
+            box-shadow: none;
+        }
+        .schedule-card.is-connecting .time { color: var(--text-dim); }
+        .schedule-card .connect-pill {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-dim);
+            background: var(--surface-2);
+            border: 1px dashed var(--border-strong);
+            border-radius: 4px;
+            padding: 1px 6px;
+            white-space: nowrap;
+        }
         .schedule-card .train-num {
             font-size: 15px;
             font-weight: 700;
@@ -573,40 +594,13 @@
         <div class="main">
             <span class="train-num">#5431</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Secaucus Junction</span>
+            <span class="dest">RARITAN</span>
         </div>
         <div class="line"><span class="line-pill" title="raritan-valley-line">Raritan Valley</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="04:46:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3209/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 3209"></a>
-        <div class="time">
-            04:46
-        </div>
-        <div class="main">
-            <span class="train-num">#3209</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +710m &middot; p95 +715m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -633,7 +627,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +1m &middot; cxl 0%</span>
                 
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="04:46:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3209/weekday/?from=newark-penn-station"
+           aria-label="All stops for train 3209"></a>
+        <div class="time">
+            04:46
+        </div>
+        <div class="main">
+            <span class="train-num">#3209</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Little Silver</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +1m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -660,7 +681,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +2m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -687,7 +708,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +23m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -714,7 +735,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +5m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -741,7 +762,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 -1m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -768,7 +789,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +2m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -795,7 +816,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +3m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -876,7 +897,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +2m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -903,7 +924,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +3m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -930,34 +951,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="05:52:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3208/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 3208"></a>
-        <div class="time">
-            05:52
-        </div>
-        <div class="main">
-            <span class="train-num">#3208</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +2m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -984,7 +978,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +1m &middot; cxl 0%</span>
                 
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="05:52:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3208/weekday/?from=newark-penn-station"
+           aria-label="All stops for train 3208"></a>
+        <div class="time">
+            05:52
+        </div>
+        <div class="main">
+            <span class="train-num">#3208</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +1m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1038,7 +1059,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +2m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1065,7 +1086,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +2m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1092,7 +1113,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Avenel</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +0m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1119,7 +1140,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 +3m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1146,7 +1167,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -6m &middot; p95 +5m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1200,7 +1221,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +9m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1227,7 +1248,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +0m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1254,7 +1275,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +6m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1281,7 +1302,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +0m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1308,7 +1329,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +3m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1362,7 +1383,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 +2m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1389,7 +1410,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 +2m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1416,7 +1437,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Metropark</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +2m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1443,34 +1464,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="06:50:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3217/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 3217"></a>
-        <div class="time">
-            06:50
-        </div>
-        <div class="main">
-            <span class="train-num">#3217</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +4m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1497,7 +1491,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +1m &middot; cxl 0%</span>
                 
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="06:50:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3217/weekday/?from=newark-penn-station"
+           aria-label="All stops for train 3217"></a>
+        <div class="time">
+            06:50
+        </div>
+        <div class="main">
+            <span class="train-num">#3217</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Little Silver</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +1m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1524,7 +1545,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 +0m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1551,7 +1572,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +3m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1578,7 +1599,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +3m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1605,7 +1626,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +4m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1632,7 +1653,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 +9m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1686,7 +1707,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +6m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1713,34 +1734,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="07:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3221/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 3221"></a>
-        <div class="time">
-            07:14
-        </div>
-        <div class="main">
-            <span class="train-num">#3221</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +4m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1767,7 +1761,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +2m &middot; cxl 0%</span>
                 
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:14:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3221/weekday/?from=newark-penn-station"
+           aria-label="All stops for train 3221"></a>
+        <div class="time">
+            07:14
+        </div>
+        <div class="main">
+            <span class="train-num">#3221</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +2m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1794,7 +1815,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +3m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1848,7 +1869,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +1m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1875,7 +1896,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -5m &middot; p95 -5m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1929,7 +1950,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +8m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1956,7 +1977,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +15m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -1983,7 +2004,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +11m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2010,7 +2031,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +8m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2037,7 +2058,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +9m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2064,7 +2085,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +3m &middot; cxl 13%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2091,7 +2112,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 +1m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2118,7 +2139,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Metropark</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +7m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2145,7 +2166,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +5m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2172,7 +2193,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +10m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2199,7 +2220,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +1m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2253,7 +2274,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +2m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2280,7 +2301,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +2m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2307,7 +2328,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -5m &middot; p95 -5m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2361,7 +2382,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +8m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2388,7 +2409,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +8m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2415,7 +2436,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -4m &middot; p95 +2m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2442,7 +2463,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +12m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2469,7 +2490,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 +2m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2496,7 +2517,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +5m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2523,7 +2544,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +4m &middot; cxl 13%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2550,7 +2571,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 +8m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2631,7 +2652,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +13m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2658,7 +2679,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +4m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2685,34 +2706,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="08:27:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3504/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 3504"></a>
-        <div class="time">
-            08:27
-        </div>
-        <div class="main">
-            <span class="train-num">#3504</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +3m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2739,7 +2733,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +2m &middot; cxl 0%</span>
                 
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:27:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3504/weekday/?from=newark-penn-station"
+           aria-label="All stops for train 3504"></a>
+        <div class="time">
+            08:27
+        </div>
+        <div class="main">
+            <span class="train-num">#3504</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +2m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2766,7 +2787,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +4m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2820,7 +2841,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 -2m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2847,7 +2868,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +8m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2874,7 +2895,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +5m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2901,7 +2922,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +4m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -2982,7 +3003,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 +4m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3009,7 +3030,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +3m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3036,7 +3057,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +3m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3063,34 +3084,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="09:04:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3227/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 3227"></a>
-        <div class="time">
-            09:04
-        </div>
-        <div class="main">
-            <span class="train-num">#3227</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +2m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3117,7 +3111,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +3m &middot; cxl 0%</span>
                 
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:04:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3227/weekday/?from=newark-penn-station"
+           aria-label="All stops for train 3227"></a>
+        <div class="time">
+            09:04
+        </div>
+        <div class="main">
+            <span class="train-num">#3227</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Little Silver</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +3m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3144,7 +3165,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -6m &middot; p95 -1m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3171,7 +3192,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +7m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3198,34 +3219,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="09:17:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3228/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 3228"></a>
-        <div class="time">
-            09:17
-        </div>
-        <div class="main">
-            <span class="train-num">#3228</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +8m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3252,7 +3246,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +1m &middot; cxl 4%</span>
                 
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:17:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3228/weekday/?from=newark-penn-station"
+           aria-label="All stops for train 3228"></a>
+        <div class="time">
+            09:17
+        </div>
+        <div class="main">
+            <span class="train-num">#3228</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +1m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3279,7 +3300,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +8m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3306,7 +3327,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +3m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3333,7 +3354,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 +6m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3387,7 +3408,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +3m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3441,7 +3462,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +5m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3468,7 +3489,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +5m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3495,7 +3516,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +2m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3522,34 +3543,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="09:58:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3508/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 3508"></a>
-        <div class="time">
-            09:58
-        </div>
-        <div class="main">
-            <span class="train-num">#3508</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 +3m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3576,7 +3570,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +3m &middot; cxl 0%</span>
                 
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:58:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3508/weekday/?from=newark-penn-station"
+           aria-label="All stops for train 3508"></a>
+        <div class="time">
+            09:58
+        </div>
+        <div class="main">
+            <span class="train-num">#3508</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +3m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3603,7 +3624,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -7m &middot; p95 -7m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3657,7 +3678,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +7m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3684,7 +3705,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +7m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3711,7 +3732,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +8m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3738,7 +3759,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +12m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3765,7 +3786,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +7m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3846,7 +3867,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +12m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3873,7 +3894,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +12m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3900,7 +3921,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +8m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3927,7 +3948,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +11m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3954,7 +3975,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +5m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -3981,7 +4002,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 +3m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4035,7 +4056,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +6m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4062,34 +4083,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="11:12:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3236/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 3236"></a>
-        <div class="time">
-            11:12
-        </div>
-        <div class="main">
-            <span class="train-num">#3236</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +6m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4116,7 +4110,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +6m &middot; cxl 0%</span>
                 
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="11:12:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3236/weekday/?from=newark-penn-station"
+           aria-label="All stops for train 3236"></a>
+        <div class="time">
+            11:12
+        </div>
+        <div class="main">
+            <span class="train-num">#3236</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +6m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4197,7 +4218,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +10m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4224,34 +4245,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="11:42:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3239/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 3239"></a>
-        <div class="time">
-            11:42
-        </div>
-        <div class="main">
-            <span class="train-num">#3239</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +8m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4278,7 +4272,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +6m &middot; cxl 0%</span>
                 
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="11:42:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3239/weekday/?from=newark-penn-station"
+           aria-label="All stops for train 3239"></a>
+        <div class="time">
+            11:42
+        </div>
+        <div class="main">
+            <span class="train-num">#3239</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Little Silver</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +6m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4305,7 +4326,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +6m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4332,7 +4353,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 +8m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4359,7 +4380,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +8m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4386,7 +4407,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +11m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4440,7 +4461,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +12m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4467,7 +4488,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +12m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4494,7 +4515,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +8m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4548,34 +4569,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: North Elizabeth</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="12:31:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3241/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 3241"></a>
-        <div class="time">
-            12:31
-        </div>
-        <div class="main">
-            <span class="train-num">#3241</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -711m &middot; p95 -709m &middot; cxl 40%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4602,7 +4596,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +1m &middot; cxl 0%</span>
                 
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:31:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3241/weekday/?from=newark-penn-station"
+           aria-label="All stops for train 3241"></a>
+        <div class="time">
+            12:31
+        </div>
+        <div class="main">
+            <span class="train-num">#3241</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Little Silver</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +1m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4629,7 +4650,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +8m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4656,7 +4677,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +20m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4683,7 +4704,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +4m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4710,7 +4731,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +7m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4737,7 +4758,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +8m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4791,7 +4812,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +4m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4818,7 +4839,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +4m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4872,7 +4893,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +10m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4899,34 +4920,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="13:20:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/5436/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 5436"></a>
-        <div class="time">
-            13:20
-        </div>
-        <div class="main">
-            <span class="train-num">#5436</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Secaucus Junction</span>
-        </div>
-        <div class="line"><span class="line-pill" title="raritan-valley-line">Raritan Valley</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +10m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -4953,7 +4947,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +5m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5007,7 +5001,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +12m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5034,7 +5028,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +10m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5061,7 +5055,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +9m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5088,7 +5082,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +6m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5115,34 +5109,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="14:02:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3247/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 3247"></a>
-        <div class="time">
-            14:02
-        </div>
-        <div class="main">
-            <span class="train-num">#3247</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +10m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5169,7 +5136,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +6m &middot; cxl 4%</span>
                 
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:02:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3247/weekday/?from=newark-penn-station"
+           aria-label="All stops for train 3247"></a>
+        <div class="time">
+            14:02
+        </div>
+        <div class="main">
+            <span class="train-num">#3247</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Little Silver</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +6m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5196,7 +5190,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +12m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5223,7 +5217,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +12m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5304,7 +5298,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +20m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5358,7 +5352,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +13m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5412,7 +5406,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +22m &middot; cxl 17%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5439,7 +5433,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +7m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5493,7 +5487,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +4m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5520,7 +5514,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +16m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5574,7 +5568,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +9m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5601,7 +5595,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +9m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5655,7 +5649,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +8m &middot; p95 +32m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5682,7 +5676,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +8m &middot; p95 +32m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5709,7 +5703,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +22m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5763,7 +5757,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +5m &middot; p95 +25m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5790,7 +5784,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +10m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5871,7 +5865,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +8m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5898,7 +5892,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +8m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5952,7 +5946,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +11m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -5979,7 +5973,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Metropark</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +4m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6006,7 +6000,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +6m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6033,7 +6027,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 +17m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6060,7 +6054,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +6m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6087,7 +6081,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Avenel</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +4m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6141,7 +6135,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +9m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6168,7 +6162,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +9m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6222,7 +6216,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Metropark</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +1m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6249,7 +6243,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +12m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6330,7 +6324,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +10m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6357,7 +6351,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +10m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6384,7 +6378,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Princeton Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +6m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6411,7 +6405,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +15m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6438,7 +6432,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -8m &middot; p95 -3m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6465,7 +6459,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Avenel</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +2m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6492,7 +6486,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +8m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6519,7 +6513,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Princeton Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +2m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6573,7 +6567,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +20m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6600,7 +6594,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +20m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6627,7 +6621,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +9m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6681,7 +6675,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +8m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6708,7 +6702,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -7m &middot; p95 -6m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6735,34 +6729,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Avenel</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="17:21:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3511/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 3511"></a>
-        <div class="time">
-            17:21
-        </div>
-        <div class="main">
-            <span class="train-num">#3511</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: North Elizabeth</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +21m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6789,7 +6756,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: North Elizabeth</span>
             <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +11m &middot; cxl 9%</span>
                 
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:21:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3511/weekday/?from=newark-penn-station"
+           aria-label="All stops for train 3511"></a>
+        <div class="time">
+            17:21
+        </div>
+        <div class="main">
+            <span class="train-num">#3511</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Perth Amboy</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: North Elizabeth</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +11m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6816,7 +6810,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 +3m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6843,7 +6837,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Princeton Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +13m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6870,34 +6864,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="17:32:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3510/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 3510"></a>
-        <div class="time">
-            17:32
-        </div>
-        <div class="main">
-            <span class="train-num">#3510</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +13m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6924,7 +6891,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +8m &middot; cxl 5%</span>
                 
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:32:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3510/weekday/?from=newark-penn-station"
+           aria-label="All stops for train 3510"></a>
+        <div class="time">
+            17:32
+        </div>
+        <div class="main">
+            <span class="train-num">#3510</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +8m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6951,7 +6945,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Avenel</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +15m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -6978,7 +6972,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Westfield</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -6m &middot; p95 -6m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7005,7 +6999,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +5m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7032,7 +7026,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Princeton Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +26m &middot; cxl 15%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7059,7 +7053,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +12m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7113,7 +7107,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -4m &middot; p95 +22m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7140,7 +7134,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +5m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7167,34 +7161,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="17:50:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3513/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 3513"></a>
-        <div class="time">
-            17:50
-        </div>
-        <div class="main">
-            <span class="train-num">#3513</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +13m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7221,7 +7188,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +15m &middot; cxl 9%</span>
                 
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:50:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3513/weekday/?from=newark-penn-station"
+           aria-label="All stops for train 3513"></a>
+        <div class="time">
+            17:50
+        </div>
+        <div class="main">
+            <span class="train-num">#3513</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Perth Amboy</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +15m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7248,7 +7242,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Avenel</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +6m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7302,7 +7296,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 +8m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7329,7 +7323,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Princeton Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +12m &middot; cxl 13%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7356,7 +7350,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +30m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7410,7 +7404,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +18m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7437,7 +7431,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +18m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7464,7 +7458,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -7m &middot; p95 -3m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7491,7 +7485,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Rahway</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +8m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7518,7 +7512,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +6m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7545,34 +7539,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="18:16:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/5446/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 5446"></a>
-        <div class="time">
-            18:16
-        </div>
-        <div class="main">
-            <span class="train-num">#5446</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Secaucus Junction</span>
-        </div>
-        <div class="line"><span class="line-pill" title="raritan-valley-line">Raritan Valley</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +20m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7599,34 +7566,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Avenel</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="18:21:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3271/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 3271"></a>
-        <div class="time">
-            18:21
-        </div>
-        <div class="main">
-            <span class="train-num">#3271</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +12m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7653,7 +7593,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +9m &middot; cxl 5%</span>
                 
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:21:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3271/weekday/?from=newark-penn-station"
+           aria-label="All stops for train 3271"></a>
+        <div class="time">
+            18:21
+        </div>
+        <div class="main">
+            <span class="train-num">#3271</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Little Silver</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +9m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7734,7 +7701,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Westfield</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -9m &middot; p95 -1m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7761,7 +7728,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Princeton Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +16m &middot; cxl 17%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7842,7 +7809,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +24m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7869,7 +7836,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +7m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7896,7 +7863,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -8m &middot; p95 +1m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7923,7 +7890,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +4m &middot; p95 +14m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7950,7 +7917,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +52m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -7977,7 +7944,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Avenel</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +7m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8031,7 +7998,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +6m &middot; cxl 13%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8058,7 +8025,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +6m &middot; cxl 13%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8112,7 +8079,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +9m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8139,34 +8106,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Metropark</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="19:10:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3512/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 3512"></a>
-        <div class="time">
-            19:10
-        </div>
-        <div class="main">
-            <span class="train-num">#3512</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +13m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8193,7 +8133,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +18m &middot; cxl 9%</span>
                 
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:10:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3512/weekday/?from=newark-penn-station"
+           aria-label="All stops for train 3512"></a>
+        <div class="time">
+            19:10
+        </div>
+        <div class="main">
+            <span class="train-num">#3512</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +18m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8247,7 +8214,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -7m &middot; p95 +3m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8274,7 +8241,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +20m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8301,7 +8268,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Avenel</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +16m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8355,7 +8322,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +5m &middot; cxl 14%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8382,7 +8349,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +18m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8463,7 +8430,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +8m &middot; cxl 14%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8490,7 +8457,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Metropark</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +18m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8571,7 +8538,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +55m &middot; p95 +91m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8598,7 +8565,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Aberdeen-Matawan</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -49m &middot; p95 -35m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8625,7 +8592,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +12m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8652,7 +8619,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +12m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8679,7 +8646,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +4m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8706,7 +8673,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: New Brunswick</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +17m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8760,34 +8727,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="20:15:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3283/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 3283"></a>
-        <div class="time">
-            20:15
-        </div>
-        <div class="main">
-            <span class="train-num">#3283</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -7m &middot; p95 -7m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8814,7 +8754,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +11m &middot; cxl 0%</span>
                 
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="20:15:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3283/weekday/?from=newark-penn-station"
+           aria-label="All stops for train 3283"></a>
+        <div class="time">
+            20:15
+        </div>
+        <div class="main">
+            <span class="train-num">#3283</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +11m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8841,7 +8808,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +16m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8868,7 +8835,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +19m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8895,7 +8862,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -49m &middot; p95 -35m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8922,7 +8889,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: New Brunswick</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +6m &middot; cxl 13%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -8976,7 +8943,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Rahway</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +9m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9003,7 +8970,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -36m &middot; p95 -27m &middot; cxl 13%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9030,7 +8997,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +11m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9057,34 +9024,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="21:00:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3285/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 3285"></a>
-        <div class="time">
-            21:00
-        </div>
-        <div class="main">
-            <span class="train-num">#3285</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +7m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9111,7 +9051,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +8m &middot; cxl 0%</span>
                 
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:00:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3285/weekday/?from=newark-penn-station"
+           aria-label="All stops for train 3285"></a>
+        <div class="time">
+            21:00
+        </div>
+        <div class="main">
+            <span class="train-num">#3285</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Little Silver</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +8m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9138,7 +9105,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +11m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9165,7 +9132,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 +4m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9246,7 +9213,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +4m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9300,7 +9267,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +9m &middot; cxl 4%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9327,34 +9294,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="21:44:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3289/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 3289"></a>
-        <div class="time">
-            21:44
-        </div>
-        <div class="main">
-            <span class="train-num">#3289</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -36m &middot; p95 -27m &middot; cxl 13%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9381,7 +9321,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +5m &middot; cxl 0%</span>
                 
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:44:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3289/weekday/?from=newark-penn-station"
+           aria-label="All stops for train 3289"></a>
+        <div class="time">
+            21:44
+        </div>
+        <div class="main">
+            <span class="train-num">#3289</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Little Silver</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +5m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9408,7 +9375,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +10m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9435,7 +9402,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +9m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9462,7 +9429,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +3m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9489,7 +9456,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -4m &middot; p95 -2m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9516,7 +9483,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -9m &middot; p95 -4m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9597,7 +9564,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +14m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9624,7 +9591,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +4m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9678,7 +9645,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +13m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9705,7 +9672,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +13m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9732,7 +9699,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Princeton Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +4m &middot; cxl 17%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9786,7 +9753,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +7m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9813,7 +9780,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +7m &middot; cxl 5%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9840,7 +9807,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +3m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9867,7 +9834,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +1m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9894,7 +9861,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +5m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9921,7 +9888,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +0m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9948,7 +9915,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 -1m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -9975,7 +9942,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +12m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -10056,7 +10023,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +6m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -10083,34 +10050,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="23:42:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3288/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 3288"></a>
-        <div class="time">
-            23:42
-        </div>
-        <div class="main">
-            <span class="train-num">#3288</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +6m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -10137,7 +10077,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 +15m &middot; cxl 0%</span>
                 
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="23:42:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3288/weekday/?from=newark-penn-station"
+           aria-label="All stops for train 3288"></a>
+        <div class="time">
+            23:42
+        </div>
+        <div class="main">
+            <span class="train-num">#3288</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Secaucus Junction</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -3m &middot; p95 +15m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -10164,7 +10131,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +0m &middot; cxl 9%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -10218,7 +10185,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -711m &middot; p95 -709m &middot; cxl 40%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -10245,7 +10212,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -8m &middot; p95 -3m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -10272,7 +10239,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +8m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -10299,7 +10266,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +14m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -10326,7 +10293,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +14m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -10380,7 +10347,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +5m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -10407,7 +10374,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +5m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -10434,7 +10401,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +7m &middot; p95 +93m &middot; cxl 25%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -10461,34 +10428,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="01:18:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/3205/weekday/?from=newark-penn-station"
-           aria-label="All stops for train 3205"></a>
-        <div class="time">
-            01:18<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#3205</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +40m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -10515,7 +10455,34 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +7m &middot; p95 +10m &middot; cxl 0%</span>
                 
+                
+                <span class="status" aria-live="polite"></span>
+            </span>
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="01:18:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/3205/weekday/?from=newark-penn-station"
+           aria-label="All stops for train 3205"></a>
+        <div class="time">
+            01:18<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#3205</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Perth Amboy</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+            <span class="sub-end">
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +7m &middot; p95 +10m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -10542,7 +10509,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Union Station</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +2m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -10596,7 +10563,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +49m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -10623,7 +10590,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +49m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -10650,7 +10617,7 @@
         <div class="sub">
             <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +10m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -10671,13 +10638,13 @@
         <div class="main">
             <span class="train-num">#3800</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Secaucus Junction</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
             <span class="sub-end">
-                
+                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +6m &middot; p95 +12m &middot; cxl 0%</span>
                 
                 
                 <span class="status" aria-live="polite"></span>
@@ -10758,7 +10725,7 @@ function fillCountdowns(cards) {
 </script>
 
         
-        <footer class="data-footer">Latest data as of Jun 21, 2026</footer>
+        <footer class="data-footer">Latest data as of Jul 23, 2026</footer>
         
     </div>
 </body>

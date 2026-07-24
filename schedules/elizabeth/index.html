@@ -351,6 +351,27 @@
             gap: 8px;
             min-width: 0;
         }
+        /* Connecting rows on a train run: destinations reached by
+           transfer, not stops this train makes — dashed outline + pill
+           so they can't be mistaken for a physical stop. */
+        .schedule-card.is-connecting {
+            border-style: dashed;
+            border-color: var(--border-strong);
+            box-shadow: none;
+        }
+        .schedule-card.is-connecting .time { color: var(--text-dim); }
+        .schedule-card .connect-pill {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-dim);
+            background: var(--surface-2);
+            border: 1px dashed var(--border-strong);
+            border-radius: 4px;
+            padding: 1px 6px;
+            white-space: nowrap;
+        }
         .schedule-card .train-num {
             font-size: 15px;
             font-weight: 700;
@@ -1036,7 +1057,7 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
+            <span class="sub-label">Next stop: North Elizabeth</span>
             <span class="sub-end">
                 
                 
@@ -1468,7 +1489,7 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
+            <span class="sub-label">Next stop: North Elizabeth</span>
             <span class="sub-end">
                 
                 
@@ -2008,7 +2029,7 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: North Elizabeth</span>
+            <span class="sub-label">Next stop: Elizabeth</span>
             <span class="sub-end">
                 
                 
@@ -2197,7 +2218,7 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
+            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
                 
                 
@@ -2413,7 +2434,7 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
+            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
             <span class="sub-end">
                 
                 
@@ -2629,7 +2650,7 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+            <span class="sub-label">Next stop: Elizabeth</span>
             <span class="sub-end">
                 
                 
@@ -3007,7 +3028,7 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: North Elizabeth</span>
+            <span class="sub-label">Next stop: Elizabeth</span>
             <span class="sub-end">
                 
                 
@@ -3115,7 +3136,7 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+            <span class="sub-label">Next stop: Elizabeth</span>
             <span class="sub-end">
                 
                 
@@ -3439,7 +3460,7 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
+            <span class="sub-label">Next stop: North Elizabeth</span>
             <span class="sub-end">
                 
                 
@@ -4654,7 +4675,7 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: North Elizabeth</span>
+            <span class="sub-label">Next stop: Elizabeth</span>
             <span class="sub-end">
                 
                 
@@ -4731,7 +4752,7 @@
         <div class="main">
             <span class="train-num">#3800</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Secaucus Junction</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
@@ -4845,7 +4866,7 @@ function fillCountdowns(cards) {
 </script>
 
         
-        <footer class="data-footer">Latest data as of Jun 21, 2026</footer>
+        <footer class="data-footer">Latest data as of Jul 23, 2026</footer>
         
     </div>
 </body>

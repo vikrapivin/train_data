@@ -351,6 +351,27 @@
             gap: 8px;
             min-width: 0;
         }
+        /* Connecting rows on a train run: destinations reached by
+           transfer, not stops this train makes — dashed outline + pill
+           so they can't be mistaken for a physical stop. */
+        .schedule-card.is-connecting {
+            border-style: dashed;
+            border-color: var(--border-strong);
+            box-shadow: none;
+        }
+        .schedule-card.is-connecting .time { color: var(--text-dim); }
+        .schedule-card .connect-pill {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-dim);
+            background: var(--surface-2);
+            border: 1px dashed var(--border-strong);
+            border-radius: 4px;
+            padding: 1px 6px;
+            white-space: nowrap;
+        }
         .schedule-card .train-num {
             font-size: 15px;
             font-weight: 700;
@@ -723,33 +744,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="05:43:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/8202/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 8202"></a>
-        <div class="time">
-            05:43
-        </div>
-        <div class="main">
-            <span class="train-num">#8202</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast Line</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="05:53:00"
         data-next-day="0"
         >
@@ -875,33 +869,6 @@
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="06:27:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7204/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 7204"></a>
-        <div class="time">
-            06:27
-        </div>
-        <div class="main">
-            <span class="train-num">#7204</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
             <span class="sub-end">
                 
                 
@@ -1193,33 +1160,6 @@
         </div>
         <div class="main">
             <span class="train-num">#7808</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="07:42:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7208/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 7208"></a>
-        <div class="time">
-            07:42
-        </div>
-        <div class="main">
-            <span class="train-num">#7208</span>
             <span class="arrow" aria-hidden="true">→</span>
             <span class="dest">NEW YORK PENN STATION</span>
         </div>
@@ -1560,33 +1500,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="08:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/8314/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 8314"></a>
-        <div class="time">
-            08:14
-        </div>
-        <div class="main">
-            <span class="train-num">#8314</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="08:28:00"
         data-next-day="0"
         >
@@ -1625,33 +1538,6 @@
         </div>
         <div class="main">
             <span class="train-num">#7812</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="08:42:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7212/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 7212"></a>
-        <div class="time">
-            08:42
-        </div>
-        <div class="main">
-            <span class="train-num">#7212</span>
             <span class="arrow" aria-hidden="true">→</span>
             <span class="dest">NEW YORK PENN STATION</span>
         </div>
@@ -2023,33 +1909,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/7216/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 7216"></a>
-        <div class="time">
-            09:42
-        </div>
-        <div class="main">
-            <span class="train-num">#7216</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="09:42:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/5510/inclement_weather_lvl_1/?from=new-york"
            aria-label="All stops for train 5510"></a>
         <div class="time">
@@ -2246,33 +2105,6 @@
         </div>
         <div class="main">
             <span class="train-num">#7820</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="10:41:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7220/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 7220"></a>
-        <div class="time">
-            10:41
-        </div>
-        <div class="main">
-            <span class="train-num">#7220</span>
             <span class="arrow" aria-hidden="true">→</span>
             <span class="dest">NEW YORK PENN STATION</span>
         </div>
@@ -2644,33 +2476,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/7224/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 7224"></a>
-        <div class="time">
-            11:42
-        </div>
-        <div class="main">
-            <span class="train-num">#7224</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="11:42:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/5514/inclement_weather_lvl_1/?from=new-york"
            aria-label="All stops for train 5514"></a>
         <div class="time">
@@ -2968,33 +2773,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/7228/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 7228"></a>
-        <div class="time">
-            12:42
-        </div>
-        <div class="main">
-            <span class="train-num">#7228</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="12:42:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/5516/inclement_weather_lvl_1/?from=new-york"
            aria-label="All stops for train 5516"></a>
         <div class="time">
@@ -3222,33 +3000,6 @@
             <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="13:38:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7232/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 7232"></a>
-        <div class="time">
-            13:38
-        </div>
-        <div class="main">
-            <span class="train-num">#7232</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
@@ -3639,33 +3390,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="14:53:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7236/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 7236"></a>
-        <div class="time">
-            14:53
-        </div>
-        <div class="main">
-            <span class="train-num">#7236</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="14:55:00"
         data-next-day="0"
         >
@@ -3843,33 +3567,6 @@
             <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="15:42:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7240/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 7240"></a>
-        <div class="time">
-            15:42
-        </div>
-        <div class="main">
-            <span class="train-num">#7240</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
@@ -4584,33 +4281,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="17:43:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7244/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 7244"></a>
-        <div class="time">
-            17:43
-        </div>
-        <div class="main">
-            <span class="train-num">#7244</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Newark Int&#x27;l. Airport</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="17:44:00"
         data-next-day="0"
         >
@@ -4925,33 +4595,6 @@
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
             <span class="sub-label">Next stop: Secaucus Junction</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="18:27:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7248/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 7248"></a>
-        <div class="time">
-            18:27
-        </div>
-        <div class="main">
-            <span class="train-num">#7248</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Newark Int&#x27;l. Airport</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
             <span class="sub-end">
                 
                 
@@ -5340,33 +4983,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="19:42:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7252/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 7252"></a>
-        <div class="time">
-            19:42
-        </div>
-        <div class="main">
-            <span class="train-num">#7252</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Newark Int&#x27;l. Airport</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="19:43:00"
         data-next-day="0"
         >
@@ -5614,33 +5230,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/7652/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 7652"></a>
-        <div class="time">
-            20:14
-        </div>
-        <div class="main">
-            <span class="train-num">#7652</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Avenel</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="20:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/7873/inclement_weather_lvl_1/?from=new-york"
            aria-label="All stops for train 7873"></a>
         <div class="time">
@@ -5677,33 +5266,6 @@
             <span class="train-num">#7660</span>
             <span class="arrow" aria-hidden="true">→</span>
             <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="20:42:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7256/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 7256"></a>
-        <div class="time">
-            20:42
-        </div>
-        <div class="main">
-            <span class="train-num">#7256</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Newark Int&#x27;l. Airport</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
@@ -5961,33 +5523,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="21:42:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7656/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 7656"></a>
-        <div class="time">
-            21:42
-        </div>
-        <div class="main">
-            <span class="train-num">#7656</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Newark Int&#x27;l. Airport</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="21:49:00"
         data-next-day="0"
         >
@@ -6165,33 +5700,6 @@
             <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="pascack-valley-line">Pascack Valley</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="22:41:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/7260/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 7260"></a>
-        <div class="time">
-            22:41
-        </div>
-        <div class="main">
-            <span class="train-num">#7260</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">North Elizabeth</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
             <span class="sub-label">Final stop</span>
             <span class="sub-end">
@@ -6424,33 +5932,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/7264/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 7264"></a>
-        <div class="time">
-            23:42
-        </div>
-        <div class="main">
-            <span class="train-num">#7264</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Elizabeth</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="23:42:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/7272/inclement_weather_lvl_1/?from=new-york"
            aria-label="All stops for train 7272"></a>
         <div class="time">
@@ -6649,33 +6130,6 @@
             <span class="train-num">#7620</span>
             <span class="arrow" aria-hidden="true">→</span>
             <span class="dest">Rahway</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="00:42:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/7268/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 7268"></a>
-        <div class="time">
-            00:42<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#7268</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Avenel</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
@@ -6933,33 +6387,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="01:38:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/7272/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 7272"></a>
-        <div class="time">
-            01:38<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#7272</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">LONG BRANCH</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="02:09:00"
         data-next-day="1"
         >
@@ -6973,33 +6400,6 @@
             <span class="train-num">#7800</span>
             <span class="arrow" aria-hidden="true">→</span>
             <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="02:53:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/5200/inclement_weather_lvl_1/?from=new-york"
-           aria-label="All stops for train 5200"></a>
-        <div class="time">
-            02:53<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#5200</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">North Elizabeth</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
@@ -7086,7 +6486,7 @@ function fillCountdowns(cards) {
 </script>
 
         
-        <footer class="data-footer">Latest data as of Jun 21, 2026</footer>
+        <footer class="data-footer">Latest data as of Jul 23, 2026</footer>
         
     </div>
 </body>
