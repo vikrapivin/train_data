@@ -289,9 +289,9 @@
                 "time main line"
                 "time sub  sub";
             column-gap: 16px;
-            row-gap: 2px;
+            row-gap: 10px;
             align-items: center;
-            padding: 16px 16px;
+            padding: 18px 16px;
             margin: 10px 0;
             background: var(--surface);
             border: 1px solid var(--border);
@@ -389,17 +389,30 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+        /* The card's lower half: one line of live info (stop label left,
+           track/estimate/countdown right), then — only when the train
+           has history here — a divided row of labeled stats. */
         .schedule-card .sub {
             grid-area: sub;
             display: flex;
-            align-items: baseline;
-            gap: 8px;
+            flex-direction: column;
+            gap: 9px;
+            min-width: 0;
             color: var(--text-faint);
             font-size: 12px;
+        }
+        .schedule-card .sub-line {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            min-width: 0;
         }
         .schedule-card .sub .sub-label {
             text-transform: uppercase;
             letter-spacing: 0.06em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         /* Estimated departure + live "in N min" status, pushed to the
            right of the sub line. Empty until the client fills it in. */
@@ -410,9 +423,32 @@
             gap: 8px;
         }
         .schedule-card .sub .est { font-variant-numeric: tabular-nums; }
-        /* Historical delay stats (median / p95 of past days' readings) —
-           quiet reference info, visually behind the live estimate. */
-        .schedule-card .sub .delay {
+        /* Historical stats (delay history, usual tracks): quiet labeled
+           key/value pairs behind a hairline, visually subordinate to
+           the live line above. */
+        .schedule-card .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 18px;
+            padding-top: 9px;
+            border-top: 1px solid var(--border);
+        }
+        .schedule-card .stat {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 5px;
+            white-space: nowrap;
+        }
+        .schedule-card .stat-k {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--text-faint);
+        }
+        .schedule-card .stat-v {
+            font-size: 12.5px;
+            font-weight: 600;
             color: var(--text-dim);
             font-variant-numeric: tabular-nums;
         }
@@ -598,13 +634,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -625,13 +663,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -652,13 +692,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -679,13 +721,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -706,40 +750,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="06:02:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4315/?from=north-elizabeth"
-           aria-label="All stops for train 4315"></a>
-        <div class="time">
-            06:02
-        </div>
-        <div class="main">
-            <span class="train-num">#4315</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -760,13 +779,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -787,13 +808,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -814,13 +837,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -841,13 +866,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -868,13 +895,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -895,13 +924,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -922,13 +953,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -949,13 +982,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -976,40 +1011,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="07:27:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4321/?from=north-elizabeth"
-           aria-label="All stops for train 4321"></a>
-        <div class="time">
-            07:27
-        </div>
-        <div class="main">
-            <span class="train-num">#4321</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1030,40 +1040,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
     <li class="schedule-card is-link"
-        data-time="08:11:00"
+        data-time="07:47:00"
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/4323/?from=north-elizabeth"
-           aria-label="All stops for train 4323"></a>
+           href="/trains/3502/?from=north-elizabeth"
+           aria-label="All stops for train 3502"></a>
         <div class="time">
-            08:11
+            07:47
         </div>
         <div class="main">
-            <span class="train-num">#4323</span>
+            <span class="train-num">#3502</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1084,13 +1098,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1111,13 +1127,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1138,13 +1156,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:16:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3504/?from=north-elizabeth"
+           aria-label="All stops for train 3504"></a>
+        <div class="time">
+            08:16
+        </div>
+        <div class="main">
+            <span class="train-num">#3504</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1165,13 +1214,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1192,40 +1243,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="08:40:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3506/?from=north-elizabeth"
-           aria-label="All stops for train 3506"></a>
-        <div class="time">
-            08:40
-        </div>
-        <div class="main">
-            <span class="train-num">#3506</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1246,13 +1272,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1273,13 +1301,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1300,40 +1330,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="09:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3227/?from=north-elizabeth"
-           aria-label="All stops for train 3227"></a>
-        <div class="time">
-            09:14
-        </div>
-        <div class="main">
-            <span class="train-num">#3227</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1354,13 +1359,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1381,67 +1388,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="10:15:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3231/?from=north-elizabeth"
-           aria-label="All stops for train 3231"></a>
-        <div class="time">
-            10:15
-        </div>
-        <div class="main">
-            <span class="train-num">#3231</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="10:24:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4334/?from=north-elizabeth"
-           aria-label="All stops for train 4334"></a>
-        <div class="time">
-            10:24
-        </div>
-        <div class="main">
-            <span class="train-num">#4334</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1462,40 +1417,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="11:11:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4335/?from=north-elizabeth"
-           aria-label="All stops for train 4335"></a>
-        <div class="time">
-            11:11
-        </div>
-        <div class="main">
-            <span class="train-num">#4335</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1516,13 +1446,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1543,13 +1475,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1570,13 +1504,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1597,13 +1533,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1620,17 +1558,19 @@
         <div class="main">
             <span class="train-num">#3239</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
+            <span class="dest">Monmouth Park</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1647,44 +1587,19 @@
         <div class="main">
             <span class="train-num">#3239</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
+            <span class="dest">Monmouth Park</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="12:06:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4340/?from=north-elizabeth"
-           aria-label="All stops for train 4340"></a>
-        <div class="time">
-            12:06
-        </div>
-        <div class="main">
-            <span class="train-num">#4340</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1705,13 +1620,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1732,13 +1649,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1759,40 +1678,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="13:13:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4343/?from=north-elizabeth"
-           aria-label="All stops for train 4343"></a>
-        <div class="time">
-            13:13
-        </div>
-        <div class="main">
-            <span class="train-num">#4343</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1813,13 +1707,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1840,13 +1736,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1867,13 +1765,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1894,13 +1794,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1921,13 +1823,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1948,13 +1852,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1975,13 +1881,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1998,17 +1906,19 @@
         <div class="main">
             <span class="train-num">#3509</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
+            <span class="dest">South Amboy</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2025,17 +1935,19 @@
         <div class="main">
             <span class="train-num">#3509</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
+            <span class="dest">South Amboy</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2056,13 +1968,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="16:00:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3256/?from=north-elizabeth"
+           aria-label="All stops for train 3256"></a>
+        <div class="time">
+            16:00
+        </div>
+        <div class="main">
+            <span class="train-num">#3256</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2083,13 +2026,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2106,44 +2051,19 @@
         <div class="main">
             <span class="train-num">#3595</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">South Amboy</span>
+            <span class="dest">Rahway</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="16:37:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3595/?from=north-elizabeth"
-           aria-label="All stops for train 3595"></a>
-        <div class="time">
-            16:37
-        </div>
-        <div class="main">
-            <span class="train-num">#3595</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">South Amboy</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2164,40 +2084,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="16:56:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4360/?from=north-elizabeth"
-           aria-label="All stops for train 4360"></a>
-        <div class="time">
-            16:56
-        </div>
-        <div class="main">
-            <span class="train-num">#4360</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2218,13 +2113,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="16:56:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3260/?from=north-elizabeth"
+           aria-label="All stops for train 3260"></a>
+        <div class="time">
+            16:56
+        </div>
+        <div class="main">
+            <span class="train-num">#3260</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2245,13 +2171,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2268,17 +2196,19 @@
         <div class="main">
             <span class="train-num">#3511</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
+            <span class="dest">South Amboy</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2295,17 +2225,19 @@
         <div class="main">
             <span class="train-num">#3511</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
+            <span class="dest">South Amboy</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2326,13 +2258,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2349,17 +2283,19 @@
         <div class="main">
             <span class="train-num">#3513</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
+            <span class="dest">South Amboy</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2376,17 +2312,19 @@
         <div class="main">
             <span class="train-num">#3513</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
+            <span class="dest">South Amboy</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2407,13 +2345,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2434,13 +2374,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2457,17 +2399,19 @@
         <div class="main">
             <span class="train-num">#3271</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
+            <span class="dest">Monmouth Park</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2484,17 +2428,19 @@
         <div class="main">
             <span class="train-num">#3271</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
+            <span class="dest">Monmouth Park</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2511,17 +2457,19 @@
         <div class="main">
             <span class="train-num">#3515</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
+            <span class="dest">South Amboy</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2538,17 +2486,19 @@
         <div class="main">
             <span class="train-num">#3515</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
+            <span class="dest">South Amboy</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2569,13 +2519,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:00:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3512/?from=north-elizabeth"
+           aria-label="All stops for train 3512"></a>
+        <div class="time">
+            19:00
+        </div>
+        <div class="main">
+            <span class="train-num">#3512</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2596,13 +2577,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2623,13 +2606,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2646,44 +2631,19 @@
         <div class="main">
             <span class="train-num">#3281</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
+            <span class="dest">Rahway</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="19:49:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3281/?from=north-elizabeth"
-           aria-label="All stops for train 3281"></a>
-        <div class="time">
-            19:49
-        </div>
-        <div class="main">
-            <span class="train-num">#3281</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2704,13 +2664,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2731,13 +2693,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2758,13 +2722,73 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="20:41:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3516/?from=north-elizabeth"
+           aria-label="All stops for train 3516"></a>
+        <div class="time">
+            20:41
+        </div>
+        <div class="main">
+            <span class="train-num">#3516</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:07:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3228/?from=north-elizabeth"
+           aria-label="All stops for train 3228"></a>
+        <div class="time">
+            21:07
+        </div>
+        <div class="main">
+            <span class="train-num">#3228</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2785,13 +2809,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2812,13 +2838,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:48:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3508/?from=north-elizabeth"
+           aria-label="All stops for train 3508"></a>
+        <div class="time">
+            21:48
+        </div>
+        <div class="main">
+            <span class="train-num">#3508</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2839,13 +2896,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2866,13 +2925,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2893,13 +2954,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="22:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3234/?from=north-elizabeth"
+           aria-label="All stops for train 3234"></a>
+        <div class="time">
+            22:24
+        </div>
+        <div class="main">
+            <span class="train-num">#3234</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2920,40 +3012,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="22:52:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4393/?from=north-elizabeth"
-           aria-label="All stops for train 4393"></a>
-        <div class="time">
-            22:52
-        </div>
-        <div class="main">
-            <span class="train-num">#4393</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2974,13 +3041,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3001,13 +3070,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3028,13 +3099,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3055,40 +3128,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="23:46:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4397/?from=north-elizabeth"
-           aria-label="All stops for train 4397"></a>
-        <div class="time">
-            23:46
-        </div>
-        <div class="main">
-            <span class="train-num">#4397</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3109,13 +3157,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3136,13 +3186,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="00:06:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/3240/?from=north-elizabeth"
+           aria-label="All stops for train 3240"></a>
+        <div class="time">
+            00:06<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#3240</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3163,13 +3244,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3190,13 +3273,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3217,40 +3302,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="01:25:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/4398/?from=north-elizabeth"
-           aria-label="All stops for train 4398"></a>
-        <div class="time">
-            01:25<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#4398</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3271,40 +3331,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
     <li class="schedule-card is-link"
-        data-time="01:28:00"
+        data-time="01:25:00"
         data-next-day="1"
         >
         <a class="stretch-link"
-           href="/trains/3205/?from=north-elizabeth"
-           aria-label="All stops for train 3205"></a>
+           href="/trains/5200/?from=north-elizabeth"
+           aria-label="All stops for train 5200"></a>
         <div class="time">
-            01:28<span class="next-day">+1d</span>
+            01:25<span class="next-day">+1d</span>
         </div>
         <div class="main">
-            <span class="train-num">#3205</span>
+            <span class="train-num">#5200</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3325,13 +3389,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     

@@ -289,9 +289,9 @@
                 "time main line"
                 "time sub  sub";
             column-gap: 16px;
-            row-gap: 2px;
+            row-gap: 10px;
             align-items: center;
-            padding: 16px 16px;
+            padding: 18px 16px;
             margin: 10px 0;
             background: var(--surface);
             border: 1px solid var(--border);
@@ -389,17 +389,30 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+        /* The card's lower half: one line of live info (stop label left,
+           track/estimate/countdown right), then — only when the train
+           has history here — a divided row of labeled stats. */
         .schedule-card .sub {
             grid-area: sub;
             display: flex;
-            align-items: baseline;
-            gap: 8px;
+            flex-direction: column;
+            gap: 9px;
+            min-width: 0;
             color: var(--text-faint);
             font-size: 12px;
+        }
+        .schedule-card .sub-line {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            min-width: 0;
         }
         .schedule-card .sub .sub-label {
             text-transform: uppercase;
             letter-spacing: 0.06em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         /* Estimated departure + live "in N min" status, pushed to the
            right of the sub line. Empty until the client fills it in. */
@@ -410,9 +423,32 @@
             gap: 8px;
         }
         .schedule-card .sub .est { font-variant-numeric: tabular-nums; }
-        /* Historical delay stats (median / p95 of past days' readings) —
-           quiet reference info, visually behind the live estimate. */
-        .schedule-card .sub .delay {
+        /* Historical stats (delay history, usual tracks): quiet labeled
+           key/value pairs behind a hairline, visually subordinate to
+           the live line above. */
+        .schedule-card .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 18px;
+            padding-top: 9px;
+            border-top: 1px solid var(--border);
+        }
+        .schedule-card .stat {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 5px;
+            white-space: nowrap;
+        }
+        .schedule-card .stat-k {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--text-faint);
+        }
+        .schedule-card .stat-v {
+            font-size: 12.5px;
+            font-weight: 600;
             color: var(--text-dim);
             font-variant-numeric: tabular-nums;
         }
@@ -582,60 +618,6 @@
     data-post-midnight="0">
     
     <li class="schedule-card is-link"
-        data-time="04:41:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4308/?from=belmar"
-           aria-label="All stops for train 4308"></a>
-        <div class="time">
-            04:41
-        </div>
-        <div class="main">
-            <span class="train-num">#4308</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Elberon</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Bradley Beach</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="05:01:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4310/?from=belmar"
-           aria-label="All stops for train 4310"></a>
-        <div class="time">
-            05:01
-        </div>
-        <div class="main">
-            <span class="train-num">#4310</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Bradley Beach</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="05:01:00"
         data-next-day="0"
         >
@@ -652,13 +634,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Asbury Park</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Bradley Beach</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -679,13 +663,15 @@
         </div>
         <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Asbury Park</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Bradley Beach</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -706,13 +692,15 @@
         </div>
         <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Asbury Park</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Bradley Beach</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -733,121 +721,15 @@
         </div>
         <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Asbury Park</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="06:43:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3224/?from=belmar"
-           aria-label="All stops for train 3224"></a>
-        <div class="time">
-            06:43
-        </div>
-        <div class="main">
-            <span class="train-num">#3224</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Asbury Park</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="06:43:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4324/?from=belmar"
-           aria-label="All stops for train 4324"></a>
-        <div class="time">
-            06:43
-        </div>
-        <div class="main">
-            <span class="train-num">#4324</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Bradley Beach</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="07:13:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3326/?from=belmar"
-           aria-label="All stops for train 3326"></a>
-        <div class="time">
-            07:13
-        </div>
-        <div class="main">
-            <span class="train-num">#3326</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Asbury Park</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="07:43:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4315/?from=belmar"
-           aria-label="All stops for train 4315"></a>
-        <div class="time">
-            07:43
-        </div>
-        <div class="main">
-            <span class="train-num">#4315</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Spring Lake</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Bradley Beach</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -868,121 +750,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Manasquan</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="08:01:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3230/?from=belmar"
-           aria-label="All stops for train 3230"></a>
-        <div class="time">
-            08:01
-        </div>
-        <div class="main">
-            <span class="train-num">#3230</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Asbury Park</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="08:01:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4330/?from=belmar"
-           aria-label="All stops for train 4330"></a>
-        <div class="time">
-            08:01
-        </div>
-        <div class="main">
-            <span class="train-num">#4330</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Bradley Beach</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="08:42:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4334/?from=belmar"
-           aria-label="All stops for train 4334"></a>
-        <div class="time">
-            08:42
-        </div>
-        <div class="main">
-            <span class="train-num">#4334</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Bradley Beach</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="08:42:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3234/?from=belmar"
-           aria-label="All stops for train 3234"></a>
-        <div class="time">
-            08:42
-        </div>
-        <div class="main">
-            <span class="train-num">#3234</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Asbury Park</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Spring Lake</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1003,67 +779,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Manasquan</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="09:03:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4321/?from=belmar"
-           aria-label="All stops for train 4321"></a>
-        <div class="time">
-            09:03
-        </div>
-        <div class="main">
-            <span class="train-num">#4321</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Spring Lake</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="09:45:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4323/?from=belmar"
-           aria-label="All stops for train 4323"></a>
-        <div class="time">
-            09:45
-        </div>
-        <div class="main">
-            <span class="train-num">#4323</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Spring Lake</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Spring Lake</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1084,202 +808,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Manasquan</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="09:55:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4336/?from=belmar"
-           aria-label="All stops for train 4336"></a>
-        <div class="time">
-            09:55
-        </div>
-        <div class="main">
-            <span class="train-num">#4336</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Elberon</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Bradley Beach</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="10:27:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4340/?from=belmar"
-           aria-label="All stops for train 4340"></a>
-        <div class="time">
-            10:27
-        </div>
-        <div class="main">
-            <span class="train-num">#4340</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Bradley Beach</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="10:27:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3240/?from=belmar"
-           aria-label="All stops for train 3240"></a>
-        <div class="time">
-            10:27
-        </div>
-        <div class="main">
-            <span class="train-num">#3240</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Asbury Park</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="10:57:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4327/?from=belmar"
-           aria-label="All stops for train 4327"></a>
-        <div class="time">
-            10:57
-        </div>
-        <div class="main">
-            <span class="train-num">#4327</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Spring Lake</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="11:25:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4344/?from=belmar"
-           aria-label="All stops for train 4344"></a>
-        <div class="time">
-            11:25
-        </div>
-        <div class="main">
-            <span class="train-num">#4344</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Bradley Beach</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="11:25:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3244/?from=belmar"
-           aria-label="All stops for train 3244"></a>
-        <div class="time">
-            11:25
-        </div>
-        <div class="main">
-            <span class="train-num">#3244</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Asbury Park</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="11:47:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4331/?from=belmar"
-           aria-label="All stops for train 4331"></a>
-        <div class="time">
-            11:47
-        </div>
-        <div class="main">
-            <span class="train-num">#4331</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Spring Lake</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Spring Lake</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1300,40 +837,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Manasquan</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="12:45:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4335/?from=belmar"
-           aria-label="All stops for train 4335"></a>
-        <div class="time">
-            12:45
-        </div>
-        <div class="main">
-            <span class="train-num">#4335</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Spring Lake</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Spring Lake</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1354,67 +866,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Manasquan</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="12:48:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4348/?from=belmar"
-           aria-label="All stops for train 4348"></a>
-        <div class="time">
-            12:48
-        </div>
-        <div class="main">
-            <span class="train-num">#4348</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Elberon</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Bradley Beach</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="13:26:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4352/?from=belmar"
-           aria-label="All stops for train 4352"></a>
-        <div class="time">
-            13:26
-        </div>
-        <div class="main">
-            <span class="train-num">#4352</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Bradley Beach</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Spring Lake</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1435,40 +895,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Asbury Park</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="14:45:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4343/?from=belmar"
-           aria-label="All stops for train 4343"></a>
-        <div class="time">
-            14:45
-        </div>
-        <div class="main">
-            <span class="train-num">#4343</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Spring Lake</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Bradley Beach</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1489,40 +924,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Manasquan</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="15:17:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4360/?from=belmar"
-           aria-label="All stops for train 4360"></a>
-        <div class="time">
-            15:17
-        </div>
-        <div class="main">
-            <span class="train-num">#4360</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Bradley Beach</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Spring Lake</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1543,40 +953,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Asbury Park</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="16:17:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4366/?from=belmar"
-           aria-label="All stops for train 4366"></a>
-        <div class="time">
-            16:17
-        </div>
-        <div class="main">
-            <span class="train-num">#4366</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Bradley Beach</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Bradley Beach</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1597,40 +982,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Asbury Park</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="16:45:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4351/?from=belmar"
-           aria-label="All stops for train 4351"></a>
-        <div class="time">
-            16:45
-        </div>
-        <div class="main">
-            <span class="train-num">#4351</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Spring Lake</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Bradley Beach</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1651,13 +1011,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Manasquan</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Spring Lake</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1678,13 +1040,15 @@
         </div>
         <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Manasquan</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Spring Lake</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1705,40 +1069,15 @@
         </div>
         <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Manasquan</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="17:34:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4355/?from=belmar"
-           aria-label="All stops for train 4355"></a>
-        <div class="time">
-            17:34
-        </div>
-        <div class="main">
-            <span class="train-num">#4355</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Spring Lake</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Spring Lake</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1759,40 +1098,15 @@
         </div>
         <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Asbury Park</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="17:47:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4372/?from=belmar"
-           aria-label="All stops for train 4372"></a>
-        <div class="time">
-            17:47
-        </div>
-        <div class="main">
-            <span class="train-num">#4372</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Bradley Beach</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Bradley Beach</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1813,13 +1127,44 @@
         </div>
         <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Manasquan</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Spring Lake</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:43:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3224/?from=belmar"
+           aria-label="All stops for train 3224"></a>
+        <div class="time">
+            18:43
+        </div>
+        <div class="main">
+            <span class="train-num">#3224</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Bradley Beach</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1840,67 +1185,44 @@
         </div>
         <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Manasquan</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Spring Lake</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
     <li class="schedule-card is-link"
-        data-time="18:47:00"
+        data-time="19:13:00"
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/4376/?from=belmar"
-           aria-label="All stops for train 4376"></a>
+           href="/trains/3326/?from=belmar"
+           aria-label="All stops for train 3326"></a>
         <div class="time">
-            18:47
+            19:13
         </div>
         <div class="main">
-            <span class="train-num">#4376</span>
+            <span class="train-num">#3326</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Elberon</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Bradley Beach</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="19:17:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4365/?from=belmar"
-           aria-label="All stops for train 4365"></a>
-        <div class="time">
-            19:17
-        </div>
-        <div class="main">
-            <span class="train-num">#4365</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Spring Lake</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Bradley Beach</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1921,40 +1243,15 @@
         </div>
         <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Manasquan</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="19:29:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4367/?from=belmar"
-           aria-label="All stops for train 4367"></a>
-        <div class="time">
-            19:29
-        </div>
-        <div class="main">
-            <span class="train-num">#4367</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Spring Lake</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Spring Lake</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1963,52 +1260,27 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/4378/?from=belmar"
-           aria-label="All stops for train 4378"></a>
+           href="/trains/3278/?from=belmar"
+           aria-label="All stops for train 3278"></a>
         <div class="time">
             19:42
         </div>
         <div class="main">
-            <span class="train-num">#4378</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Bradley Beach</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="19:42:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3516/?from=belmar"
-           aria-label="All stops for train 3516"></a>
-        <div class="time">
-            19:42
-        </div>
-        <div class="main">
-            <span class="train-num">#3516</span>
+            <span class="train-num">#3278</span>
             <span class="arrow" aria-hidden="true">→</span>
             <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Asbury Park</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Bradley Beach</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2029,13 +1301,44 @@
         </div>
         <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Manasquan</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Spring Lake</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="20:01:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3230/?from=belmar"
+           aria-label="All stops for train 3230"></a>
+        <div class="time">
+            20:01
+        </div>
+        <div class="main">
+            <span class="train-num">#3230</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Bradley Beach</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2056,67 +1359,44 @@
         </div>
         <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Manasquan</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Spring Lake</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
     <li class="schedule-card is-link"
-        data-time="20:20:00"
+        data-time="20:42:00"
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/4375/?from=belmar"
-           aria-label="All stops for train 4375"></a>
+           href="/trains/3234/?from=belmar"
+           aria-label="All stops for train 3234"></a>
         <div class="time">
-            20:20
+            20:42
         </div>
         <div class="main">
-            <span class="train-num">#4375</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Spring Lake</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="20:43:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4384/?from=belmar"
-           aria-label="All stops for train 4384"></a>
-        <div class="time">
-            20:43
-        </div>
-        <div class="main">
-            <span class="train-num">#4384</span>
+            <span class="train-num">#3234</span>
             <span class="arrow" aria-hidden="true">→</span>
             <span class="dest">NEW YORK PENN STATION</span>
         </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Bradley Beach</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Bradley Beach</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2137,13 +1417,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Asbury Park</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Bradley Beach</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2164,40 +1446,15 @@
         </div>
         <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Manasquan</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="20:51:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4379/?from=belmar"
-           aria-label="All stops for train 4379"></a>
-        <div class="time">
-            20:51
-        </div>
-        <div class="main">
-            <span class="train-num">#4379</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Spring Lake</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Spring Lake</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2218,94 +1475,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Manasquan</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Spring Lake</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
     <li class="schedule-card is-link"
-        data-time="22:05:00"
+        data-time="22:27:00"
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/4388/?from=belmar"
-           aria-label="All stops for train 4388"></a>
+           href="/trains/3240/?from=belmar"
+           aria-label="All stops for train 3240"></a>
         <div class="time">
-            22:05
+            22:27
         </div>
         <div class="main">
-            <span class="train-num">#4388</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Elberon</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Bradley Beach</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="22:18:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4383/?from=belmar"
-           aria-label="All stops for train 4383"></a>
-        <div class="time">
-            22:18
-        </div>
-        <div class="main">
-            <span class="train-num">#4383</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Spring Lake</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="23:04:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4392/?from=belmar"
-           aria-label="All stops for train 4392"></a>
-        <div class="time">
-            23:04
-        </div>
-        <div class="main">
-            <span class="train-num">#4392</span>
+            <span class="train-num">#3240</span>
             <span class="arrow" aria-hidden="true">→</span>
             <span class="dest">NEW YORK PENN STATION</span>
         </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Bradley Beach</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Bradley Beach</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2326,67 +1533,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Asbury Park</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Bradley Beach</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
     <li class="schedule-card is-link"
-        data-time="23:34:00"
+        data-time="23:25:00"
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/4389/?from=belmar"
-           aria-label="All stops for train 4389"></a>
+           href="/trains/3244/?from=belmar"
+           aria-label="All stops for train 3244"></a>
         <div class="time">
-            23:34
+            23:25
         </div>
         <div class="main">
-            <span class="train-num">#4389</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Spring Lake</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="23:47:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4398/?from=belmar"
-           aria-label="All stops for train 4398"></a>
-        <div class="time">
-            23:47
-        </div>
-        <div class="main">
-            <span class="train-num">#4398</span>
+            <span class="train-num">#3244</span>
             <span class="arrow" aria-hidden="true">→</span>
             <span class="dest">NEW YORK PENN STATION</span>
         </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Bradley Beach</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Bradley Beach</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2407,40 +1591,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Asbury Park</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="00:27:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/4393/?from=belmar"
-           aria-label="All stops for train 4393"></a>
-        <div class="time">
-            00:27<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#4393</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Spring Lake</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Bradley Beach</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2461,40 +1620,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Manasquan</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="01:15:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/4397/?from=belmar"
-           aria-label="All stops for train 4397"></a>
-        <div class="time">
-            01:15<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#4397</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Spring Lake</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Spring Lake</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2515,40 +1649,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Manasquan</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="01:57:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/4339/?from=belmar"
-           aria-label="All stops for train 4339"></a>
-        <div class="time">
-            01:57<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#4339</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Spring Lake</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Spring Lake</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     

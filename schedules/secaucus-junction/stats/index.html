@@ -289,9 +289,9 @@
                 "time main line"
                 "time sub  sub";
             column-gap: 16px;
-            row-gap: 2px;
+            row-gap: 10px;
             align-items: center;
-            padding: 16px 16px;
+            padding: 18px 16px;
             margin: 10px 0;
             background: var(--surface);
             border: 1px solid var(--border);
@@ -389,17 +389,30 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+        /* The card's lower half: one line of live info (stop label left,
+           track/estimate/countdown right), then — only when the train
+           has history here — a divided row of labeled stats. */
         .schedule-card .sub {
             grid-area: sub;
             display: flex;
-            align-items: baseline;
-            gap: 8px;
+            flex-direction: column;
+            gap: 9px;
+            min-width: 0;
             color: var(--text-faint);
             font-size: 12px;
+        }
+        .schedule-card .sub-line {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            min-width: 0;
         }
         .schedule-card .sub .sub-label {
             text-transform: uppercase;
             letter-spacing: 0.06em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         /* Estimated departure + live "in N min" status, pushed to the
            right of the sub line. Empty until the client fills it in. */
@@ -410,9 +423,32 @@
             gap: 8px;
         }
         .schedule-card .sub .est { font-variant-numeric: tabular-nums; }
-        /* Historical delay stats (median / p95 of past days' readings) —
-           quiet reference info, visually behind the live estimate. */
-        .schedule-card .sub .delay {
+        /* Historical stats (delay history, usual tracks): quiet labeled
+           key/value pairs behind a hairline, visually subordinate to
+           the live line above. */
+        .schedule-card .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 18px;
+            padding-top: 9px;
+            border-top: 1px solid var(--border);
+        }
+        .schedule-card .stat {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 5px;
+            white-space: nowrap;
+        }
+        .schedule-card .stat-k {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--text-faint);
+        }
+        .schedule-card .stat-v {
+            font-size: 12.5px;
+            font-weight: 600;
             color: var(--text-dim);
             font-variant-numeric: tabular-nums;
         }
@@ -528,7 +564,7 @@
     </p>
     
 <p class="histo-summary">
-    46758 train departures ·
+    48053 train departures ·
     median +0m · p95 +14m · canceled 3%
 </p>
 
@@ -541,92 +577,92 @@
     
     <li class="histo-row">
         <span class="histo-label">&lt; -5</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 0.38%"></span></span>
-        <span class="histo-val">141 · 0.3%</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 1.93%"></span></span>
+        <span class="histo-val">723 · 1.5%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">On time</span>
         <span class="histo-track"><span class="histo-bar" style="width: 100.0%"></span></span>
-        <span class="histo-val">37153 · 79.5%</span>
+        <span class="histo-val">37523 · 78.1%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">5 to 10</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 12.19%"></span></span>
-        <span class="histo-val">4530 · 9.7%</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 12.4%"></span></span>
+        <span class="histo-val">4652 · 9.7%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">10 to 15</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 4.27%"></span></span>
-        <span class="histo-val">1588 · 3.4%</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 4.38%"></span></span>
+        <span class="histo-val">1645 · 3.4%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">15 to 20</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 1.94%"></span></span>
-        <span class="histo-val">719 · 1.5%</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 1.95%"></span></span>
+        <span class="histo-val">731 · 1.5%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">20 to 25</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 1.12%"></span></span>
-        <span class="histo-val">416 · 0.9%</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 1.16%"></span></span>
+        <span class="histo-val">434 · 0.9%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">25 to 30</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 0.81%"></span></span>
-        <span class="histo-val">301 · 0.6%</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.82%"></span></span>
+        <span class="histo-val">309 · 0.6%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">30 to 35</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 0.41%"></span></span>
-        <span class="histo-val">152 · 0.3%</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.43%"></span></span>
+        <span class="histo-val">162 · 0.3%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">35 to 40</span>
         <span class="histo-track"><span class="histo-bar" style="width: 0.33%"></span></span>
-        <span class="histo-val">121 · 0.3%</span>
+        <span class="histo-val">123 · 0.3%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">40 to 45</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 0.28%"></span></span>
-        <span class="histo-val">103 · 0.2%</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.3%"></span></span>
+        <span class="histo-val">111 · 0.2%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">45 to 50</span>
         <span class="histo-track"><span class="histo-bar" style="width: 0.15%"></span></span>
-        <span class="histo-val">54 · 0.1%</span>
+        <span class="histo-val">57 · 0.1%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">50 to 55</span>
         <span class="histo-track"><span class="histo-bar" style="width: 0.14%"></span></span>
-        <span class="histo-val">52 · 0.1%</span>
+        <span class="histo-val">53 · 0.1%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">55 to 60</span>
         <span class="histo-track"><span class="histo-bar" style="width: 0.1%"></span></span>
-        <span class="histo-val">36 · 0.1%</span>
+        <span class="histo-val">39 · 0.1%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">60+</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 0.38%"></span></span>
-        <span class="histo-val">140 · 0.3%</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.58%"></span></span>
+        <span class="histo-val">217 · 0.5%</span>
     </li>
     
     <li class="histo-row is-canceled">
         <span class="histo-label">Canceled</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 3.37%"></span></span>
-        <span class="histo-val">1252 · 2.7%</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 3.4%"></span></span>
+        <span class="histo-val">1274 · 2.7%</span>
     </li>
     
 </ul>
@@ -651,8 +687,8 @@
     
     
 <p class="histo-summary">
-    11766 train departures ·
-    median -1m · p95 +10m · canceled 3%
+    12292 train departures ·
+    median -1m · p95 +11m · canceled 3%
 </p>
 
 <ul class="histo" aria-label="Departures grouped by minutes behind schedule">
@@ -664,92 +700,92 @@
     
     <li class="histo-row">
         <span class="histo-label">&lt; -5</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 0.41%"></span></span>
-        <span class="histo-val">40 · 0.3%</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.44%"></span></span>
+        <span class="histo-val">45 · 0.4%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">On time</span>
         <span class="histo-track"><span class="histo-bar" style="width: 100.0%"></span></span>
-        <span class="histo-val">9855 · 83.8%</span>
+        <span class="histo-val">10205 · 83.0%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">5 to 10</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 9.34%"></span></span>
-        <span class="histo-val">920 · 7.8%</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 9.67%"></span></span>
+        <span class="histo-val">987 · 8.0%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">10 to 15</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 2.86%"></span></span>
-        <span class="histo-val">282 · 2.4%</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 3.24%"></span></span>
+        <span class="histo-val">331 · 2.7%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">15 to 20</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 1.1%"></span></span>
-        <span class="histo-val">108 · 0.9%</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 1.18%"></span></span>
+        <span class="histo-val">120 · 1.0%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">20 to 25</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 0.56%"></span></span>
-        <span class="histo-val">55 · 0.5%</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.59%"></span></span>
+        <span class="histo-val">60 · 0.5%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">25 to 30</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 0.45%"></span></span>
-        <span class="histo-val">44 · 0.4%</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.5%"></span></span>
+        <span class="histo-val">51 · 0.4%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">30 to 35</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.3%"></span></span>
+        <span class="histo-val">31 · 0.3%</span>
+    </li>
+    
+    <li class="histo-row">
+        <span class="histo-label">35 to 40</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.23%"></span></span>
+        <span class="histo-val">23 · 0.2%</span>
+    </li>
+    
+    <li class="histo-row">
+        <span class="histo-label">40 to 45</span>
         <span class="histo-track"><span class="histo-bar" style="width: 0.2%"></span></span>
         <span class="histo-val">20 · 0.2%</span>
     </li>
     
     <li class="histo-row">
-        <span class="histo-label">35 to 40</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 0.21%"></span></span>
-        <span class="histo-val">21 · 0.2%</span>
-    </li>
-    
-    <li class="histo-row">
-        <span class="histo-label">40 to 45</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 0.16%"></span></span>
-        <span class="histo-val">16 · 0.1%</span>
-    </li>
-    
-    <li class="histo-row">
         <span class="histo-label">45 to 50</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 0.07%"></span></span>
-        <span class="histo-val">7 · 0.1%</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.08%"></span></span>
+        <span class="histo-val">8 · 0.1%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">50 to 55</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 0.07%"></span></span>
-        <span class="histo-val">7 · 0.1%</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.08%"></span></span>
+        <span class="histo-val">8 · 0.1%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">55 to 60</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 0.04%"></span></span>
-        <span class="histo-val">4 · 0.0%</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.06%"></span></span>
+        <span class="histo-val">6 · 0.0%</span>
     </li>
     
     <li class="histo-row">
         <span class="histo-label">60+</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 0.22%"></span></span>
-        <span class="histo-val">22 · 0.2%</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 0.23%"></span></span>
+        <span class="histo-val">23 · 0.2%</span>
     </li>
     
     <li class="histo-row is-canceled">
         <span class="histo-label">Canceled</span>
-        <span class="histo-track"><span class="histo-bar" style="width: 3.7%"></span></span>
-        <span class="histo-val">365 · 3.1%</span>
+        <span class="histo-track"><span class="histo-bar" style="width: 3.66%"></span></span>
+        <span class="histo-val">374 · 3.0%</span>
     </li>
     
 </ul>

@@ -289,9 +289,9 @@
                 "time main line"
                 "time sub  sub";
             column-gap: 16px;
-            row-gap: 2px;
+            row-gap: 10px;
             align-items: center;
-            padding: 16px 16px;
+            padding: 18px 16px;
             margin: 10px 0;
             background: var(--surface);
             border: 1px solid var(--border);
@@ -389,17 +389,30 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+        /* The card's lower half: one line of live info (stop label left,
+           track/estimate/countdown right), then — only when the train
+           has history here — a divided row of labeled stats. */
         .schedule-card .sub {
             grid-area: sub;
             display: flex;
-            align-items: baseline;
-            gap: 8px;
+            flex-direction: column;
+            gap: 9px;
+            min-width: 0;
             color: var(--text-faint);
             font-size: 12px;
+        }
+        .schedule-card .sub-line {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            min-width: 0;
         }
         .schedule-card .sub .sub-label {
             text-transform: uppercase;
             letter-spacing: 0.06em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         /* Estimated departure + live "in N min" status, pushed to the
            right of the sub line. Empty until the client fills it in. */
@@ -410,9 +423,32 @@
             gap: 8px;
         }
         .schedule-card .sub .est { font-variant-numeric: tabular-nums; }
-        /* Historical delay stats (median / p95 of past days' readings) —
-           quiet reference info, visually behind the live estimate. */
-        .schedule-card .sub .delay {
+        /* Historical stats (delay history, usual tracks): quiet labeled
+           key/value pairs behind a hairline, visually subordinate to
+           the live line above. */
+        .schedule-card .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 18px;
+            padding-top: 9px;
+            border-top: 1px solid var(--border);
+        }
+        .schedule-card .stat {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 5px;
+            white-space: nowrap;
+        }
+        .schedule-card .stat-k {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--text-faint);
+        }
+        .schedule-card .stat-v {
+            font-size: 12.5px;
+            font-weight: 600;
             color: var(--text-dim);
             font-variant-numeric: tabular-nums;
         }
@@ -594,13 +630,15 @@
             
         </div>
         <div class="sub">
-            <span class="sub-label">stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -616,13 +654,24 @@
             
         </div>
         <div class="sub">
-            <span class="sub-label">stop</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this stop: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +11m &middot; cxl 4%</span>
+            <div class="sub-line">
+                <span class="sub-label">stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-1m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+11m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">4%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -638,13 +687,15 @@
             
         </div>
         <div class="sub">
-            <span class="sub-label">stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -660,13 +711,24 @@
             
         </div>
         <div class="sub">
-            <span class="sub-label">stop</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this stop: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +8m &middot; cxl 5%</span>
+            <div class="sub-line">
+                <span class="sub-label">stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-1m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+8m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">5%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -682,13 +744,15 @@
             
         </div>
         <div class="sub">
-            <span class="sub-label">stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -704,13 +768,15 @@
             
         </div>
         <div class="sub">
-            <span class="sub-label">stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -726,13 +792,15 @@
             
         </div>
         <div class="sub">
-            <span class="sub-label">stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -748,13 +816,15 @@
             
         </div>
         <div class="sub">
-            <span class="sub-label">stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -770,13 +840,15 @@
             
         </div>
         <div class="sub">
-            <span class="sub-label">stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -792,13 +864,15 @@
             
         </div>
         <div class="sub">
-            <span class="sub-label">stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -814,13 +888,24 @@
             
         </div>
         <div class="sub">
-            <span class="sub-label">stop</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this stop: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +13m &middot; cxl 5%</span>
+            <div class="sub-line">
+                <span class="sub-label">stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+0m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+13m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">5%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -836,13 +921,24 @@
             
         </div>
         <div class="sub">
-            <span class="sub-label">stop</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this stop: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +8m &middot; cxl 9%</span>
+            <div class="sub-line">
+                <span class="sub-label">stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+0m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+8m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">9%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -858,13 +954,24 @@
             
         </div>
         <div class="sub">
-            <span class="sub-label">stop</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this stop: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +5m &middot; p95 +21m &middot; cxl 5%</span>
+            <div class="sub-line">
+                <span class="sub-label">stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+5m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+21m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">5%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -880,13 +987,26 @@
             
         </div>
         <div class="sub">
-            <span class="sub-label">stop</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this stop: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +5m &middot; p95 +30m &middot; cxl 5%</span>
+            <div class="sub-line">
+                <span class="sub-label">stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+5m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+30m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">5%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+                <span class="stat" title="This train's most common departure tracks here, from past days' board readings (most frequent first)"><span class="stat-k">usual trk</span><span class="stat-v">3 · 9 · 1</span></span>
+                
+            </div>
+            
         </div>
     </li>
     

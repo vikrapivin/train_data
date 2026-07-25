@@ -289,9 +289,9 @@
                 "time main line"
                 "time sub  sub";
             column-gap: 16px;
-            row-gap: 2px;
+            row-gap: 10px;
             align-items: center;
-            padding: 16px 16px;
+            padding: 18px 16px;
             margin: 10px 0;
             background: var(--surface);
             border: 1px solid var(--border);
@@ -389,17 +389,30 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+        /* The card's lower half: one line of live info (stop label left,
+           track/estimate/countdown right), then — only when the train
+           has history here — a divided row of labeled stats. */
         .schedule-card .sub {
             grid-area: sub;
             display: flex;
-            align-items: baseline;
-            gap: 8px;
+            flex-direction: column;
+            gap: 9px;
+            min-width: 0;
             color: var(--text-faint);
             font-size: 12px;
+        }
+        .schedule-card .sub-line {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            min-width: 0;
         }
         .schedule-card .sub .sub-label {
             text-transform: uppercase;
             letter-spacing: 0.06em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         /* Estimated departure + live "in N min" status, pushed to the
            right of the sub line. Empty until the client fills it in. */
@@ -410,9 +423,32 @@
             gap: 8px;
         }
         .schedule-card .sub .est { font-variant-numeric: tabular-nums; }
-        /* Historical delay stats (median / p95 of past days' readings) —
-           quiet reference info, visually behind the live estimate. */
-        .schedule-card .sub .delay {
+        /* Historical stats (delay history, usual tracks): quiet labeled
+           key/value pairs behind a hairline, visually subordinate to
+           the live line above. */
+        .schedule-card .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 18px;
+            padding-top: 9px;
+            border-top: 1px solid var(--border);
+        }
+        .schedule-card .stat {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 5px;
+            white-space: nowrap;
+        }
+        .schedule-card .stat-k {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--text-faint);
+        }
+        .schedule-card .stat-v {
+            font-size: 12.5px;
+            font-weight: 600;
             color: var(--text-dim);
             font-variant-numeric: tabular-nums;
         }
@@ -598,13 +634,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Radburn</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +22m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Radburn</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+22m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -625,13 +672,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Plauderville</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +7m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Plauderville</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+7m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -652,13 +710,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Radburn</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +8m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Radburn</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-1m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+8m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -679,13 +748,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Plauderville</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +10m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Plauderville</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+10m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -706,13 +786,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Radburn</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +2m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Radburn</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-1m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+2m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -733,13 +824,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Plauderville</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +0m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Plauderville</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+0m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -760,13 +862,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Radburn</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +4m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Radburn</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+0m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+4m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -787,13 +900,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Plauderville</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +1m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Plauderville</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+1m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -814,13 +938,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Radburn</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +6m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Radburn</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+1m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+6m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -841,13 +976,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Plauderville</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +7m &middot; cxl 3%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Plauderville</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-1m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+7m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">3%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -868,13 +1014,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Radburn</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +1m &middot; p95 +6m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Radburn</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+1m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+6m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -895,13 +1052,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Plauderville</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +1m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Plauderville</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+1m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -922,13 +1090,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Radburn</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +37m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Radburn</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+37m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -949,13 +1128,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Plauderville</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +47m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Plauderville</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-1m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+47m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -976,13 +1166,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Radburn</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +15m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Radburn</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-1m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+15m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1003,13 +1204,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Plauderville</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +6m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Plauderville</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+6m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1030,13 +1242,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Radburn</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +10m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Radburn</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+0m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+10m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1057,13 +1280,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Plauderville</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +6m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Plauderville</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+6m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1084,13 +1318,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Radburn</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +18m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Radburn</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+18m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1111,13 +1356,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Plauderville</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +6m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Plauderville</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-1m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+6m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1138,13 +1394,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Radburn</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +14m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Radburn</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+0m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+14m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1165,13 +1432,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Plauderville</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +11m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Plauderville</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+11m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1192,13 +1470,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Radburn</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +9m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Radburn</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+0m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+9m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1219,13 +1508,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Plauderville</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +1m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Plauderville</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+1m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1246,13 +1546,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Radburn</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +12m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Radburn</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+12m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1273,13 +1584,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Plauderville</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +11m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Plauderville</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-1m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+11m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1300,13 +1622,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Radburn</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +10m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Radburn</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+10m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1327,13 +1660,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Plauderville</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +7m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Plauderville</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+7m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1354,13 +1698,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Radburn</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +12m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Radburn</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-1m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+12m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1381,13 +1736,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Plauderville</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +5m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Plauderville</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+0m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+5m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1408,13 +1774,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Plauderville</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +4m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Plauderville</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-1m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+4m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1435,13 +1812,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Radburn</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +11m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Radburn</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-1m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+11m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1462,13 +1850,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Plauderville</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -1m &middot; p95 +22m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Plauderville</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-1m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+22m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1489,13 +1888,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Radburn</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +0m &middot; p95 +13m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Radburn</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+0m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+13m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1516,13 +1926,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Radburn</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +3m &middot; p95 +13m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Radburn</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+3m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+13m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1543,13 +1964,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Plauderville</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med -2m &middot; p95 +7m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Plauderville</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+7m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1570,13 +2002,24 @@
         </div>
         <div class="line"><span class="line-pill" title="main-bergen-county-line">Bergen County Line</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Radburn</span>
-            <span class="sub-end">
-                <span class="delay" title="History at this station: median and 95th-percentile delay of past days' final board readings, and the share of days the train was canceled">med +2m &middot; p95 +17m &middot; cxl 0%</span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Radburn</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+17m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
-                <span class="status" aria-live="polite"></span>
-            </span>
+            </div>
+            
         </div>
     </li>
     

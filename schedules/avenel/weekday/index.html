@@ -289,9 +289,9 @@
                 "time main line"
                 "time sub  sub";
             column-gap: 16px;
-            row-gap: 2px;
+            row-gap: 10px;
             align-items: center;
-            padding: 16px 16px;
+            padding: 18px 16px;
             margin: 10px 0;
             background: var(--surface);
             border: 1px solid var(--border);
@@ -389,17 +389,30 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+        /* The card's lower half: one line of live info (stop label left,
+           track/estimate/countdown right), then — only when the train
+           has history here — a divided row of labeled stats. */
         .schedule-card .sub {
             grid-area: sub;
             display: flex;
-            align-items: baseline;
-            gap: 8px;
+            flex-direction: column;
+            gap: 9px;
+            min-width: 0;
             color: var(--text-faint);
             font-size: 12px;
+        }
+        .schedule-card .sub-line {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            min-width: 0;
         }
         .schedule-card .sub .sub-label {
             text-transform: uppercase;
             letter-spacing: 0.06em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         /* Estimated departure + live "in N min" status, pushed to the
            right of the sub line. Empty until the client fills it in. */
@@ -410,9 +423,32 @@
             gap: 8px;
         }
         .schedule-card .sub .est { font-variant-numeric: tabular-nums; }
-        /* Historical delay stats (median / p95 of past days' readings) —
-           quiet reference info, visually behind the live estimate. */
-        .schedule-card .sub .delay {
+        /* Historical stats (delay history, usual tracks): quiet labeled
+           key/value pairs behind a hairline, visually subordinate to
+           the live line above. */
+        .schedule-card .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 18px;
+            padding-top: 9px;
+            border-top: 1px solid var(--border);
+        }
+        .schedule-card .stat {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 5px;
+            white-space: nowrap;
+        }
+        .schedule-card .stat-k {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--text-faint);
+        }
+        .schedule-card .stat-v {
+            font-size: 12.5px;
+            font-weight: 600;
             color: var(--text-dim);
             font-variant-numeric: tabular-nums;
         }
@@ -598,40 +634,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="05:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3204/weekday/?from=avenel"
-           aria-label="All stops for train 3204"></a>
-        <div class="time">
-            05:14
-        </div>
-        <div class="main">
-            <span class="train-num">#3204</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -652,67 +663,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="06:16:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3503/weekday/?from=avenel"
-           aria-label="All stops for train 3503"></a>
-        <div class="time">
-            06:16
-        </div>
-        <div class="main">
-            <span class="train-num">#3503</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="06:19:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4310/weekday/?from=avenel"
-           aria-label="All stops for train 4310"></a>
-        <div class="time">
-            06:19
-        </div>
-        <div class="main">
-            <span class="train-num">#4310</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Rahway</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -733,40 +692,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="06:20:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4315/weekday/?from=avenel"
-           aria-label="All stops for train 4315"></a>
-        <div class="time">
-            06:20
-        </div>
-        <div class="main">
-            <span class="train-num">#4315</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Wood-Ridge</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Rahway</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -787,13 +721,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -814,40 +750,15 @@
         </div>
         <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: NEWARK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="07:12:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3217/weekday/?from=avenel"
-           aria-label="All stops for train 3217"></a>
-        <div class="time">
-            07:12
-        </div>
-        <div class="main">
-            <span class="train-num">#3217</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: NEWARK PENN STATION</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -868,13 +779,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Rahway</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -895,40 +808,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="07:45:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4321/weekday/?from=avenel"
-           aria-label="All stops for train 4321"></a>
-        <div class="time">
-            07:45
-        </div>
-        <div class="main">
-            <span class="train-num">#4321</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Wood-Ridge</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -949,283 +837,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="08:17:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3506/weekday/?from=avenel"
-           aria-label="All stops for train 3506"></a>
-        <div class="time">
-            08:17
-        </div>
-        <div class="main">
-            <span class="train-num">#3506</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="08:31:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3223/weekday/?from=avenel"
-           aria-label="All stops for train 3223"></a>
-        <div class="time">
-            08:31
-        </div>
-        <div class="main">
-            <span class="train-num">#3223</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="08:46:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3228/weekday/?from=avenel"
-           aria-label="All stops for train 3228"></a>
-        <div class="time">
-            08:46
-        </div>
-        <div class="main">
-            <span class="train-num">#3228</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="09:17:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3230/weekday/?from=avenel"
-           aria-label="All stops for train 3230"></a>
-        <div class="time">
-            09:17
-        </div>
-        <div class="main">
-            <span class="train-num">#3230</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEWARK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="09:17:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4330/weekday/?from=avenel"
-           aria-label="All stops for train 4330"></a>
-        <div class="time">
-            09:17
-        </div>
-        <div class="main">
-            <span class="train-num">#4330</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: NEWARK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="09:27:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3508/weekday/?from=avenel"
-           aria-label="All stops for train 3508"></a>
-        <div class="time">
-            09:27
-        </div>
-        <div class="main">
-            <span class="train-num">#3508</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="09:30:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3227/weekday/?from=avenel"
-           aria-label="All stops for train 3227"></a>
-        <div class="time">
-            09:30
-        </div>
-        <div class="main">
-            <span class="train-num">#3227</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="10:03:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4334/weekday/?from=avenel"
-           aria-label="All stops for train 4334"></a>
-        <div class="time">
-            10:03
-        </div>
-        <div class="main">
-            <span class="train-num">#4334</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="10:03:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3234/weekday/?from=avenel"
-           aria-label="All stops for train 3234"></a>
-        <div class="time">
-            10:03
-        </div>
-        <div class="main">
-            <span class="train-num">#3234</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="10:30:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4331/weekday/?from=avenel"
-           aria-label="All stops for train 4331"></a>
-        <div class="time">
-            10:30
-        </div>
-        <div class="main">
-            <span class="train-num">#4331</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Wood-Ridge</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Rahway</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1246,94 +866,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="10:50:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3236/weekday/?from=avenel"
-           aria-label="All stops for train 3236"></a>
-        <div class="time">
-            10:50
-        </div>
-        <div class="main">
-            <span class="train-num">#3236</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="11:31:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3235/weekday/?from=avenel"
-           aria-label="All stops for train 3235"></a>
-        <div class="time">
-            11:31
-        </div>
-        <div class="main">
-            <span class="train-num">#3235</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="11:53:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3240/weekday/?from=avenel"
-           aria-label="All stops for train 3240"></a>
-        <div class="time">
-            11:53
-        </div>
-        <div class="main">
-            <span class="train-num">#3240</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1350,71 +891,19 @@
         <div class="main">
             <span class="train-num">#3239</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
+            <span class="dest">Monmouth Park</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="12:44:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4344/weekday/?from=avenel"
-           aria-label="All stops for train 4344"></a>
-        <div class="time">
-            12:44
-        </div>
-        <div class="main">
-            <span class="train-num">#4344</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="12:44:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3244/weekday/?from=avenel"
-           aria-label="All stops for train 3244"></a>
-        <div class="time">
-            12:44
-        </div>
-        <div class="main">
-            <span class="train-num">#3244</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1435,94 +924,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
     <li class="schedule-card is-link"
-        data-time="12:55:00"
+        data-time="13:42:00"
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/3241/weekday/?from=avenel"
-           aria-label="All stops for train 3241"></a>
+           href="/trains/3205/weekday/?from=avenel"
+           aria-label="All stops for train 3205"></a>
         <div class="time">
-            12:55
+            13:42
         </div>
         <div class="main">
-            <span class="train-num">#3241</span>
+            <span class="train-num">#3205</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
+            <span class="dest">Rahway</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="13:33:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3243/weekday/?from=avenel"
-           aria-label="All stops for train 3243"></a>
-        <div class="time">
-            13:33
-        </div>
-        <div class="main">
-            <span class="train-num">#3243</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="13:49:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3248/weekday/?from=avenel"
-           aria-label="All stops for train 3248"></a>
-        <div class="time">
-            13:49
-        </div>
-        <div class="main">
-            <span class="train-num">#3248</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1539,44 +978,19 @@
         <div class="main">
             <span class="train-num">#3247</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
+            <span class="dest">Monmouth Park</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="14:45:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4352/weekday/?from=avenel"
-           aria-label="All stops for train 4352"></a>
-        <div class="time">
-            14:45
-        </div>
-        <div class="main">
-            <span class="train-num">#4352</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1597,67 +1011,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="14:53:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/8249/weekday/?from=avenel"
-           aria-label="All stops for train 8249"></a>
-        <div class="time">
-            14:53
-        </div>
-        <div class="main">
-            <span class="train-num">#8249</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="15:27:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4351/weekday/?from=avenel"
-           aria-label="All stops for train 4351"></a>
-        <div class="time">
-            15:27
-        </div>
-        <div class="main">
-            <span class="train-num">#4351</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Wood-Ridge</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Rahway</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1678,67 +1040,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="15:46:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3256/weekday/?from=avenel"
-           aria-label="All stops for train 3256"></a>
-        <div class="time">
-            15:46
-        </div>
-        <div class="main">
-            <span class="train-num">#3256</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="15:50:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/8353/weekday/?from=avenel"
-           aria-label="All stops for train 8353"></a>
-        <div class="time">
-            15:50
-        </div>
-        <div class="main">
-            <span class="train-num">#8353</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1755,71 +1065,19 @@
         <div class="main">
             <span class="train-num">#3509</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
+            <span class="dest">South Amboy</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="16:21:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3255/weekday/?from=avenel"
-           aria-label="All stops for train 3255"></a>
-        <div class="time">
-            16:21
-        </div>
-        <div class="main">
-            <span class="train-num">#3255</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="16:36:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4360/weekday/?from=avenel"
-           aria-label="All stops for train 4360"></a>
-        <div class="time">
-            16:36
-        </div>
-        <div class="main">
-            <span class="train-num">#4360</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1840,40 +1098,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="16:56:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3595/weekday/?from=avenel"
-           aria-label="All stops for train 3595"></a>
-        <div class="time">
-            16:56
-        </div>
-        <div class="main">
-            <span class="train-num">#3595</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">South Amboy</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Wood-Ridge</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Rahway</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1894,94 +1127,15 @@
         </div>
         <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="17:10:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3510/weekday/?from=avenel"
-           aria-label="All stops for train 3510"></a>
-        <div class="time">
-            17:10
-        </div>
-        <div class="main">
-            <span class="train-num">#3510</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="17:36:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3363/weekday/?from=avenel"
-           aria-label="All stops for train 3363"></a>
-        <div class="time">
-            17:36
-        </div>
-        <div class="main">
-            <span class="train-num">#3363</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="17:36:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4366/weekday/?from=avenel"
-           aria-label="All stops for train 4366"></a>
-        <div class="time">
-            17:36
-        </div>
-        <div class="main">
-            <span class="train-num">#4366</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2002,13 +1156,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Rahway</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2025,17 +1181,19 @@
         <div class="main">
             <span class="train-num">#3511</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
+            <span class="dest">South Amboy</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2052,71 +1210,19 @@
         <div class="main">
             <span class="train-num">#3265</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
+            <span class="dest">Monmouth Park</span>
         </div>
         <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="17:57:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3598/weekday/?from=avenel"
-           aria-label="All stops for train 3598"></a>
-        <div class="time">
-            17:57
-        </div>
-        <div class="main">
-            <span class="train-num">#3598</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="18:13:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3267/weekday/?from=avenel"
-           aria-label="All stops for train 3267"></a>
-        <div class="time">
-            18:13
-        </div>
-        <div class="main">
-            <span class="train-num">#3267</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2133,17 +1239,19 @@
         <div class="main">
             <span class="train-num">#3513</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
+            <span class="dest">South Amboy</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2164,67 +1272,15 @@
         </div>
         <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Elizabeth</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="18:35:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3373/weekday/?from=avenel"
-           aria-label="All stops for train 3373"></a>
-        <div class="time">
-            18:35
-        </div>
-        <div class="main">
-            <span class="train-num">#3373</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="18:46:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3512/weekday/?from=avenel"
-           aria-label="All stops for train 3512"></a>
-        <div class="time">
-            18:46
-        </div>
-        <div class="main">
-            <span class="train-num">#3512</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2241,44 +1297,19 @@
         <div class="main">
             <span class="train-num">#3271</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
+            <span class="dest">Monmouth Park</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="19:07:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3275/weekday/?from=avenel"
-           aria-label="All stops for train 3275"></a>
-        <div class="time">
-            19:07
-        </div>
-        <div class="main">
-            <span class="train-num">#3275</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2287,25 +1318,27 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/3276/weekday/?from=avenel"
-           aria-label="All stops for train 3276"></a>
+           href="/trains/3514/weekday/?from=avenel"
+           aria-label="All stops for train 3514"></a>
         <div class="time">
             19:16
         </div>
         <div class="main">
-            <span class="train-num">#3276</span>
+            <span class="train-num">#3514</span>
             <span class="arrow" aria-hidden="true">→</span>
             <span class="dest">NEW YORK PENN STATION</span>
         </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Rahway</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2322,17 +1355,19 @@
         <div class="main">
             <span class="train-num">#3515</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
+            <span class="dest">South Amboy</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2353,67 +1388,15 @@
         </div>
         <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="19:35:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4379/weekday/?from=avenel"
-           aria-label="All stops for train 4379"></a>
-        <div class="time">
-            19:35
-        </div>
-        <div class="main">
-            <span class="train-num">#4379</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Wood-Ridge</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="20:07:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3281/weekday/?from=avenel"
-           aria-label="All stops for train 3281"></a>
-        <div class="time">
-            20:07
-        </div>
-        <div class="main">
-            <span class="train-num">#3281</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Wood-Ridge</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2422,25 +1405,27 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/3278/weekday/?from=avenel"
-           aria-label="All stops for train 3278"></a>
+           href="/trains/3516/weekday/?from=avenel"
+           aria-label="All stops for train 3516"></a>
         <div class="time">
             20:21
         </div>
         <div class="main">
-            <span class="train-num">#3278</span>
+            <span class="train-num">#3516</span>
             <span class="arrow" aria-hidden="true">→</span>
             <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Rahway</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2461,67 +1446,73 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
     <li class="schedule-card is-link"
-        data-time="21:02:00"
+        data-time="20:46:00"
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/4383/weekday/?from=avenel"
-           aria-label="All stops for train 4383"></a>
+           href="/trains/3228/weekday/?from=avenel"
+           aria-label="All stops for train 3228"></a>
         <div class="time">
-            21:02
+            20:46
         </div>
         <div class="main">
-            <span class="train-num">#4383</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Wood-Ridge</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="21:05:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3516/weekday/?from=avenel"
-           aria-label="All stops for train 3516"></a>
-        <div class="time">
-            21:05
-        </div>
-        <div class="main">
-            <span class="train-num">#3516</span>
+            <span class="train-num">#3228</span>
             <span class="arrow" aria-hidden="true">→</span>
             <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Rahway</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:17:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3230/weekday/?from=avenel"
+           aria-label="All stops for train 3230"></a>
+        <div class="time">
+            21:17
+        </div>
+        <div class="main">
+            <span class="train-num">#3230</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: NEWARK PENN STATION</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2542,94 +1533,73 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
     <li class="schedule-card is-link"
-        data-time="22:05:00"
+        data-time="21:27:00"
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/3284/weekday/?from=avenel"
-           aria-label="All stops for train 3284"></a>
+           href="/trains/3508/weekday/?from=avenel"
+           aria-label="All stops for train 3508"></a>
         <div class="time">
-            22:05
+            21:27
         </div>
         <div class="main">
-            <span class="train-num">#3284</span>
+            <span class="train-num">#3508</span>
             <span class="arrow" aria-hidden="true">→</span>
             <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Rahway</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
     <li class="schedule-card is-link"
-        data-time="22:11:00"
+        data-time="22:03:00"
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/3289/weekday/?from=avenel"
-           aria-label="All stops for train 3289"></a>
+           href="/trains/3234/weekday/?from=avenel"
+           aria-label="All stops for train 3234"></a>
         <div class="time">
-            22:11
+            22:03
         </div>
         <div class="main">
-            <span class="train-num">#3289</span>
+            <span class="train-num">#3234</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="23:10:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4393/weekday/?from=avenel"
-           aria-label="All stops for train 4393"></a>
-        <div class="time">
-            23:10
-        </div>
-        <div class="main">
-            <span class="train-num">#4393</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Wood-Ridge</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Rahway</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2650,13 +1620,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2677,67 +1649,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="00:04:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/3297/weekday/?from=avenel"
-           aria-label="All stops for train 3297"></a>
-        <div class="time">
-            00:04<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#3297</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="00:23:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/4392/weekday/?from=avenel"
-           aria-label="All stops for train 4392"></a>
-        <div class="time">
-            00:23<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#4392</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Rahway</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2758,40 +1678,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Rahway</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
     <li class="schedule-card is-link"
-        data-time="01:05:00"
+        data-time="00:44:00"
         data-next-day="1"
         >
         <a class="stretch-link"
-           href="/trains/4398/weekday/?from=avenel"
-           aria-label="All stops for train 4398"></a>
+           href="/trains/3244/weekday/?from=avenel"
+           aria-label="All stops for train 3244"></a>
         <div class="time">
-            01:05<span class="next-day">+1d</span>
+            00:44<span class="next-day">+1d</span>
         </div>
         <div class="main">
-            <span class="train-num">#4398</span>
+            <span class="train-num">#3244</span>
             <span class="arrow" aria-hidden="true">→</span>
             <span class="dest">NEW YORK PENN STATION</span>
         </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Rahway</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2812,40 +1736,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Rahway</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="01:42:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/3205/weekday/?from=avenel"
-           aria-label="All stops for train 3205"></a>
-        <div class="time">
-            01:42<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#3205</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Perth Amboy</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Rahway</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     

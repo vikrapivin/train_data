@@ -289,9 +289,9 @@
                 "time main line"
                 "time sub  sub";
             column-gap: 16px;
-            row-gap: 2px;
+            row-gap: 10px;
             align-items: center;
-            padding: 16px 16px;
+            padding: 18px 16px;
             margin: 10px 0;
             background: var(--surface);
             border: 1px solid var(--border);
@@ -389,17 +389,30 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+        /* The card's lower half: one line of live info (stop label left,
+           track/estimate/countdown right), then — only when the train
+           has history here — a divided row of labeled stats. */
         .schedule-card .sub {
             grid-area: sub;
             display: flex;
-            align-items: baseline;
-            gap: 8px;
+            flex-direction: column;
+            gap: 9px;
+            min-width: 0;
             color: var(--text-faint);
             font-size: 12px;
+        }
+        .schedule-card .sub-line {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            min-width: 0;
         }
         .schedule-card .sub .sub-label {
             text-transform: uppercase;
             letter-spacing: 0.06em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         /* Estimated departure + live "in N min" status, pushed to the
            right of the sub line. Empty until the client fills it in. */
@@ -410,9 +423,32 @@
             gap: 8px;
         }
         .schedule-card .sub .est { font-variant-numeric: tabular-nums; }
-        /* Historical delay stats (median / p95 of past days' readings) —
-           quiet reference info, visually behind the live estimate. */
-        .schedule-card .sub .delay {
+        /* Historical stats (delay history, usual tracks): quiet labeled
+           key/value pairs behind a hairline, visually subordinate to
+           the live line above. */
+        .schedule-card .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 18px;
+            padding-top: 9px;
+            border-top: 1px solid var(--border);
+        }
+        .schedule-card .stat {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 5px;
+            white-space: nowrap;
+        }
+        .schedule-card .stat-k {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--text-faint);
+        }
+        .schedule-card .stat-v {
+            font-size: 12.5px;
+            font-weight: 600;
             color: var(--text-dim);
             font-variant-numeric: tabular-nums;
         }
@@ -576,10 +612,621 @@
 
 
 
-<div class="empty">
-    <h3>No trains today</h3>
-    <div>There are no active scheduled stops at this station.</div>
-</div>
+<ul class="schedule-list"
+    id="schedule-list"
+    data-now-time=""
+    data-post-midnight="0">
+    
+    <li class="schedule-card is-link"
+        data-time="12:14:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3235/?from=monmouth-park"
+           aria-label="All stops for train 3235"></a>
+        <div class="time">
+            12:14
+        </div>
+        <div class="main">
+            <span class="train-num">#3235</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elberon</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:55:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3248/?from=monmouth-park"
+           aria-label="All stops for train 3248"></a>
+        <div class="time">
+            12:55
+        </div>
+        <div class="main">
+            <span class="train-num">#3248</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Little Silver</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:57:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3239/?from=monmouth-park"
+           aria-label="All stops for train 3239"></a>
+        <div class="time">
+            12:57
+        </div>
+        <div class="main">
+            <span class="train-num">#3239</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Monmouth Park</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Final stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:39:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3241/?from=monmouth-park"
+           aria-label="All stops for train 3241"></a>
+        <div class="time">
+            13:39
+        </div>
+        <div class="main">
+            <span class="train-num">#3241</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Monmouth Park</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Final stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:57:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3252/?from=monmouth-park"
+           aria-label="All stops for train 3252"></a>
+        <div class="time">
+            13:57
+        </div>
+        <div class="main">
+            <span class="train-num">#3252</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Little Silver</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:16:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3243/?from=monmouth-park"
+           aria-label="All stops for train 3243"></a>
+        <div class="time">
+            14:16
+        </div>
+        <div class="main">
+            <span class="train-num">#3243</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elberon</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:54:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3256/?from=monmouth-park"
+           aria-label="All stops for train 3256"></a>
+        <div class="time">
+            14:54
+        </div>
+        <div class="main">
+            <span class="train-num">#3256</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Little Silver</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="15:15:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3247/?from=monmouth-park"
+           aria-label="All stops for train 3247"></a>
+        <div class="time">
+            15:15
+        </div>
+        <div class="main">
+            <span class="train-num">#3247</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Monmouth Park</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Final stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="15:48:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3260/?from=monmouth-park"
+           aria-label="All stops for train 3260"></a>
+        <div class="time">
+            15:48
+        </div>
+        <div class="main">
+            <span class="train-num">#3260</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Little Silver</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="16:15:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3251/?from=monmouth-park"
+           aria-label="All stops for train 3251"></a>
+        <div class="time">
+            16:15
+        </div>
+        <div class="main">
+            <span class="train-num">#3251</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elberon</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="16:48:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3266/?from=monmouth-park"
+           aria-label="All stops for train 3266"></a>
+        <div class="time">
+            16:48
+        </div>
+        <div class="main">
+            <span class="train-num">#3266</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Little Silver</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:02:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3255/?from=monmouth-park"
+           aria-label="All stops for train 3255"></a>
+        <div class="time">
+            17:02
+        </div>
+        <div class="main">
+            <span class="train-num">#3255</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elberon</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:40:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3270/?from=monmouth-park"
+           aria-label="All stops for train 3270"></a>
+        <div class="time">
+            17:40
+        </div>
+        <div class="main">
+            <span class="train-num">#3270</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Little Silver</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:55:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3361/?from=monmouth-park"
+           aria-label="All stops for train 3361"></a>
+        <div class="time">
+            17:55
+        </div>
+        <div class="main">
+            <span class="train-num">#3361</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elberon</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3272/?from=monmouth-park"
+           aria-label="All stops for train 3272"></a>
+        <div class="time">
+            18:19
+        </div>
+        <div class="main">
+            <span class="train-num">#3272</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Little Silver</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3363/?from=monmouth-park"
+           aria-label="All stops for train 3363"></a>
+        <div class="time">
+            18:19
+        </div>
+        <div class="main">
+            <span class="train-num">#3363</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elberon</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:44:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3265/?from=monmouth-park"
+           aria-label="All stops for train 3265"></a>
+        <div class="time">
+            18:44
+        </div>
+        <div class="main">
+            <span class="train-num">#3265</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Monmouth Park</span>
+        </div>
+        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Final stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:57:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3267/?from=monmouth-park"
+           aria-label="All stops for train 3267"></a>
+        <div class="time">
+            18:57
+        </div>
+        <div class="main">
+            <span class="train-num">#3267</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elberon</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3373/?from=monmouth-park"
+           aria-label="All stops for train 3373"></a>
+        <div class="time">
+            19:19
+        </div>
+        <div class="main">
+            <span class="train-num">#3373</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elberon</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:25:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3276/?from=monmouth-park"
+           aria-label="All stops for train 3276"></a>
+        <div class="time">
+            19:25
+        </div>
+        <div class="main">
+            <span class="train-num">#3276</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Little Silver</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:39:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3271/?from=monmouth-park"
+           aria-label="All stops for train 3271"></a>
+        <div class="time">
+            19:39
+        </div>
+        <div class="main">
+            <span class="train-num">#3271</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Monmouth Park</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Final stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+</ul>
 
 
 <script>

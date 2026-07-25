@@ -289,9 +289,9 @@
                 "time main line"
                 "time sub  sub";
             column-gap: 16px;
-            row-gap: 2px;
+            row-gap: 10px;
             align-items: center;
-            padding: 16px 16px;
+            padding: 18px 16px;
             margin: 10px 0;
             background: var(--surface);
             border: 1px solid var(--border);
@@ -389,17 +389,30 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+        /* The card's lower half: one line of live info (stop label left,
+           track/estimate/countdown right), then — only when the train
+           has history here — a divided row of labeled stats. */
         .schedule-card .sub {
             grid-area: sub;
             display: flex;
-            align-items: baseline;
-            gap: 8px;
+            flex-direction: column;
+            gap: 9px;
+            min-width: 0;
             color: var(--text-faint);
             font-size: 12px;
+        }
+        .schedule-card .sub-line {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            min-width: 0;
         }
         .schedule-card .sub .sub-label {
             text-transform: uppercase;
             letter-spacing: 0.06em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         /* Estimated departure + live "in N min" status, pushed to the
            right of the sub line. Empty until the client fills it in. */
@@ -410,9 +423,32 @@
             gap: 8px;
         }
         .schedule-card .sub .est { font-variant-numeric: tabular-nums; }
-        /* Historical delay stats (median / p95 of past days' readings) —
-           quiet reference info, visually behind the live estimate. */
-        .schedule-card .sub .delay {
+        /* Historical stats (delay history, usual tracks): quiet labeled
+           key/value pairs behind a hairline, visually subordinate to
+           the live line above. */
+        .schedule-card .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 18px;
+            padding-top: 9px;
+            border-top: 1px solid var(--border);
+        }
+        .schedule-card .stat {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 5px;
+            white-space: nowrap;
+        }
+        .schedule-card .stat-k {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--text-faint);
+        }
+        .schedule-card .stat-v {
+            font-size: 12.5px;
+            font-weight: 600;
             color: var(--text-dim);
             font-variant-numeric: tabular-nums;
         }
@@ -598,13 +634,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -625,13 +663,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="05:07:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3209/weekday/?from=rahway"
+           aria-label="All stops for train 3209"></a>
+        <div class="time">
+            05:07
+        </div>
+        <div class="main">
+            <span class="train-num">#3209</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Little Silver</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -652,13 +721,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -679,13 +750,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -706,40 +779,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="05:20:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3204/weekday/?from=rahway"
-           aria-label="All stops for train 3204"></a>
-        <div class="time">
-            05:20
-        </div>
-        <div class="main">
-            <span class="train-num">#3204</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -760,13 +808,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: NEWARK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: NEWARK PENN STATION</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="05:38:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3208/weekday/?from=rahway"
+           aria-label="All stops for train 3208"></a>
+        <div class="time">
+            05:38
+        </div>
+        <div class="main">
+            <span class="train-num">#3208</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: NEWARK PENN STATION</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -787,13 +866,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -814,13 +895,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -841,40 +924,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="06:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4315/weekday/?from=rahway"
-           aria-label="All stops for train 4315"></a>
-        <div class="time">
-            06:14
-        </div>
-        <div class="main">
-            <span class="train-num">#4315</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -895,40 +953,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
     <li class="schedule-card is-link"
-        data-time="06:26:00"
+        data-time="06:14:00"
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/4310/weekday/?from=rahway"
-           aria-label="All stops for train 4310"></a>
+           href="/trains/3215/weekday/?from=rahway"
+           aria-label="All stops for train 3215"></a>
         <div class="time">
-            06:26
+            06:14
         </div>
         <div class="main">
-            <span class="train-num">#4310</span>
+            <span class="train-num">#3215</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">BAY HEAD</span>
         </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: NEWARK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -949,13 +1011,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: NEWARK PENN STATION</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: NEWARK PENN STATION</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="06:26:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3210/weekday/?from=rahway"
+           aria-label="All stops for train 3210"></a>
+        <div class="time">
+            06:26
+        </div>
+        <div class="main">
+            <span class="train-num">#3210</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: NEWARK PENN STATION</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -976,13 +1069,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1003,13 +1098,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1030,13 +1127,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1057,13 +1156,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:06:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3217/weekday/?from=rahway"
+           aria-label="All stops for train 3217"></a>
+        <div class="time">
+            07:06
+        </div>
+        <div class="main">
+            <span class="train-num">#3217</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Little Silver</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1084,13 +1214,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1111,13 +1243,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:30:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3502/weekday/?from=rahway"
+           aria-label="All stops for train 3502"></a>
+        <div class="time">
+            07:30
+        </div>
+        <div class="main">
+            <span class="train-num">#3502</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1138,40 +1301,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
     <li class="schedule-card is-link"
-        data-time="07:39:00"
+        data-time="07:35:00"
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/4321/weekday/?from=rahway"
-           aria-label="All stops for train 4321"></a>
+           href="/trains/3221/weekday/?from=rahway"
+           aria-label="All stops for train 3221"></a>
         <div class="time">
-            07:39
+            07:35
         </div>
         <div class="main">
-            <span class="train-num">#4321</span>
+            <span class="train-num">#3221</span>
             <span class="arrow" aria-hidden="true">→</span>
             <span class="dest">BAY HEAD</span>
         </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1192,13 +1359,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1219,40 +1388,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
     <li class="schedule-card is-link"
-        data-time="08:24:00"
+        data-time="08:01:00"
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/4323/weekday/?from=rahway"
-           aria-label="All stops for train 4323"></a>
+           href="/trains/3504/weekday/?from=rahway"
+           aria-label="All stops for train 3504"></a>
         <div class="time">
-            08:24
+            08:01
         </div>
         <div class="main">
-            <span class="train-num">#4323</span>
+            <span class="train-num">#3504</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Wood-Ridge</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1273,13 +1446,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3223/weekday/?from=rahway"
+           aria-label="All stops for train 3223"></a>
+        <div class="time">
+            08:24
+        </div>
+        <div class="main">
+            <span class="train-num">#3223</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1300,40 +1504,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="08:24:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3506/weekday/?from=rahway"
-           aria-label="All stops for train 3506"></a>
-        <div class="time">
-            08:24
-        </div>
-        <div class="main">
-            <span class="train-num">#3506</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1354,13 +1533,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1381,13 +1562,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1408,13 +1591,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1435,13 +1620,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1462,13 +1649,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1489,13 +1678,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1516,13 +1707,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1543,13 +1736,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:23:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3227/weekday/?from=rahway"
+           aria-label="All stops for train 3227"></a>
+        <div class="time">
+            09:23
+        </div>
+        <div class="main">
+            <span class="train-num">#3227</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Little Silver</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1570,13 +1794,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1597,13 +1823,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1624,40 +1852,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="10:10:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4334/weekday/?from=rahway"
-           aria-label="All stops for train 4334"></a>
-        <div class="time">
-            10:10
-        </div>
-        <div class="main">
-            <span class="train-num">#4334</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1678,13 +1881,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1705,40 +1910,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="10:24:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4331/weekday/?from=rahway"
-           aria-label="All stops for train 4331"></a>
-        <div class="time">
-            10:24
-        </div>
-        <div class="main">
-            <span class="train-num">#4331</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1759,13 +1939,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="10:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3231/weekday/?from=rahway"
+           aria-label="All stops for train 3231"></a>
+        <div class="time">
+            10:24
+        </div>
+        <div class="main">
+            <span class="train-num">#3231</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1786,13 +1997,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1813,13 +2026,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1840,13 +2055,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1867,13 +2084,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1894,40 +2113,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="11:23:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4335/weekday/?from=rahway"
-           aria-label="All stops for train 4335"></a>
-        <div class="time">
-            11:23
-        </div>
-        <div class="main">
-            <span class="train-num">#4335</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Wood-Ridge</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1948,13 +2142,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="11:23:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3235/weekday/?from=rahway"
+           aria-label="All stops for train 3235"></a>
+        <div class="time">
+            11:23
+        </div>
+        <div class="main">
+            <span class="train-num">#3235</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -1975,13 +2200,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2002,67 +2229,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="11:53:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4340/weekday/?from=rahway"
-           aria-label="All stops for train 4340"></a>
-        <div class="time">
-            11:53
-        </div>
-        <div class="main">
-            <span class="train-num">#4340</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="11:53:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3240/weekday/?from=rahway"
-           aria-label="All stops for train 3240"></a>
-        <div class="time">
-            11:53
-        </div>
-        <div class="main">
-            <span class="train-num">#3240</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2079,17 +2254,48 @@
         <div class="main">
             <span class="train-num">#3239</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
+            <span class="dest">Monmouth Park</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:04:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3239/weekday/?from=rahway"
+           aria-label="All stops for train 3239"></a>
+        <div class="time">
+            12:04
+        </div>
+        <div class="main">
+            <span class="train-num">#3239</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Monmouth Park</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2110,13 +2316,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2137,13 +2345,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2164,13 +2374,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2191,13 +2403,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:44:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3201/weekday/?from=rahway"
+           aria-label="All stops for train 3201"></a>
+        <div class="time">
+            12:44
+        </div>
+        <div class="main">
+            <span class="train-num">#3201</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Rahway</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2214,44 +2457,48 @@
         <div class="main">
             <span class="train-num">#3241</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
+            <span class="dest">Monmouth Park</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
     <li class="schedule-card is-link"
-        data-time="12:51:00"
+        data-time="12:47:00"
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/4344/weekday/?from=rahway"
-           aria-label="All stops for train 4344"></a>
+           href="/trains/3241/weekday/?from=rahway"
+           aria-label="All stops for train 3241"></a>
         <div class="time">
-            12:51
+            12:47
         </div>
         <div class="main">
-            <span class="train-num">#4344</span>
+            <span class="train-num">#3241</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">Monmouth Park</span>
         </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2272,13 +2519,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2299,13 +2548,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2326,40 +2577,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="13:26:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4343/weekday/?from=rahway"
-           aria-label="All stops for train 4343"></a>
-        <div class="time">
-            13:26
-        </div>
-        <div class="main">
-            <span class="train-num">#4343</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Wood-Ridge</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2380,13 +2606,73 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:26:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3243/weekday/?from=rahway"
+           aria-label="All stops for train 3243"></a>
+        <div class="time">
+            13:26
+        </div>
+        <div class="main">
+            <span class="train-num">#3243</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:37:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3205/weekday/?from=rahway"
+           aria-label="All stops for train 3205"></a>
+        <div class="time">
+            13:37
+        </div>
+        <div class="main">
+            <span class="train-num">#3205</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Rahway</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2407,13 +2693,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2434,13 +2722,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2461,13 +2751,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:49:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3248/weekday/?from=rahway"
+           aria-label="All stops for train 3248"></a>
+        <div class="time">
+            13:49
+        </div>
+        <div class="main">
+            <span class="train-num">#3248</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2488,13 +2809,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2515,13 +2838,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2538,17 +2863,48 @@
         <div class="main">
             <span class="train-num">#3247</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
+            <span class="dest">Monmouth Park</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:19:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3247/weekday/?from=rahway"
+           aria-label="All stops for train 3247"></a>
+        <div class="time">
+            14:19
+        </div>
+        <div class="main">
+            <span class="train-num">#3247</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Monmouth Park</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2569,13 +2925,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2596,40 +2954,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="14:52:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4352/weekday/?from=rahway"
-           aria-label="All stops for train 4352"></a>
-        <div class="time">
-            14:52
-        </div>
-        <div class="main">
-            <span class="train-num">#4352</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2650,13 +2983,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:52:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3252/weekday/?from=rahway"
+           aria-label="All stops for train 3252"></a>
+        <div class="time">
+            14:52
+        </div>
+        <div class="main">
+            <span class="train-num">#3252</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2677,13 +3041,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2704,40 +3070,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="15:21:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4351/weekday/?from=rahway"
-           aria-label="All stops for train 4351"></a>
-        <div class="time">
-            15:21
-        </div>
-        <div class="main">
-            <span class="train-num">#4351</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2758,13 +3099,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="15:21:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3251/weekday/?from=rahway"
+           aria-label="All stops for train 3251"></a>
+        <div class="time">
+            15:21
+        </div>
+        <div class="main">
+            <span class="train-num">#3251</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2785,13 +3157,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2812,13 +3186,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="15:46:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3256/weekday/?from=rahway"
+           aria-label="All stops for train 3256"></a>
+        <div class="time">
+            15:46
+        </div>
+        <div class="main">
+            <span class="train-num">#3256</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2839,13 +3244,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2866,13 +3273,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2889,17 +3298,48 @@
         <div class="main">
             <span class="train-num">#3509</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
+            <span class="dest">South Amboy</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="16:01:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3509/weekday/?from=rahway"
+           aria-label="All stops for train 3509"></a>
+        <div class="time">
+            16:01
+        </div>
+        <div class="main">
+            <span class="train-num">#3509</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">South Amboy</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2920,40 +3360,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="16:42:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4360/weekday/?from=rahway"
-           aria-label="All stops for train 4360"></a>
-        <div class="time">
-            16:42
-        </div>
-        <div class="main">
-            <span class="train-num">#4360</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2974,13 +3389,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="16:42:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3260/weekday/?from=rahway"
+           aria-label="All stops for train 3260"></a>
+        <div class="time">
+            16:42
+        </div>
+        <div class="main">
+            <span class="train-num">#3260</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -2997,44 +3443,19 @@
         <div class="main">
             <span class="train-num">#3595</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">South Amboy</span>
+            <span class="dest">Rahway</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="16:49:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3595/weekday/?from=rahway"
-           aria-label="All stops for train 3595"></a>
-        <div class="time">
-            16:49
-        </div>
-        <div class="main">
-            <span class="train-num">#3595</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">South Amboy</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Final stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3055,13 +3476,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3082,13 +3505,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3109,13 +3534,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:10:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3510/weekday/?from=rahway"
+           aria-label="All stops for train 3510"></a>
+        <div class="time">
+            17:10
+        </div>
+        <div class="main">
+            <span class="train-num">#3510</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3136,13 +3592,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3163,13 +3621,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3190,13 +3650,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3213,44 +3675,48 @@
         <div class="main">
             <span class="train-num">#3511</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
+            <span class="dest">South Amboy</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
     <li class="schedule-card is-link"
-        data-time="17:43:00"
+        data-time="17:40:00"
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/4366/weekday/?from=rahway"
-           aria-label="All stops for train 4366"></a>
+           href="/trains/3511/weekday/?from=rahway"
+           aria-label="All stops for train 3511"></a>
         <div class="time">
-            17:43
+            17:40
         </div>
         <div class="main">
-            <span class="train-num">#4366</span>
+            <span class="train-num">#3511</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">South Amboy</span>
         </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3271,13 +3737,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:43:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3266/weekday/?from=rahway"
+           aria-label="All stops for train 3266"></a>
+        <div class="time">
+            17:43
+        </div>
+        <div class="main">
+            <span class="train-num">#3266</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3298,13 +3795,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3325,13 +3824,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3352,40 +3853,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="18:04:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3598/weekday/?from=rahway"
-           aria-label="All stops for train 3598"></a>
-        <div class="time">
-            18:04
-        </div>
-        <div class="main">
-            <span class="train-num">#3598</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Newark Int&#x27;l. Airport</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3402,17 +3878,48 @@
         <div class="main">
             <span class="train-num">#3513</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
+            <span class="dest">South Amboy</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:12:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3513/weekday/?from=rahway"
+           aria-label="All stops for train 3513"></a>
+        <div class="time">
+            18:12
+        </div>
+        <div class="main">
+            <span class="train-num">#3513</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">South Amboy</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3433,13 +3940,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3460,13 +3969,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3487,13 +3998,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3510,17 +4023,48 @@
         <div class="main">
             <span class="train-num">#3271</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
+            <span class="dest">Monmouth Park</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:43:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3271/weekday/?from=rahway"
+           aria-label="All stops for train 3271"></a>
+        <div class="time">
+            18:43
+        </div>
+        <div class="main">
+            <span class="train-num">#3271</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Monmouth Park</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3541,13 +4085,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:46:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3512/weekday/?from=rahway"
+           aria-label="All stops for train 3512"></a>
+        <div class="time">
+            18:46
+        </div>
+        <div class="main">
+            <span class="train-num">#3512</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3568,13 +4143,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3595,13 +4172,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3618,17 +4197,48 @@
         <div class="main">
             <span class="train-num">#3515</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
+            <span class="dest">South Amboy</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:14:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3515/weekday/?from=rahway"
+           aria-label="All stops for train 3515"></a>
+        <div class="time">
+            19:14
+        </div>
+        <div class="main">
+            <span class="train-num">#3515</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">South Amboy</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3649,13 +4259,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:23:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3514/weekday/?from=rahway"
+           aria-label="All stops for train 3514"></a>
+        <div class="time">
+            19:23
+        </div>
+        <div class="main">
+            <span class="train-num">#3514</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3676,13 +4317,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3703,13 +4346,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3726,44 +4371,19 @@
         <div class="main">
             <span class="train-num">#3281</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
+            <span class="dest">Rahway</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="20:01:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3281/weekday/?from=rahway"
-           aria-label="All stops for train 3281"></a>
-        <div class="time">
-            20:01
-        </div>
-        <div class="main">
-            <span class="train-num">#3281</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Little Silver</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Final stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3784,13 +4404,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3811,13 +4433,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3838,13 +4462,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="20:28:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3516/weekday/?from=rahway"
+           aria-label="All stops for train 3516"></a>
+        <div class="time">
+            20:28
+        </div>
+        <div class="main">
+            <span class="train-num">#3516</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3865,13 +4520,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="20:31:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3283/weekday/?from=rahway"
+           aria-label="All stops for train 3283"></a>
+        <div class="time">
+            20:31
+        </div>
+        <div class="main">
+            <span class="train-num">#3283</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3892,13 +4578,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -3919,67 +4607,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
     <li class="schedule-card is-link"
-        data-time="20:56:00"
+        data-time="20:53:00"
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/4383/weekday/?from=rahway"
-           aria-label="All stops for train 4383"></a>
+           href="/trains/3228/weekday/?from=rahway"
+           aria-label="All stops for train 3228"></a>
         <div class="time">
-            20:56
+            20:53
         </div>
         <div class="main">
-            <span class="train-num">#4383</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="21:05:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4378/weekday/?from=rahway"
-           aria-label="All stops for train 4378"></a>
-        <div class="time">
-            21:05
-        </div>
-        <div class="main">
-            <span class="train-num">#4378</span>
+            <span class="train-num">#3228</span>
             <span class="arrow" aria-hidden="true">→</span>
             <span class="dest">NEW YORK PENN STATION</span>
         </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4000,13 +4665,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:05:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3278/weekday/?from=rahway"
+           aria-label="All stops for train 3278"></a>
+        <div class="time">
+            21:05
+        </div>
+        <div class="main">
+            <span class="train-num">#3278</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4027,13 +4723,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:21:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3285/weekday/?from=rahway"
+           aria-label="All stops for train 3285"></a>
+        <div class="time">
+            21:21
+        </div>
+        <div class="main">
+            <span class="train-num">#3285</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Little Silver</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4054,13 +4781,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:34:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3508/weekday/?from=rahway"
+           aria-label="All stops for train 3508"></a>
+        <div class="time">
+            21:34
+        </div>
+        <div class="main">
+            <span class="train-num">#3508</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4081,13 +4839,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4108,40 +4868,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="22:05:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4384/weekday/?from=rahway"
-           aria-label="All stops for train 4384"></a>
-        <div class="time">
-            22:05
-        </div>
-        <div class="main">
-            <span class="train-num">#4384</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4162,13 +4897,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="22:05:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3284/weekday/?from=rahway"
+           aria-label="All stops for train 3284"></a>
+        <div class="time">
+            22:05
+        </div>
+        <div class="main">
+            <span class="train-num">#3284</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4189,13 +4955,73 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="22:05:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3289/weekday/?from=rahway"
+           aria-label="All stops for train 3289"></a>
+        <div class="time">
+            22:05
+        </div>
+        <div class="main">
+            <span class="train-num">#3289</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Little Silver</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="22:10:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3234/weekday/?from=rahway"
+           aria-label="All stops for train 3234"></a>
+        <div class="time">
+            22:10
+        </div>
+        <div class="main">
+            <span class="train-num">#3234</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4216,13 +5042,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4243,13 +5071,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="22:50:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3236/weekday/?from=rahway"
+           aria-label="All stops for train 3236"></a>
+        <div class="time">
+            22:50
+        </div>
+        <div class="main">
+            <span class="train-num">#3236</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4270,40 +5129,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="23:04:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/4393/weekday/?from=rahway"
-           aria-label="All stops for train 4393"></a>
-        <div class="time">
-            23:04
-        </div>
-        <div class="main">
-            <span class="train-num">#4393</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4324,13 +5158,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="23:04:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3293/weekday/?from=rahway"
+           aria-label="All stops for train 3293"></a>
+        <div class="time">
+            23:04
+        </div>
+        <div class="main">
+            <span class="train-num">#3293</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Avenel</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4351,13 +5216,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4378,13 +5245,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="23:20:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3288/weekday/?from=rahway"
+           aria-label="All stops for train 3288"></a>
+        <div class="time">
+            23:20
+        </div>
+        <div class="main">
+            <span class="train-num">#3288</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4405,40 +5303,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
     <li class="schedule-card is-link"
-        data-time="23:58:00"
+        data-time="23:53:00"
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/4397/weekday/?from=rahway"
-           aria-label="All stops for train 4397"></a>
+           href="/trains/3240/weekday/?from=rahway"
+           aria-label="All stops for train 3240"></a>
         <div class="time">
-            23:58
+            23:53
         </div>
         <div class="main">
-            <span class="train-num">#4397</span>
+            <span class="train-num">#3240</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">BAY HEAD</span>
+            <span class="dest">NEW YORK PENN STATION</span>
         </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Wood-Ridge</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4459,13 +5361,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="23:58:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3297/weekday/?from=rahway"
+           aria-label="All stops for train 3297"></a>
+        <div class="time">
+            23:58
+        </div>
+        <div class="main">
+            <span class="train-num">#3297</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Wood-Ridge</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4486,40 +5419,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="00:29:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/4392/weekday/?from=rahway"
-           aria-label="All stops for train 4392"></a>
-        <div class="time">
-            00:29<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#4392</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4540,13 +5448,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="00:29:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/3292/weekday/?from=rahway"
+           aria-label="All stops for train 3292"></a>
+        <div class="time">
+            00:29<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#3292</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4567,13 +5506,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Final stop</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Final stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4594,13 +5535,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="00:51:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/3244/weekday/?from=rahway"
+           aria-label="All stops for train 3244"></a>
+        <div class="time">
+            00:51<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#3244</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4621,40 +5593,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="01:12:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/4398/weekday/?from=rahway"
-           aria-label="All stops for train 4398"></a>
-        <div class="time">
-            01:12<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#4398</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4675,13 +5622,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="01:12:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/5200/weekday/?from=rahway"
+           aria-label="All stops for train 5200"></a>
+        <div class="time">
+            01:12<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#5200</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4702,13 +5680,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4729,13 +5709,15 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Linden</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4752,17 +5734,19 @@
         <div class="main">
             <span class="train-num">#3205</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Perth Amboy</span>
+            <span class="dest">Rahway</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Avenel</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Final stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
@@ -4783,13 +5767,44 @@
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
-            <span class="sub-label">Next stop: Metropark</span>
-            <span class="sub-end">
-                
-                
-                
-                <span class="status" aria-live="polite"></span>
-            </span>
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metropark</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="11:53:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/3240/weekday/?from=rahway"
+           aria-label="All stops for train 3240"></a>
+        <div class="time">
+            11:53<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#3240</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Linden</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
         </div>
     </li>
     
