@@ -324,7 +324,7 @@
         }
         .schedule-card .time {
             grid-area: time;
-            font-size: clamp(28px, 7vw, 34px);
+            font-size: clamp(22px, 5.5vw, 30px);
             font-weight: 800;
             font-variant-numeric: tabular-nums;
             letter-spacing: -0.02em;
@@ -474,6 +474,7 @@
         .line-pill {
             display: inline-flex;
             align-items: center;
+            max-width: 100%;
             padding: 4px 10px;
             border-radius: 999px;
             background: var(--surface-2);
@@ -483,11 +484,28 @@
             font-weight: 700;
             letter-spacing: 0.05em;
             border: 1px solid var(--border);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .schedule-card[data-state="next"] .line-pill {
             background: var(--accent);
             color: #fff;
             border-color: transparent;
+        }
+        /* Narrow screens: the pill can't share row one with the
+           destination without a squeeze, so it gets its own full-width
+           row between the headline and the sub block. */
+        @media (max-width: 520px) {
+            .schedule-card {
+                grid-template-columns: minmax(72px, auto) 1fr;
+                grid-template-areas:
+                    "time main"
+                    "line line"
+                    "sub  sub";
+                row-gap: 7px;
+            }
+            .schedule-card .line { align-self: center; }
         }
 
         .now-marker {
@@ -2226,7 +2244,7 @@
         <div class="main">
             <span class="train-num">#3228</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">North Elizabeth</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
@@ -2241,8 +2259,46 @@
             
             <div class="stats">
                 
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+718m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+719m</span></span>
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+12m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">1%</span></span>
+                
+                
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:11:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3228/?from=newark-int-l-airport"
+           aria-label="All stops for train 3228"></a>
+        <div class="time">
+            09:11
+        </div>
+        <div class="main">
+            <span class="train-num">#3228</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">North Elizabeth</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: NEWARK PENN STATION</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+12m</span></span>
                 <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">1%</span></span>
                 
                 
@@ -2416,7 +2472,7 @@
         <div class="main">
             <span class="train-num">#3508</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">North Elizabeth</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
@@ -2431,8 +2487,46 @@
             
             <div class="stats">
                 
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+706m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+719m</span></span>
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-1m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+10m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">4%</span></span>
+                
+                
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:52:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3508/?from=newark-int-l-airport"
+           aria-label="All stops for train 3508"></a>
+        <div class="time">
+            09:52
+        </div>
+        <div class="main">
+            <span class="train-num">#3508</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">North Elizabeth</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: NEWARK PENN STATION</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-1m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+10m</span></span>
                 <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">4%</span></span>
                 
                 
@@ -2644,7 +2738,7 @@
         <div class="main">
             <span class="train-num">#3234</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">North Elizabeth</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
@@ -2659,8 +2753,46 @@
             
             <div class="stats">
                 
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-712m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+718m</span></span>
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+3m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+20m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">1%</span></span>
+                
+                
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="10:28:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3234/?from=newark-int-l-airport"
+           aria-label="All stops for train 3234"></a>
+        <div class="time">
+            10:28
+        </div>
+        <div class="main">
+            <span class="train-num">#3234</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">North Elizabeth</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: NEWARK PENN STATION</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+3m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+20m</span></span>
                 <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">1%</span></span>
                 
                 
@@ -2758,7 +2890,7 @@
         <div class="main">
             <span class="train-num">#3236</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">Elizabeth</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
@@ -2773,8 +2905,46 @@
             
             <div class="stats">
                 
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-692m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+719m</span></span>
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+0m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+35m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
+                
+                
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="11:06:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3236/?from=newark-int-l-airport"
+           aria-label="All stops for train 3236"></a>
+        <div class="time">
+            11:06
+        </div>
+        <div class="main">
+            <span class="train-num">#3236</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Elizabeth</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: NEWARK PENN STATION</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+0m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+35m</span></span>
                 <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
@@ -3100,7 +3270,45 @@
         <div class="main">
             <span class="train-num">#3240</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">North Elizabeth</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: NEWARK PENN STATION</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+30m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">3%</span></span>
+                
+                
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:10:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3240/?from=newark-int-l-airport"
+           aria-label="All stops for train 3240"></a>
+        <div class="time">
+            12:10
+        </div>
+        <div class="main">
+            <span class="train-num">#3240</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">North Elizabeth</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
@@ -3156,44 +3364,6 @@
                 <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+0m</span></span>
                 <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+15m</span></span>
                 <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">1%</span></span>
-                
-                
-            </div>
-            
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="12:28:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3201/?from=newark-int-l-airport"
-           aria-label="All stops for train 3201"></a>
-        <div class="time">
-            12:28
-        </div>
-        <div class="main">
-            <span class="train-num">#3201</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Rahway</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <div class="sub-line">
-                <span class="sub-label">Next stop: North Elizabeth</span>
-                <span class="sub-end">
-                    
-                    
-                    <span class="status" aria-live="polite"></span>
-                </span>
-            </div>
-            
-            <div class="stats">
-                
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-712m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+718m</span></span>
-                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">5%</span></span>
                 
                 
             </div>
@@ -3404,7 +3574,45 @@
         <div class="main">
             <span class="train-num">#3244</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">Elizabeth</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: NEWARK PENN STATION</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+5m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+32m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">2%</span></span>
+                
+                
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:06:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3244/?from=newark-int-l-airport"
+           aria-label="All stops for train 3244"></a>
+        <div class="time">
+            13:06
+        </div>
+        <div class="main">
+            <span class="train-num">#3244</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Elizabeth</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
@@ -3497,44 +3705,6 @@
                 
                 <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-1m</span></span>
                 <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+9m</span></span>
-                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
-                
-                
-            </div>
-            
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="13:24:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3205/?from=newark-int-l-airport"
-           aria-label="All stops for train 3205"></a>
-        <div class="time">
-            13:24
-        </div>
-        <div class="main">
-            <span class="train-num">#3205</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Rahway</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <div class="sub-line">
-                <span class="sub-label">Next stop: Elizabeth</span>
-                <span class="sub-end">
-                    
-                    
-                    <span class="status" aria-live="polite"></span>
-                </span>
-            </div>
-            
-            <div class="stats">
-                
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-714m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+719m</span></span>
                 <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
@@ -6718,44 +6888,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="21:11:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3228/?from=newark-int-l-airport"
-           aria-label="All stops for train 3228"></a>
-        <div class="time">
-            21:11
-        </div>
-        <div class="main">
-            <span class="train-num">#3228</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <div class="sub-line">
-                <span class="sub-label">Next stop: NEWARK PENN STATION</span>
-                <span class="sub-end">
-                    
-                    
-                    <span class="status" aria-live="polite"></span>
-                </span>
-            </div>
-            
-            <div class="stats">
-                
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+718m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+719m</span></span>
-                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">1%</span></span>
-                
-                
-            </div>
-            
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="21:22:00"
         data-next-day="0"
         >
@@ -6984,44 +7116,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="21:52:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3508/?from=newark-int-l-airport"
-           aria-label="All stops for train 3508"></a>
-        <div class="time">
-            21:52
-        </div>
-        <div class="main">
-            <span class="train-num">#3508</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <div class="sub-line">
-                <span class="sub-label">Next stop: NEWARK PENN STATION</span>
-                <span class="sub-end">
-                    
-                    
-                    <span class="status" aria-live="polite"></span>
-                </span>
-            </div>
-            
-            <div class="stats">
-                
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+706m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+719m</span></span>
-                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">4%</span></span>
-                
-                
-            </div>
-            
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="22:00:00"
         data-next-day="0"
         >
@@ -7174,44 +7268,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="22:28:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3234/?from=newark-int-l-airport"
-           aria-label="All stops for train 3234"></a>
-        <div class="time">
-            22:28
-        </div>
-        <div class="main">
-            <span class="train-num">#3234</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <div class="sub-line">
-                <span class="sub-label">Next stop: NEWARK PENN STATION</span>
-                <span class="sub-end">
-                    
-                    
-                    <span class="status" aria-live="polite"></span>
-                </span>
-            </div>
-            
-            <div class="stats">
-                
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-712m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+718m</span></span>
-                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">1%</span></span>
-                
-                
-            </div>
-            
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="22:32:00"
         data-next-day="0"
         >
@@ -7355,44 +7411,6 @@
                 
                 <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-1m</span></span>
                 <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+6m</span></span>
-                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
-                
-                
-            </div>
-            
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="23:06:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3236/?from=newark-int-l-airport"
-           aria-label="All stops for train 3236"></a>
-        <div class="time">
-            23:06
-        </div>
-        <div class="main">
-            <span class="train-num">#3236</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <div class="sub-line">
-                <span class="sub-label">Next stop: NEWARK PENN STATION</span>
-                <span class="sub-end">
-                    
-                    
-                    <span class="status" aria-live="polite"></span>
-                </span>
-            </div>
-            
-            <div class="stats">
-                
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-692m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+719m</span></span>
                 <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
@@ -7668,24 +7686,24 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="00:10:00"
+        data-time="00:28:00"
         data-next-day="1"
         >
         <a class="stretch-link"
-           href="/trains/3240/?from=newark-int-l-airport"
-           aria-label="All stops for train 3240"></a>
+           href="/trains/3201/?from=newark-int-l-airport"
+           aria-label="All stops for train 3201"></a>
         <div class="time">
-            00:10<span class="next-day">+1d</span>
+            00:28<span class="next-day">+1d</span>
         </div>
         <div class="main">
-            <span class="train-num">#3240</span>
+            <span class="train-num">#3201</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">Rahway</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
             <div class="sub-line">
-                <span class="sub-label">Next stop: NEWARK PENN STATION</span>
+                <span class="sub-label">Next stop: North Elizabeth</span>
                 <span class="sub-end">
                     
                     
@@ -7695,9 +7713,9 @@
             
             <div class="stats">
                 
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+2m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+30m</span></span>
-                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">3%</span></span>
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+6m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+19m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">5%</span></span>
                 
                 
             </div>
@@ -7733,8 +7751,8 @@
             
             <div class="stats">
                 
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-712m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+718m</span></span>
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+6m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+19m</span></span>
                 <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">5%</span></span>
                 
                 
@@ -7934,44 +7952,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="01:06:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/3244/?from=newark-int-l-airport"
-           aria-label="All stops for train 3244"></a>
-        <div class="time">
-            01:06<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#3244</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <div class="sub-line">
-                <span class="sub-label">Next stop: NEWARK PENN STATION</span>
-                <span class="sub-end">
-                    
-                    
-                    <span class="status" aria-live="polite"></span>
-                </span>
-            </div>
-            
-            <div class="stats">
-                
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+5m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+32m</span></span>
-                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">2%</span></span>
-                
-                
-            </div>
-            
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="01:07:00"
         data-next-day="1"
         >
@@ -8037,8 +8017,46 @@
             
             <div class="stats">
                 
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-714m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+719m</span></span>
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+3m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+17m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
+                
+                
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="01:24:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/3205/?from=newark-int-l-airport"
+           aria-label="All stops for train 3205"></a>
+        <div class="time">
+            01:24<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#3205</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Rahway</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Elizabeth</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+3m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+17m</span></span>
                 <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
@@ -8136,7 +8154,7 @@
         <div class="main">
             <span class="train-num">#3800</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">Secaucus Junction</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">

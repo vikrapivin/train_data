@@ -324,7 +324,7 @@
         }
         .schedule-card .time {
             grid-area: time;
-            font-size: clamp(28px, 7vw, 34px);
+            font-size: clamp(22px, 5.5vw, 30px);
             font-weight: 800;
             font-variant-numeric: tabular-nums;
             letter-spacing: -0.02em;
@@ -474,6 +474,7 @@
         .line-pill {
             display: inline-flex;
             align-items: center;
+            max-width: 100%;
             padding: 4px 10px;
             border-radius: 999px;
             background: var(--surface-2);
@@ -483,11 +484,28 @@
             font-weight: 700;
             letter-spacing: 0.05em;
             border: 1px solid var(--border);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .schedule-card[data-state="next"] .line-pill {
             background: var(--accent);
             color: #fff;
             border-color: transparent;
+        }
+        /* Narrow screens: the pill can't share row one with the
+           destination without a squeeze, so it gets its own full-width
+           row between the headline and the sub block. */
+        @media (max-width: 520px) {
+            .schedule-card {
+                grid-template-columns: minmax(72px, auto) 1fr;
+                grid-template-areas:
+                    "time main"
+                    "line line"
+                    "sub  sub";
+                row-gap: 7px;
+            }
+            .schedule-card .line { align-self: center; }
         }
 
         .now-marker {
@@ -1732,7 +1750,7 @@
         <div class="main">
             <span class="train-num">#3224</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">Wood-Ridge</span>
         </div>
         <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
         <div class="sub">
@@ -1848,7 +1866,7 @@
         <div class="main">
             <span class="train-num">#3326</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">Wood-Ridge</span>
         </div>
         <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
         <div class="sub">
@@ -1877,7 +1895,7 @@
         <div class="main">
             <span class="train-num">#3228</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">North Elizabeth</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
@@ -1964,7 +1982,7 @@
         <div class="main">
             <span class="train-num">#3230</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">Avenel</span>
         </div>
         <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
         <div class="sub">
@@ -2051,7 +2069,7 @@
         <div class="main">
             <span class="train-num">#3234</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">North Elizabeth</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
@@ -2080,7 +2098,7 @@
         <div class="main">
             <span class="train-num">#3236</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">Elizabeth</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
@@ -2196,7 +2214,7 @@
         <div class="main">
             <span class="train-num">#3240</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">North Elizabeth</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
@@ -2283,7 +2301,7 @@
         <div class="main">
             <span class="train-num">#3244</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">Elizabeth</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">

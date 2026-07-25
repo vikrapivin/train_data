@@ -324,7 +324,7 @@
         }
         .schedule-card .time {
             grid-area: time;
-            font-size: clamp(28px, 7vw, 34px);
+            font-size: clamp(22px, 5.5vw, 30px);
             font-weight: 800;
             font-variant-numeric: tabular-nums;
             letter-spacing: -0.02em;
@@ -474,6 +474,7 @@
         .line-pill {
             display: inline-flex;
             align-items: center;
+            max-width: 100%;
             padding: 4px 10px;
             border-radius: 999px;
             background: var(--surface-2);
@@ -483,11 +484,28 @@
             font-weight: 700;
             letter-spacing: 0.05em;
             border: 1px solid var(--border);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .schedule-card[data-state="next"] .line-pill {
             background: var(--accent);
             color: #fff;
             border-color: transparent;
+        }
+        /* Narrow screens: the pill can't share row one with the
+           destination without a squeeze, so it gets its own full-width
+           row between the headline and the sub block. */
+        @media (max-width: 520px) {
+            .schedule-card {
+                grid-template-columns: minmax(72px, auto) 1fr;
+                grid-template-areas:
+                    "time main"
+                    "line line"
+                    "sub  sub";
+                row-gap: 7px;
+            }
+            .schedule-card .line { align-self: center; }
         }
 
         .now-marker {
@@ -5329,6 +5347,44 @@
     </li>
     
     <li class="schedule-card is-link"
+        data-time="08:52:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3326/weekday/?from=secaucus-junction"
+           aria-label="All stops for train 3326"></a>
+        <div class="time">
+            08:52
+        </div>
+        <div class="main">
+            <span class="train-num">#3326</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Wood-Ridge</span>
+        </div>
+        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+20m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
+                
+                
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
         data-time="08:53:00"
         data-next-day="0"
         >
@@ -5978,7 +6034,7 @@
         <div class="main">
             <span class="train-num">#3228</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">North Elizabeth</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
@@ -5993,8 +6049,46 @@
             
             <div class="stats">
                 
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-717m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+719m</span></span>
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+3m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+23m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">1%</span></span>
+                
+                
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3228/weekday/?from=secaucus-junction"
+           aria-label="All stops for train 3228"></a>
+        <div class="time">
+            09:24
+        </div>
+        <div class="main">
+            <span class="train-num">#3228</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">North Elizabeth</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+3m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+23m</span></span>
                 <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">1%</span></span>
                 
                 
@@ -6405,6 +6499,44 @@
                 <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-2m</span></span>
                 <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">-1m</span></span>
                 <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
+                
+                
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:42:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3230/weekday/?from=secaucus-junction"
+           aria-label="All stops for train 3230"></a>
+        <div class="time">
+            09:42
+        </div>
+        <div class="main">
+            <span class="train-num">#3230</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Avenel</span>
+        </div>
+        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+1m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+19m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">1%</span></span>
                 
                 
             </div>
@@ -6901,7 +7033,7 @@
         <div class="main">
             <span class="train-num">#3508</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">North Elizabeth</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
@@ -6916,8 +7048,46 @@
             
             <div class="stats">
                 
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-718m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">-709m</span></span>
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+7m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">3%</span></span>
+                
+                
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="10:05:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3508/weekday/?from=secaucus-junction"
+           aria-label="All stops for train 3508"></a>
+        <div class="time">
+            10:05
+        </div>
+        <div class="main">
+            <span class="train-num">#3508</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">North Elizabeth</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+7m</span></span>
                 <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">3%</span></span>
                 
                 
@@ -7205,7 +7375,7 @@
         <div class="main">
             <span class="train-num">#3234</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">North Elizabeth</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
@@ -7220,8 +7390,46 @@
             
             <div class="stats">
                 
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-714m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">-684m</span></span>
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+6m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+21m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">1%</span></span>
+                
+                
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="10:41:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3234/weekday/?from=secaucus-junction"
+           aria-label="All stops for train 3234"></a>
+        <div class="time">
+            10:41
+        </div>
+        <div class="main">
+            <span class="train-num">#3234</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">North Elizabeth</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+6m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+21m</span></span>
                 <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">1%</span></span>
                 
                 
@@ -7947,7 +8155,7 @@
         <div class="main">
             <span class="train-num">#3236</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">Elizabeth</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
@@ -7962,8 +8170,46 @@
             
             <div class="stats">
                 
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-713m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+719m</span></span>
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+3m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+38m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">1%</span></span>
+                
+                
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="11:20:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3236/weekday/?from=secaucus-junction"
+           aria-label="All stops for train 3236"></a>
+        <div class="time">
+            11:20
+        </div>
+        <div class="main">
+            <span class="train-num">#3236</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Elizabeth</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+3m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+38m</span></span>
                 <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">1%</span></span>
                 
                 
@@ -8800,44 +9046,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="12:14:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3201/weekday/?from=secaucus-junction"
-           aria-label="All stops for train 3201"></a>
-        <div class="time">
-            12:14
-        </div>
-        <div class="main">
-            <span class="train-num">#3201</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Rahway</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <div class="sub-line">
-                <span class="sub-label">Next stop: NEWARK PENN STATION</span>
-                <span class="sub-end">
-                    
-                    
-                    <span class="status" aria-live="polite"></span>
-                </span>
-            </div>
-            
-            <div class="stats">
-                
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-718m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+718m</span></span>
-                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">6%</span></span>
-                
-                
-            </div>
-            
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="12:22:00"
         data-next-day="0"
         >
@@ -8926,7 +9134,45 @@
         <div class="main">
             <span class="train-num">#3240</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">North Elizabeth</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+6m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+37m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">3%</span></span>
+                
+                
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:23:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3240/weekday/?from=secaucus-junction"
+           aria-label="All stops for train 3240"></a>
+        <div class="time">
+            12:23
+        </div>
+        <div class="main">
+            <span class="train-num">#3240</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">North Elizabeth</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
@@ -9622,44 +9868,6 @@
         data-next-day="0"
         >
         <a class="stretch-link"
-           href="/trains/3205/weekday/?from=secaucus-junction"
-           aria-label="All stops for train 3205"></a>
-        <div class="time">
-            13:09
-        </div>
-        <div class="main">
-            <span class="train-num">#3205</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Rahway</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <div class="sub-line">
-                <span class="sub-label">Next stop: NEWARK PENN STATION</span>
-                <span class="sub-end">
-                    
-                    
-                    <span class="status" aria-live="polite"></span>
-                </span>
-            </div>
-            
-            <div class="stats">
-                
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-717m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+719m</span></span>
-                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
-                
-                
-            </div>
-            
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="13:09:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
            href="/trains/3842/weekday/?from=secaucus-junction"
            aria-label="All stops for train 3842"></a>
         <div class="time">
@@ -9782,7 +9990,45 @@
         <div class="main">
             <span class="train-num">#3244</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">Elizabeth</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+7m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+33m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">3%</span></span>
+                
+                
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:20:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/3244/weekday/?from=secaucus-junction"
+           aria-label="All stops for train 3244"></a>
+        <div class="time">
+            13:20
+        </div>
+        <div class="main">
+            <span class="train-num">#3244</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Elizabeth</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
@@ -18412,44 +18658,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="20:52:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3326/weekday/?from=secaucus-junction"
-           aria-label="All stops for train 3326"></a>
-        <div class="time">
-            20:52
-        </div>
-        <div class="main">
-            <span class="train-num">#3326</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <div class="sub-line">
-                <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-                <span class="sub-end">
-                    
-                    
-                    <span class="status" aria-live="polite"></span>
-                </span>
-            </div>
-            
-            <div class="stats">
-                
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-716m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+719m</span></span>
-                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
-                
-                
-            </div>
-            
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="20:53:00"
         data-next-day="0"
         >
@@ -18964,44 +19172,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="21:24:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3228/weekday/?from=secaucus-junction"
-           aria-label="All stops for train 3228"></a>
-        <div class="time">
-            21:24
-        </div>
-        <div class="main">
-            <span class="train-num">#3228</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <div class="sub-line">
-                <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-                <span class="sub-end">
-                    
-                    
-                    <span class="status" aria-live="polite"></span>
-                </span>
-            </div>
-            
-            <div class="stats">
-                
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-717m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+719m</span></span>
-                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">1%</span></span>
-                
-                
-            </div>
-            
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="21:30:00"
         data-next-day="0"
         >
@@ -19251,44 +19421,6 @@
                 <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-1m</span></span>
                 <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+11m</span></span>
                 <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">6%</span></span>
-                
-                
-            </div>
-            
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="21:42:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3230/weekday/?from=secaucus-junction"
-           aria-label="All stops for train 3230"></a>
-        <div class="time">
-            21:42
-        </div>
-        <div class="main">
-            <span class="train-num">#3230</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
-        <div class="sub">
-            <div class="sub-line">
-                <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-                <span class="sub-end">
-                    
-                    
-                    <span class="status" aria-live="polite"></span>
-                </span>
-            </div>
-            
-            <div class="stats">
-                
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-715m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+719m</span></span>
-                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">1%</span></span>
                 
                 
             </div>
@@ -19727,44 +19859,6 @@
                 <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+0m</span></span>
                 <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+5m</span></span>
                 <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">6%</span></span>
-                
-                
-            </div>
-            
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="22:05:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3508/weekday/?from=secaucus-junction"
-           aria-label="All stops for train 3508"></a>
-        <div class="time">
-            22:05
-        </div>
-        <div class="main">
-            <span class="train-num">#3508</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <div class="sub-line">
-                <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-                <span class="sub-end">
-                    
-                    
-                    <span class="status" aria-live="polite"></span>
-                </span>
-            </div>
-            
-            <div class="stats">
-                
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-718m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">-709m</span></span>
-                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">3%</span></span>
                 
                 
             </div>
@@ -20296,44 +20390,6 @@
     </li>
     
     <li class="schedule-card is-link"
-        data-time="22:41:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3234/weekday/?from=secaucus-junction"
-           aria-label="All stops for train 3234"></a>
-        <div class="time">
-            22:41
-        </div>
-        <div class="main">
-            <span class="train-num">#3234</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <div class="sub-line">
-                <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-                <span class="sub-end">
-                    
-                    
-                    <span class="status" aria-live="polite"></span>
-                </span>
-            </div>
-            
-            <div class="stats">
-                
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-714m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">-684m</span></span>
-                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">1%</span></span>
-                
-                
-            </div>
-            
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
         data-time="22:47:00"
         data-next-day="0"
         >
@@ -20813,44 +20869,6 @@
                     
                     <span class="status" aria-live="polite"></span>
                 </span>
-            </div>
-            
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="23:20:00"
-        data-next-day="0"
-        >
-        <a class="stretch-link"
-           href="/trains/3236/weekday/?from=secaucus-junction"
-           aria-label="All stops for train 3236"></a>
-        <div class="time">
-            23:20
-        </div>
-        <div class="main">
-            <span class="train-num">#3236</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <div class="sub-line">
-                <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-                <span class="sub-end">
-                    
-                    
-                    <span class="status" aria-live="polite"></span>
-                </span>
-            </div>
-            
-            <div class="stats">
-                
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-713m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+719m</span></span>
-                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">1%</span></span>
-                
-                
             </div>
             
         </div>
@@ -21474,8 +21492,46 @@
             
             <div class="stats">
                 
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-718m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+718m</span></span>
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+16m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">6%</span></span>
+                
+                
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="00:14:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/3201/weekday/?from=secaucus-junction"
+           aria-label="All stops for train 3201"></a>
+        <div class="time">
+            00:14<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#3201</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Rahway</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: NEWARK PENN STATION</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+16m</span></span>
                 <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">6%</span></span>
                 
                 
@@ -21620,44 +21676,6 @@
                 <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+3m</span></span>
                 <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+29m</span></span>
                 <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">5%</span></span>
-                
-                
-            </div>
-            
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="00:23:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/3240/weekday/?from=secaucus-junction"
-           aria-label="All stops for train 3240"></a>
-        <div class="time">
-            00:23<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#3240</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <div class="sub-line">
-                <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-                <span class="sub-end">
-                    
-                    
-                    <span class="status" aria-live="polite"></span>
-                </span>
-            </div>
-            
-            <div class="stats">
-                
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+6m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+37m</span></span>
-                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">3%</span></span>
                 
                 
             </div>
@@ -22140,8 +22158,46 @@
             
             <div class="stats">
                 
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-717m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+719m</span></span>
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+12m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
+                
+                
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="01:09:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/3205/weekday/?from=secaucus-junction"
+           aria-label="All stops for train 3205"></a>
+        <div class="time">
+            01:09<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#3205</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Rahway</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: NEWARK PENN STATION</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+2m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+12m</span></span>
                 <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
                 
                 
@@ -22210,44 +22266,6 @@
                 <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+9m</span></span>
                 <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+24m</span></span>
                 <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">4%</span></span>
-                
-                
-            </div>
-            
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="01:20:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/3244/weekday/?from=secaucus-junction"
-           aria-label="All stops for train 3244"></a>
-        <div class="time">
-            01:20<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#3244</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <div class="sub-line">
-                <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
-                <span class="sub-end">
-                    
-                    
-                    <span class="status" aria-live="polite"></span>
-                </span>
-            </div>
-            
-            <div class="stats">
-                
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+7m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+33m</span></span>
-                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">3%</span></span>
                 
                 
             </div>
@@ -22344,12 +22362,12 @@
         <div class="main">
             <span class="train-num">#3800</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEW YORK PENN STATION</span>
+            <span class="dest">Secaucus Junction</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
             <div class="sub-line">
-                <span class="sub-label">Next stop: NEW YORK PENN STATION</span>
+                <span class="sub-label">Final stop</span>
                 <span class="sub-end">
                     
                     

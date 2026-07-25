@@ -324,7 +324,7 @@
         }
         .schedule-card .time {
             grid-area: time;
-            font-size: clamp(28px, 7vw, 34px);
+            font-size: clamp(22px, 5.5vw, 30px);
             font-weight: 800;
             font-variant-numeric: tabular-nums;
             letter-spacing: -0.02em;
@@ -474,6 +474,7 @@
         .line-pill {
             display: inline-flex;
             align-items: center;
+            max-width: 100%;
             padding: 4px 10px;
             border-radius: 999px;
             background: var(--surface-2);
@@ -483,11 +484,28 @@
             font-weight: 700;
             letter-spacing: 0.05em;
             border: 1px solid var(--border);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .schedule-card[data-state="next"] .line-pill {
             background: var(--accent);
             color: #fff;
             border-color: transparent;
+        }
+        /* Narrow screens: the pill can't share row one with the
+           destination without a squeeze, so it gets its own full-width
+           row between the headline and the sub block. */
+        @media (max-width: 520px) {
+            .schedule-card {
+                grid-template-columns: minmax(72px, auto) 1fr;
+                grid-template-areas:
+                    "time main"
+                    "line line"
+                    "sub  sub";
+                row-gap: 7px;
+            }
+            .schedule-card .line { align-self: center; }
         }
 
         .now-marker {
@@ -526,12 +544,12 @@
         
 <header class="topbar">
     
-    <a class="back" href="/schedules/bay-head/" aria-label="Back to BAY HEAD">
+    <a class="back" href="/schedules/newark-penn-station/" aria-label="Back to NEWARK PENN STATION">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <polyline points="15 18 9 12 15 6"/>
         </svg>
-        <span data-back-label>BAY HEAD</span>
+        <span data-back-label>NEWARK PENN STATION</span>
     </a>
     
 </header>
@@ -617,6 +635,107 @@
     id="schedule-list"
     data-now-time=""
     data-post-midnight="0">
+    
+    <li class="schedule-card"
+        data-time="09:35:00"
+        data-next-day="0"
+        >
+        <div class="time">
+            09:35
+        </div>
+        <div class="main">
+            <span class="dest">NEWARK PENN STATION</span>
+            
+        </div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-3m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+6m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
+                
+                
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card"
+        data-time="09:42:00"
+        data-next-day="0"
+        >
+        <div class="time">
+            09:42
+        </div>
+        <div class="main">
+            <span class="dest">Secaucus Junction</span>
+            
+        </div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+1m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+19m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">1%</span></span>
+                
+                
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card"
+        data-time="09:55:00"
+        data-next-day="0"
+        >
+        <div class="time">
+            09:55
+        </div>
+        <div class="main">
+            <span class="dest">NEW YORK PENN STATION</span>
+            
+        </div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">stop</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+            <div class="stats">
+                
+                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+5m</span></span>
+                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+30m</span></span>
+                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">1%</span></span>
+                
+                
+                <span class="stat" title="This train's most common departure tracks here, from past days' board readings (most frequent first)"><span class="stat-k">usual trk</span><span class="stat-v">8 · 12 · 1</span></span>
+                
+            </div>
+            
+        </div>
+    </li>
     
     <li class="schedule-card"
         data-time="19:44:00"
@@ -1045,107 +1164,6 @@
                     
                     <span class="status" aria-live="polite"></span>
                 </span>
-            </div>
-            
-        </div>
-    </li>
-    
-    <li class="schedule-card"
-        data-time="21:35:00"
-        data-next-day="0"
-        >
-        <div class="time">
-            21:35
-        </div>
-        <div class="main">
-            <span class="dest">NEWARK PENN STATION</span>
-            
-        </div>
-        <div class="sub">
-            <div class="sub-line">
-                <span class="sub-label">stop</span>
-                <span class="sub-end">
-                    
-                    
-                    <span class="status" aria-live="polite"></span>
-                </span>
-            </div>
-            
-            <div class="stats">
-                
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">+717m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+718m</span></span>
-                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">0%</span></span>
-                
-                
-            </div>
-            
-        </div>
-    </li>
-    
-    <li class="schedule-card"
-        data-time="21:42:00"
-        data-next-day="0"
-        >
-        <div class="time">
-            21:42
-        </div>
-        <div class="main">
-            <span class="dest">Secaucus Junction</span>
-            
-        </div>
-        <div class="sub">
-            <div class="sub-line">
-                <span class="sub-label">stop</span>
-                <span class="sub-end">
-                    
-                    
-                    <span class="status" aria-live="polite"></span>
-                </span>
-            </div>
-            
-            <div class="stats">
-                
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-715m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">+719m</span></span>
-                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">1%</span></span>
-                
-                
-            </div>
-            
-        </div>
-    </li>
-    
-    <li class="schedule-card"
-        data-time="21:55:00"
-        data-next-day="0"
-        >
-        <div class="time">
-            21:55
-        </div>
-        <div class="main">
-            <span class="dest">NEW YORK PENN STATION</span>
-            
-        </div>
-        <div class="sub">
-            <div class="sub-line">
-                <span class="sub-label">stop</span>
-                <span class="sub-end">
-                    
-                    
-                    <span class="status" aria-live="polite"></span>
-                </span>
-            </div>
-            
-            <div class="stats">
-                
-                <span class="stat" title="Median delay of past days' final board readings"><span class="stat-k">med</span><span class="stat-v">-715m</span></span>
-                <span class="stat" title="95th-percentile delay of past days' final board readings"><span class="stat-k">p95</span><span class="stat-v">-690m</span></span>
-                <span class="stat" title="Share of past days this train was canceled"><span class="stat-k">cxl</span><span class="stat-v">1%</span></span>
-                
-                
-                <span class="stat" title="This train's most common departure tracks here, from past days' board readings (most frequent first)"><span class="stat-k">usual trk</span><span class="stat-v">8 · 12 · 1</span></span>
-                
             </div>
             
         </div>

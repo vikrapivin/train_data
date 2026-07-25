@@ -324,7 +324,7 @@
         }
         .schedule-card .time {
             grid-area: time;
-            font-size: clamp(28px, 7vw, 34px);
+            font-size: clamp(22px, 5.5vw, 30px);
             font-weight: 800;
             font-variant-numeric: tabular-nums;
             letter-spacing: -0.02em;
@@ -474,6 +474,7 @@
         .line-pill {
             display: inline-flex;
             align-items: center;
+            max-width: 100%;
             padding: 4px 10px;
             border-radius: 999px;
             background: var(--surface-2);
@@ -483,11 +484,28 @@
             font-weight: 700;
             letter-spacing: 0.05em;
             border: 1px solid var(--border);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .schedule-card[data-state="next"] .line-pill {
             background: var(--accent);
             color: #fff;
             border-color: transparent;
+        }
+        /* Narrow screens: the pill can't share row one with the
+           destination without a squeeze, so it gets its own full-width
+           row between the headline and the sub block. */
+        @media (max-width: 520px) {
+            .schedule-card {
+                grid-template-columns: minmax(72px, auto) 1fr;
+                grid-template-areas:
+                    "time main"
+                    "line line"
+                    "sub  sub";
+                row-gap: 7px;
+            }
+            .schedule-card .line { align-self: center; }
         }
 
         .now-marker {
@@ -1390,6 +1408,35 @@
         <div class="sub">
             <div class="sub-line">
                 <span class="sub-label">Next stop: New Brunswick</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:30:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7836/weekend/?from=edison"
+           aria-label="All stops for train 7836"></a>
+        <div class="time">
+            13:30
+        </div>
+        <div class="main">
+            <span class="train-num">#7836</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Metuchen</span>
                 <span class="sub-end">
                     
                     
@@ -2602,41 +2649,12 @@
         <div class="main">
             <span class="train-num">#7803</span>
             <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">Hamilton</span>
+            <span class="dest">Jersey Avenue</span>
         </div>
         <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
         <div class="sub">
             <div class="sub-line">
                 <span class="sub-label">Next stop: New Brunswick</span>
-                <span class="sub-end">
-                    
-                    
-                    <span class="status" aria-live="polite"></span>
-                </span>
-            </div>
-            
-        </div>
-    </li>
-    
-    <li class="schedule-card is-link"
-        data-time="13:30:00"
-        data-next-day="1"
-        >
-        <a class="stretch-link"
-           href="/trains/7836/weekend/?from=edison"
-           aria-label="All stops for train 7836"></a>
-        <div class="time">
-            13:30<span class="next-day">+1d</span>
-        </div>
-        <div class="main">
-            <span class="train-num">#7836</span>
-            <span class="arrow" aria-hidden="true">→</span>
-            <span class="dest">NEWARK PENN STATION</span>
-        </div>
-        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
-        <div class="sub">
-            <div class="sub-line">
-                <span class="sub-label">Next stop: Metuchen</span>
                 <span class="sub-end">
                     
                     
