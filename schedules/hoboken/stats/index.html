@@ -582,7 +582,7 @@
     </p>
     
 <p class="histo-summary">
-    86 train departures ·
+    98 train departures ·
     median — · p95 — · canceled 100%
 </p>
 
@@ -680,7 +680,7 @@
     <li class="histo-row is-canceled">
         <span class="histo-label">Canceled</span>
         <span class="histo-track"><span class="histo-bar" style="width: 100.0%"></span></span>
-        <span class="histo-val">86 · 100.0%</span>
+        <span class="histo-val">98 · 100.0%</span>
     </li>
     
 </ul>
@@ -690,6 +690,14 @@
     One count per train per operational day, resolved to the nearest 5 minutes,
     based on the operator’s published estimated departures.
 </p>
+    
+    <p class="histo-note">
+        HOBOKEN’s departure board doesn’t publish live countdowns,
+        so delays here are inferred lower bounds: a train still listed after
+        its posted departure time counts as delayed at least until the last
+        time it was seen on the board; otherwise it counts as on time.
+    </p>
+    
     
 </section>
 
