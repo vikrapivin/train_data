@@ -1,0 +1,2020 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#0b0b0e">
+    <title>Middletown — New Jersey Train Schedules</title>
+    <style>
+        :root {
+            --bg:           #f4f5f7;
+            --surface:      #ffffff;
+            --surface-2:    #f0f1f4;
+            --text:         #0b0b0e;
+            --text-dim:     #6b6f76;
+            --text-faint:   #9aa0a6;
+            --border:       rgba(15, 17, 21, 0.08);
+            --border-strong:rgba(15, 17, 21, 0.16);
+            --accent:       #16a34a;
+            --accent-soft:  rgba(22, 163, 74, 0.12);
+            --accent-glow:  rgba(22, 163, 74, 0.30);
+            --shadow-sm:    0 1px 2px rgba(15, 17, 21, 0.04), 0 1px 1px rgba(15, 17, 21, 0.03);
+            --shadow-md:    0 4px 16px rgba(15, 17, 21, 0.06), 0 1px 2px rgba(15, 17, 21, 0.04);
+            --radius-sm:    10px;
+            --radius-md:    14px;
+            --radius-lg:    20px;
+            --pad-x:        clamp(16px, 4vw, 24px);
+            --max-w:        680px;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg:           #0b0b0e;
+                --surface:      #16171b;
+                --surface-2:    #1d1f24;
+                --text:         #f3f4f6;
+                --text-dim:     #a1a6ae;
+                --text-faint:   #6b6f76;
+                --border:       rgba(255, 255, 255, 0.08);
+                --border-strong:rgba(255, 255, 255, 0.16);
+                --accent:       #22c55e;
+                --accent-soft:  rgba(34, 197, 94, 0.16);
+                --accent-glow:  rgba(34, 197, 94, 0.45);
+                --shadow-sm:    0 1px 2px rgba(0,0,0,0.4);
+                --shadow-md:    0 6px 24px rgba(0,0,0,0.4);
+            }
+        }
+
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        html { -webkit-text-size-adjust: 100%; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                         "Inter", "Segoe UI", Roboto, system-ui, sans-serif;
+            font-size: 16px;
+            line-height: 1.45;
+            min-height: 100dvh;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+        a { color: inherit; text-decoration: none; }
+        h1, h2, h3 { font-weight: 700; letter-spacing: -0.01em; margin: 0; }
+
+        .app {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            padding: max(env(safe-area-inset-top), 12px) var(--pad-x)
+                     calc(env(safe-area-inset-bottom) + 32px);
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 4px 0 14px;
+        }
+        .topbar .back {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 15px;
+            color: var(--text-dim);
+            padding: 6px 8px 6px 0;
+            margin-right: 4px;
+        }
+        .topbar .back:active { color: var(--text); }
+
+        .page-title {
+            font-size: clamp(26px, 6vw, 34px);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        .page-sub {
+            color: var(--text-dim);
+            font-size: 14px;
+            margin-top: 6px;
+        }
+
+        /* ----- inputs ----- */
+        .search {
+            position: relative;
+            margin: 18px 0 8px;
+        }
+        .search input {
+            width: 100%;
+            font: inherit;
+            font-size: 16px;
+            padding: 14px 40px 14px 44px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            box-shadow: var(--shadow-sm);
+            outline: none;
+            -webkit-appearance: none;
+            transition: border-color 120ms ease, box-shadow 120ms ease;
+        }
+        .search input::placeholder { color: var(--text-faint); }
+        .search input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-soft);
+        }
+        .search .icon {
+            position: absolute;
+            top: 50%;
+            left: 14px;
+            transform: translateY(-50%);
+            color: var(--text-faint);
+            pointer-events: none;
+            line-height: 0;
+        }
+        .search .clear {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            border: 0;
+            background: var(--surface-2);
+            color: var(--text-dim);
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            line-height: 1;
+            padding: 0;
+        }
+        .search.has-value .clear { display: inline-flex; }
+
+        .count {
+            color: var(--text-faint);
+            font-size: 13px;
+            margin: 4px 4px 12px;
+        }
+
+        /* ----- station list ----- */
+        .station-list {
+            list-style: none;
+            padding: 0;
+            margin: 8px 0 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .station-list li + li { border-top: 1px solid var(--border); }
+        .station-list a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 16px;
+            min-height: 64px;
+            transition: background 100ms ease;
+        }
+        .station-list a:active { background: var(--surface-2); }
+        @media (hover: hover) {
+            .station-list a:hover { background: var(--surface-2); }
+        }
+        .station-list .name {
+            flex: 1;
+            font-size: 17px;
+            font-weight: 500;
+            min-width: 0;
+        }
+        .station-list .chev {
+            color: var(--text-faint);
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .empty {
+            margin-top: 24px;
+            padding: 32px 16px;
+            text-align: center;
+            color: var(--text-dim);
+            background: var(--surface);
+            border: 1px dashed var(--border-strong);
+            border-radius: var(--radius-md);
+        }
+        .empty h3 { color: var(--text); margin-bottom: 4px; font-size: 17px; }
+
+        .data-footer {
+            margin: 28px 0 8px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-faint);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ----- featured stats callout ----- */
+        .stats-callout {
+            margin: 14px 0 6px;
+            padding: 14px 16px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+        }
+        .stats-callout p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+        .stats-callout .callout-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+        .stats-callout .callout-links a {
+            white-space: nowrap;
+            padding: 7px 13px;
+            border-radius: 999px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+        }
+        .stats-callout .callout-links a:active { opacity: 0.85; }
+        .stats-callout .callout-note {
+            font-size: 12px;
+            color: var(--text-faint);
+        }
+
+        /* ----- schedule-type toggle ----- */
+        .sched-toggle {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            margin: 14px 0 4px;
+            padding-bottom: 4px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .sched-toggle::-webkit-scrollbar { display: none; }
+        .sched-toggle a {
+            white-space: nowrap;
+            padding: 7px 13px;
+            border-radius: 999px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+            transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+        }
+        @media (hover: hover) {
+            .sched-toggle a:hover { border-color: var(--border-strong); }
+        }
+        .sched-toggle a[aria-current="true"] {
+            background: var(--accent);
+            border-color: transparent;
+            color: #fff;
+        }
+
+        /* ----- schedule cards ----- */
+        .schedule-list { list-style: none; padding: 0; margin: 8px 0 0; }
+        .schedule-card {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(96px, auto) 1fr auto;
+            grid-template-areas:
+                "time main line"
+                "time sub  sub";
+            column-gap: 16px;
+            row-gap: 10px;
+            align-items: center;
+            padding: 18px 16px;
+            margin: 10px 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            transition: opacity 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+        }
+        .schedule-card[data-state="past"] {
+            opacity: 0.42;
+        }
+        .schedule-card.is-link { cursor: pointer; }
+        /* Stretched link: an empty anchor overlays the whole card so the
+           grid layout is untouched but the entire card is tappable. */
+        .schedule-card .stretch-link {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            border-radius: inherit;
+        }
+        .schedule-card.is-link:active { box-shadow: var(--shadow-md); }
+        @media (hover: hover) {
+            .schedule-card.is-link:hover { box-shadow: var(--shadow-md); }
+        }
+        .schedule-card[data-state="next"] {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow-md);
+            background: linear-gradient(180deg,
+                color-mix(in srgb, var(--accent-soft) 60%, var(--surface)) 0%,
+                var(--surface) 60%);
+        }
+        .schedule-card .time {
+            grid-area: time;
+            font-size: clamp(22px, 5.5vw, 30px);
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+        .schedule-card .next-day {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            color: #c2410c;
+            background: #fff3e6;
+            border-radius: 4px;
+            padding: 1px 5px;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+        @media (prefers-color-scheme: dark) {
+            .schedule-card .next-day { color: #fdba74; background: rgba(253, 186, 116, 0.12); }
+        }
+        .schedule-card .main {
+            grid-area: main;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            min-width: 0;
+        }
+        /* Connecting rows on a train run: destinations reached by
+           transfer, not stops this train makes — dashed outline + pill
+           so they can't be mistaken for a physical stop. */
+        .schedule-card.is-connecting {
+            border-style: dashed;
+            border-color: var(--border-strong);
+            box-shadow: none;
+        }
+        .schedule-card.is-connecting .time { color: var(--text-dim); }
+        .schedule-card .connect-pill {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-dim);
+            background: var(--surface-2);
+            border: 1px dashed var(--border-strong);
+            border-radius: 4px;
+            padding: 1px 6px;
+            white-space: nowrap;
+        }
+        .schedule-card .train-num {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dim);
+            font-variant-numeric: tabular-nums;
+        }
+        .schedule-card .arrow {
+            color: var(--text-faint);
+            font-size: 14px;
+        }
+        .schedule-card .dest {
+            font-size: 16px;
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        /* The card's lower half: one line of live info (stop label left,
+           track/estimate/countdown right), then — only when the train
+           has history here — a divided row of labeled stats. */
+        .schedule-card .sub {
+            grid-area: sub;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            min-width: 0;
+            color: var(--text-faint);
+            font-size: 12px;
+        }
+        .schedule-card .sub-line {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            min-width: 0;
+        }
+        .schedule-card .sub .sub-label {
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        /* Estimated departure + live "in N min" status, pushed to the
+           right of the sub line. Empty until the client fills it in. */
+        .schedule-card .sub .sub-end {
+            margin-left: auto;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .schedule-card .sub .est { font-variant-numeric: tabular-nums; }
+        /* Historical stats (delay history, usual tracks): quiet labeled
+           key/value pairs behind a hairline, visually subordinate to
+           the live line above. */
+        .schedule-card .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 18px;
+            padding-top: 9px;
+            border-top: 1px solid var(--border);
+        }
+        .schedule-card .stat {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 5px;
+            white-space: nowrap;
+        }
+        .schedule-card .stat-k {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--text-faint);
+        }
+        .schedule-card .stat-v {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--text-dim);
+            font-variant-numeric: tabular-nums;
+        }
+        /* Posted track from the live board — only rendered once the
+           station has assigned one. */
+        .schedule-card .sub .track {
+            font-weight: 700;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .schedule-card .sub .status {
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+        .schedule-card .sub .status[data-live="due"]  { color: var(--accent); }
+        .schedule-card .sub .status[data-live="soon"] { color: var(--text); }
+        .schedule-card .sub .status[data-live="past"] { color: var(--text-faint); }
+        .schedule-card .line {
+            grid-area: line;
+            align-self: start;
+        }
+        .line-pill {
+            display: inline-flex;
+            align-items: center;
+            max-width: 100%;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: var(--surface-2);
+            color: var(--text);
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            border: 1px solid var(--border);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .schedule-card[data-state="next"] .line-pill {
+            background: var(--accent);
+            color: #fff;
+            border-color: transparent;
+        }
+        /* Narrow screens: the pill can't share row one with the
+           destination without a squeeze, so it gets its own full-width
+           row between the headline and the sub block. */
+        @media (max-width: 520px) {
+            .schedule-card {
+                grid-template-columns: minmax(72px, auto) 1fr;
+                grid-template-areas:
+                    "time main"
+                    "line line"
+                    "sub  sub";
+                row-gap: 7px;
+            }
+            .schedule-card .line { align-self: center; }
+        }
+
+        .now-marker {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 18px 4px 6px;
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .now-marker::before,
+        .now-marker::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.6;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0s !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0s !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        
+<header class="topbar">
+    <a class="back" href="/" aria-label="Back to stations">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"/>
+        </svg>
+        Stations
+    </a>
+</header>
+
+<h1 class="page-title">Middletown</h1>
+
+<nav class="sched-toggle" aria-label="Schedule type">
+    
+    <a href="/schedules/middletown/">Auto</a>
+    
+    <a href="/schedules/middletown/stats/">Overall stats</a>
+    
+    <a href="/schedules/middletown/weekday/">Weekday</a>
+    
+    <a href="/schedules/middletown/weekend/">Weekend</a>
+    
+    <a href="/schedules/middletown/inclement_weather_lvl_1/" aria-current="true">Inclement weather (Level 1)</a>
+    
+    <a href="/schedules/middletown/inclement_weather_lvl_2/">Inclement weather (Level 2)</a>
+    
+</nav>
+
+
+
+<script>
+// Static-build-only glue. "Auto" pages redirect to the weekend variant
+// when the visitor's NY service date runs weekend service (weekends +
+// NJ holidays, baked in at export time). Train pages point the back
+// button at the station page named by `?from=`, which a static server
+// can't resolve.
+(function () {
+    function nyServiceDate() {
+        var p = {};
+        var parts = new Intl.DateTimeFormat("en-US", {
+            timeZone: "America/New_York", hourCycle: "h23",
+            year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit"
+        }).formatToParts(new Date());
+        for (var i = 0; i < parts.length; i++) p[parts[i].type] = parts[i].value;
+        var d = new Date(Date.UTC(+p.year, +p.month - 1, +p.day));
+        // Before 02:00 NY the previous service day is still running.
+        if (+p.hour < 2) d.setUTCDate(d.getUTCDate() - 1);
+        return d;
+    }
+
+    var weekendEl = document.getElementById("weekend-dates");
+    var weekendUrl = "";
+    if (weekendEl && weekendUrl) {
+        var dates = JSON.parse(weekendEl.textContent);
+        var day = nyServiceDate();
+        var iso = day.toISOString().slice(0, 10);
+        var last = dates.length ? dates[dates.length - 1] : "";
+        // Past the embedded calendar (a very stale build), fall back to
+        // plain Sat/Sun — only holiday awareness is lost.
+        var weekend = dates.indexOf(iso) !== -1 ||
+            (iso > last && (day.getUTCDay() === 0 || day.getUTCDay() === 6));
+        if (weekend) location.replace(weekendUrl + location.search);
+    }
+
+    var linksEl = document.getElementById("station-links");
+    var fromCode = new URLSearchParams(location.search).get("from");
+    if (linksEl && fromCode) {
+        var links = JSON.parse(linksEl.textContent);
+        var origin = links[fromCode];
+        var back = document.querySelector(".topbar .back");
+        if (origin && back) {
+            back.href = origin.url;
+            back.setAttribute("aria-label", "Back to " + origin.name);
+            var label = back.querySelector("[data-back-label]");
+            if (label) label.textContent = origin.name;
+        }
+        // Keep the origin when switching schedule variants.
+        var toggles = document.querySelectorAll(".sched-toggle a");
+        for (var j = 0; j < toggles.length; j++) {
+            toggles[j].href += (toggles[j].href.indexOf("?") === -1 ? "?" : "&") +
+                "from=" + encodeURIComponent(fromCode);
+        }
+    }
+})();
+</script>
+
+
+
+<ul class="schedule-list"
+    id="schedule-list"
+    data-now-time=""
+    data-post-midnight="0">
+    
+    <li class="schedule-card is-link"
+        data-time="04:25:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/8202/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 8202"></a>
+        <div class="time">
+            04:25
+        </div>
+        <div class="main">
+            <span class="train-num">#8202</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="05:06:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7204/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7204"></a>
+        <div class="time">
+            05:06
+        </div>
+        <div class="main">
+            <span class="train-num">#7204</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="06:20:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/8213/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 8213"></a>
+        <div class="time">
+            06:20
+        </div>
+        <div class="main">
+            <span class="train-num">#8213</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Monmouth Park</span>
+        </div>
+        <div class="line"><span class="line-pill" title="north-jersey-coast-line">North Jersey Coast</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Red Bank</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="06:22:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7208/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7208"></a>
+        <div class="time">
+            06:22
+        </div>
+        <div class="main">
+            <span class="train-num">#7208</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:06:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/8314/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 8314"></a>
+        <div class="time">
+            07:06
+        </div>
+        <div class="main">
+            <span class="train-num">#8314</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:12:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7217/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7217"></a>
+        <div class="time">
+            07:12
+        </div>
+        <div class="main">
+            <span class="train-num">#7217</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Monmouth Park</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Red Bank</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="07:22:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7212/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7212"></a>
+        <div class="time">
+            07:22
+        </div>
+        <div class="main">
+            <span class="train-num">#7212</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:17:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7221/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7221"></a>
+        <div class="time">
+            08:17
+        </div>
+        <div class="main">
+            <span class="train-num">#7221</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Red Bank</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="08:22:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7216/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7216"></a>
+        <div class="time">
+            08:22
+        </div>
+        <div class="main">
+            <span class="train-num">#7216</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:16:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7225/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7225"></a>
+        <div class="time">
+            09:16
+        </div>
+        <div class="main">
+            <span class="train-num">#7225</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Little Silver</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Red Bank</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="09:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7220/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7220"></a>
+        <div class="time">
+            09:24
+        </div>
+        <div class="main">
+            <span class="train-num">#7220</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="10:17:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7229/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7229"></a>
+        <div class="time">
+            10:17
+        </div>
+        <div class="main">
+            <span class="train-num">#7229</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Red Bank</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="10:25:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7224/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7224"></a>
+        <div class="time">
+            10:25
+        </div>
+        <div class="main">
+            <span class="train-num">#7224</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="11:15:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7233/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7233"></a>
+        <div class="time">
+            11:15
+        </div>
+        <div class="main">
+            <span class="train-num">#7233</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Monmouth Park</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Red Bank</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="11:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7228/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7228"></a>
+        <div class="time">
+            11:24
+        </div>
+        <div class="main">
+            <span class="train-num">#7228</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:22:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7237/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7237"></a>
+        <div class="time">
+            12:22
+        </div>
+        <div class="main">
+            <span class="train-num">#7237</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Red Bank</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="12:27:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7232/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7232"></a>
+        <div class="time">
+            12:27
+        </div>
+        <div class="main">
+            <span class="train-num">#7232</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:32:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7632/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7632"></a>
+        <div class="time">
+            13:32
+        </div>
+        <div class="main">
+            <span class="train-num">#7632</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="13:35:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7236/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7236"></a>
+        <div class="time">
+            13:35
+        </div>
+        <div class="main">
+            <span class="train-num">#7236</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:25:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7240/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7240"></a>
+        <div class="time">
+            14:25
+        </div>
+        <div class="main">
+            <span class="train-num">#7240</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">NEW YORK PENN STATION</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="14:26:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7245/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7245"></a>
+        <div class="time">
+            14:26
+        </div>
+        <div class="main">
+            <span class="train-num">#7245</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Red Bank</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="15:32:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7249/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7249"></a>
+        <div class="time">
+            15:32
+        </div>
+        <div class="main">
+            <span class="train-num">#7249</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Little Silver</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Red Bank</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="16:25:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7244/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7244"></a>
+        <div class="time">
+            16:25
+        </div>
+        <div class="main">
+            <span class="train-num">#7244</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Newark Int&#x27;l. Airport</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="16:31:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7253/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7253"></a>
+        <div class="time">
+            16:31
+        </div>
+        <div class="main">
+            <span class="train-num">#7253</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Red Bank</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:06:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7248/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7248"></a>
+        <div class="time">
+            17:06
+        </div>
+        <div class="main">
+            <span class="train-num">#7248</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Newark Int&#x27;l. Airport</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="17:31:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7257/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7257"></a>
+        <div class="time">
+            17:31
+        </div>
+        <div class="main">
+            <span class="train-num">#7257</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Little Silver</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Red Bank</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:22:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7252/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7252"></a>
+        <div class="time">
+            18:22
+        </div>
+        <div class="main">
+            <span class="train-num">#7252</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Newark Int&#x27;l. Airport</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Secaucus Junction</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="18:31:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7261/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7261"></a>
+        <div class="time">
+            18:31
+        </div>
+        <div class="main">
+            <span class="train-num">#7261</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Red Bank</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:06:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7652/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7652"></a>
+        <div class="time">
+            19:06
+        </div>
+        <div class="main">
+            <span class="train-num">#7652</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Avenel</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:22:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7256/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7256"></a>
+        <div class="time">
+            19:22
+        </div>
+        <div class="main">
+            <span class="train-num">#7256</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Newark Int&#x27;l. Airport</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Secaucus Junction</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="19:32:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7265/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7265"></a>
+        <div class="time">
+            19:32
+        </div>
+        <div class="main">
+            <span class="train-num">#7265</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Red Bank</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="20:22:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7656/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7656"></a>
+        <div class="time">
+            20:22
+        </div>
+        <div class="main">
+            <span class="train-num">#7656</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Newark Int&#x27;l. Airport</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="20:27:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7269/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7269"></a>
+        <div class="time">
+            20:27
+        </div>
+        <div class="main">
+            <span class="train-num">#7269</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Monmouth Park</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Red Bank</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7260/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7260"></a>
+        <div class="time">
+            21:24
+        </div>
+        <div class="main">
+            <span class="train-num">#7260</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">North Elizabeth</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="21:40:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7273/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7273"></a>
+        <div class="time">
+            21:40
+        </div>
+        <div class="main">
+            <span class="train-num">#7273</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: LONG BRANCH</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="22:25:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7264/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7264"></a>
+        <div class="time">
+            22:25
+        </div>
+        <div class="main">
+            <span class="train-num">#7264</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Elizabeth</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="22:33:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7277/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7277"></a>
+        <div class="time">
+            22:33
+        </div>
+        <div class="main">
+            <span class="train-num">#7277</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">BAY HEAD</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Red Bank</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="23:24:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7268/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7268"></a>
+        <div class="time">
+            23:24
+        </div>
+        <div class="main">
+            <span class="train-num">#7268</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Avenel</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="23:31:00"
+        data-next-day="0"
+        >
+        <a class="stretch-link"
+           href="/trains/7281/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7281"></a>
+        <div class="time">
+            23:31
+        </div>
+        <div class="main">
+            <span class="train-num">#7281</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Little Silver</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Red Bank</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="00:27:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/7272/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7272"></a>
+        <div class="time">
+            00:27<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#7272</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">LONG BRANCH</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="00:33:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/7285/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7285"></a>
+        <div class="time">
+            00:33<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#7285</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Woodbridge</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Red Bank</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="01:23:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/7201/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7201"></a>
+        <div class="time">
+            01:23<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#7201</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Monmouth Park</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Red Bank</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="01:32:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/7276/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7276"></a>
+        <div class="time">
+            01:32<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#7276</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Hazlet</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="01:35:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/5200/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 5200"></a>
+        <div class="time">
+            01:35<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#5200</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">North Elizabeth</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Hazlet</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+    <li class="schedule-card is-link"
+        data-time="02:23:00"
+        data-next-day="1"
+        >
+        <a class="stretch-link"
+           href="/trains/7205/inclement_weather_lvl_1/?from=middletown"
+           aria-label="All stops for train 7205"></a>
+        <div class="time">
+            02:23<span class="next-day">+1d</span>
+        </div>
+        <div class="main">
+            <span class="train-num">#7205</span>
+            <span class="arrow" aria-hidden="true">→</span>
+            <span class="dest">Little Silver</span>
+        </div>
+        <div class="line"><span class="line-pill" title="northeast-corridor-line">Northeast Corridor</span></div>
+        <div class="sub">
+            <div class="sub-line">
+                <span class="sub-label">Next stop: Red Bank</span>
+                <span class="sub-end">
+                    
+                    
+                    <span class="status" aria-live="polite"></span>
+                </span>
+            </div>
+            
+        </div>
+    </li>
+    
+</ul>
+
+
+<script>
+// Turn each card's latest estimated-departure datetime into a live
+// "in N min" status. The estimate is the source of truth for timing.
+function fillCountdowns(cards) {
+    const realNow = new Date();
+    for (const card of cards) {
+        const iso = card.dataset.estimate;
+        const statusEl = card.querySelector(".status");
+        if (!iso || !statusEl) continue;
+        const mins = Math.round((new Date(iso) - realNow) / 60000);
+        if (mins <= -1) {
+            statusEl.textContent = "Departed";
+            statusEl.dataset.live = "past";
+        } else if (mins <= 0) {
+            statusEl.textContent = "Due";
+            statusEl.dataset.live = "due";
+        } else if (mins === 1) {
+            statusEl.textContent = "in 1 min";
+            statusEl.dataset.live = "due";
+        } else {
+            statusEl.textContent = "in " + mins + " min";
+            statusEl.dataset.live = mins <= 5 ? "due" : "soon";
+        }
+    }
+}
+
+(function () {
+    const list = document.getElementById("schedule-list");
+    if (!list) return;
+    let now = list.dataset.nowTime;
+    let postMidnight = list.dataset.postMidnight === "1";
+    if (!now) {
+        // Static build: no server clock — use the visitor's, in NY time.
+        const p = {};
+        for (const part of new Intl.DateTimeFormat("en-US", {
+            timeZone: "America/New_York", hourCycle: "h23",
+            hour: "2-digit", minute: "2-digit", second: "2-digit"
+        }).formatToParts(new Date())) p[part.type] = part.value;
+        now = p.hour + ":" + p.minute + ":" + p.second;
+        postMidnight = Number(p.hour) < 2;
+    }
+    // Sortable key: "0|HH:MM:SS" for same-day stops, "1|HH:MM:SS" for
+    // next_day stops. Between midnight and the 2am service-day cutoff
+    // the wall clock IS the next_day frame, so flip the prefix.
+    const nowPrefix = postMidnight ? "1|" : "0|";
+    const nowKey = nowPrefix + now;
+    const cards = Array.from(list.querySelectorAll(".schedule-card"));
+    fillCountdowns(cards);
+    let next = null;
+    for (const card of cards) {
+        const key = (card.dataset.nextDay === "1" ? "1|" : "0|") + card.dataset.time;
+        if (key >= nowKey) { next = card; break; }
+        card.dataset.state = "past";
+    }
+    const target = next || cards[cards.length - 1];
+    if (!target) return;
+    target.dataset.state = "next";
+    const marker = document.createElement("li");
+    marker.className = "now-marker";
+    marker.setAttribute("aria-hidden", "true");
+    marker.textContent = "Now";
+    target.parentNode.insertBefore(marker, target);
+    // Wait a frame so layout settles before scrolling.
+    requestAnimationFrame(function () {
+        target.scrollIntoView({ block: "center", behavior: "auto" });
+    });
+})();
+</script>
+
+        
+        <footer class="data-footer">Latest data as of Jul 23, 2026</footer>
+        
+    </div>
+</body>
+</html>
